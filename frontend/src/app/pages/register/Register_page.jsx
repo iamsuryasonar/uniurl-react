@@ -50,7 +50,6 @@ function RegisterPage() {
                                 placeholder="Username"
                                 type="text"
                                 name="name"
-                                // autoComplete="off"
                                 required
                                 onChange={onChangeHandler}
                             />

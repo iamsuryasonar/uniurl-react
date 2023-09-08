@@ -129,6 +129,18 @@
     overflow-wrap: break-word;
 }
 
+.input_copy {
+    position: relative;
+}
+
+.copyicon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 .status,
 .bio {
     text-align: center;

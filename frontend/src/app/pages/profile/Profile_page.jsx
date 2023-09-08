@@ -3,6 +3,8 @@ import s from './Profile_page.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { upload_profile_picture, get_profile_info, update_bio_or_status } from './../../store/slices/profileSlice'
 import Message from '../../components/Message/Message'
+import { clearMessage, setMessage } from '../../store/slices/messageSlice'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
@@ -79,6 +81,22 @@ const ProfilePage = () => {
         dispatch(update_bio_or_status(input))
     }
 
+    const copyToClipboard = async () => {
+        try {
+            const originname = window.location.origin;
+            await navigator.clipboard.writeText(originname + '/' + name);
+            // You can provide user feedback here, e.g., showing a success message
+            dispatch(setMessage('copied To clipboard'))
+            setTimeout(() => {
+                clearMessage()
+            }, 1000)
+        } catch (err) {
+            console.error('Copy failed:', err);
+            // Handle any errors that may occur during copying
+        }
+    };
+
+
     return (
         <div className={s.wrapper}>
             <div className={s.card}>
@@ -90,20 +108,24 @@ const ProfilePage = () => {
                         </div>
                         <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />
                     </label>
-                    <div className={s.field}>
+                    <div className={s.field} onClick={copyToClipboard}>
                         <label htmlFor="name">username:</label>
-                        <input
-                            id={s.name}
-                            type="text"
-                            name="name"
-                            value={name}
-                            maxLength="30"
-                            placeholder="Alexa"
-                            required
-                            className={s.inputText}
-                            readOnly
-                        />
+                        <div className={s.input_copy}>
+                            <input
+                                id={s.name}
+                                type="text"
+                                name="name"
+                                value={name}
+                                maxLength="30"
+                                placeholder="Alexa"
+                                required
+                                className={s.inputText}
+                                readOnly
+                            />
+                            <FontAwesomeIcon icon='fa-solid fa-copy' className={s.copyicon} />
+                        </div>
                     </div>
+                    {message ? <Message label={message} /> : null}
                     <div className={s.field}>
                         <label htmlFor="status">status:</label>
                         <input
