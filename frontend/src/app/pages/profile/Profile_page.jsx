@@ -8,6 +8,7 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
 
     const profileInfo = useSelector(state => state.profile.profileInfo)
+    console.log(profileInfo)
     const { message } = useSelector((state) => state.message);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
     const [name, setName] = useState('');
@@ -21,17 +22,23 @@ const ProfilePage = () => {
     }, []);
 
     useEffect(() => {
+
         if (profileInfo?.picture) {
             const dataURL = `data:image/png;base64,${profileInfo.picture}`;
             setImagePreviewUrl(dataURL);
         }
-        if (profileInfo?.name && profileInfo?.bio && profileInfo?.status) {
-
-            setName(profileInfo?.name);
+        if (profileInfo?.status) {
             setInput({
                 'status': profileInfo.status,
+            })
+        }
+        if (profileInfo?.bio) {
+            setInput({
                 'bio': profileInfo.bio
             })
+        }
+        if (profileInfo?.name) {
+            setName(profileInfo?.name);
         }
 
     }, [profileInfo]);

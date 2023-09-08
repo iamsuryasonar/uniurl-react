@@ -34,6 +34,7 @@ export const get_profile_info = createAsyncThunk(
     "profile/getprofile",
     async (_, thunkAPI) => {
         try {
+
             const response = await ProfileService.getProfileInfo();
             thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
