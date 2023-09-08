@@ -40,15 +40,17 @@ router.post('/profile-upload', verify, upload.single('file'), async (req, res) =
         user.picture = filePath;
         await user.save();
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
-        fs.readFile(userdata.picture, (err, fileData) => {
-            if (err) {
-                res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-            } else {
-                const base64Data = fileData.toString('base64');
-                userdata.picture = base64Data;
-                res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-            }
-        });
+        if (userdata.picture) {
+            fs.readFile(userdata.picture, (err, fileData) => {
+                if (err) {
+                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+                } else {
+                    const base64Data = fileData.toString('base64');
+                    userdata.picture = base64Data;
+                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+                }
+            });
+        }
 
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
@@ -71,15 +73,17 @@ router.put("/status_and_bio", verify, async (req, res) => {
         await user.save();
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-        fs.readFile(userdata.picture, (err, fileData) => {
-            if (err) {
-                res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-            } else {
-                const base64Data = fileData.toString('base64');
-                userdata.picture = base64Data;
-                res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-            }
-        });
+        if (userdata.picture) {
+            fs.readFile(userdata.picture, (err, fileData) => {
+                if (err) {
+                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+                } else {
+                    const base64Data = fileData.toString('base64');
+                    userdata.picture = base64Data;
+                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+                }
+            });
+        }
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }
