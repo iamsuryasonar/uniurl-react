@@ -39,6 +39,7 @@ router.post("/", verify, async (req, res) => {
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
     res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
   } catch (err) {
+    console.log(err)
     res.status(400).json({ success: false, message: err.message });
   }
 });

@@ -12,18 +12,14 @@ const fs = require('fs');
 // retrieve profile info
 router.get("/profile-info", verify, async (req, res) => {
     try {
-        const userdata = await User.findById({ _id: req.user._id }).select('-password');
-        if (userdata.picture) {
-            fs.readFile(userdata.picture, (err, fileData) => {
-                if (err) {
-                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-                } else {
-                    const base64Data = fileData.toString('base64');
-                    userdata.picture = base64Data;
-                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-                }
-            });
+        let userdata = await User.findById({ _id: req.user._id }).select('-password');
+
+        if (userdata?.picture) {
+            const fileData = await fs.promises.readFile(userdata.picture);
+            const base64Data = fileData.toString('base64');
+            userdata.picture = base64Data;
         }
+
         res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
@@ -40,17 +36,12 @@ router.post('/profile-upload', verify, upload.single('file'), async (req, res) =
         user.picture = filePath;
         await user.save();
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
-        if (userdata.picture) {
-            fs.readFile(userdata.picture, (err, fileData) => {
-                if (err) {
-                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-                } else {
-                    const base64Data = fileData.toString('base64');
-                    userdata.picture = base64Data;
-                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-                }
-            });
+        if (userdata?.picture) {
+            const fileData = await fs.promises.readFile(userdata.picture);
+            const base64Data = fileData.toString('base64');
+            userdata.picture = base64Data;
         }
+        res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
@@ -59,34 +50,28 @@ router.post('/profile-upload', verify, upload.single('file'), async (req, res) =
 
 // add status and bio
 router.put("/status_and_bio", verify, async (req, res) => {
-    try {
-        if (!req.body.status) return res.status(400).json({ success: false, message: 'status required!!!' });
-        if (!req.body.bio) return res.status(400).json({ success: false, message: 'bio required!!!' });
-
+    // try {
+        
         const user = await User.findById({ _id: req.user._id })
-        if (req.body.bio) {
+        if (req?.body?.bio) {
             user.bio = req.body.bio;
         }
-        if (req.body.status) {
+        if (req?.body?.status) {
             user.status = req.body.status;
         }
         await user.save();
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-        if (userdata.picture) {
-            fs.readFile(userdata.picture, (err, fileData) => {
-                if (err) {
-                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-                } else {
-                    const base64Data = fileData.toString('base64');
-                    userdata.picture = base64Data;
-                    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
-                }
-            });
+        if (userdata?.picture) {
+            const fileData = await fs.promises.readFile(userdata.picture);
+            const base64Data = fileData.toString('base64');
+            userdata.picture = base64Data;
         }
-    } catch (err) {
-        res.status(400).json({ success: false, message: err.message });
-    }
+
+        res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+    // } catch (err) {
+    //     res.status(400).json({ success: false, message: err.message });
+    // }
 });
 
 module.exports = router;

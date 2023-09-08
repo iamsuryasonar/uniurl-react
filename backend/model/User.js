@@ -26,13 +26,9 @@ const userSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    minlength: 5,
-    maxlength: 255,
   },
   bio: {
     type: String,
-    minlength: 5,
-    maxlength: 255,
   },
   picture: {
     type: String,

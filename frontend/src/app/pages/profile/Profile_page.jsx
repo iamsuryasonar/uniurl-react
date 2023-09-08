@@ -12,8 +12,8 @@ const ProfilePage = () => {
     const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
     const [name, setName] = useState('');
     const [input, setInput] = useState({
+        'bio': '',
         'status': '',
-        'bio': ''
     });
 
     useEffect(() => {
@@ -27,17 +27,24 @@ const ProfilePage = () => {
             setImagePreviewUrl(dataURL);
         }
         if (profileInfo?.status) {
-            setInput({
-                'status': profileInfo.status,
-            })
+            setInput(prev => (
+                {
+                    ...prev,
+                    'status': profileInfo.status,
+                }
+            ))
         }
         if (profileInfo?.bio) {
-            setInput({
-                'bio': profileInfo.bio
-            })
+            setInput(prev => (
+                {
+                    ...prev,
+                    'bio': profileInfo.bio,
+                }
+            ))
+
         }
         if (profileInfo?.name) {
-            setName(profileInfo?.name);
+            setName(profileInfo.name);
         }
 
     }, [profileInfo]);
@@ -59,15 +66,16 @@ const ProfilePage = () => {
     };
 
     const onChangeHandler = (e) => {
-        setInput(
+        setInput(prev => (
             {
-                ...input,
+                ...prev,
                 [e.target.name]: e.target.value,
             }
-        )
+        ))
     }
 
     const onFocusRemoved = () => {
+        console.log(input)
         dispatch(update_bio_or_status(input))
     }
 
