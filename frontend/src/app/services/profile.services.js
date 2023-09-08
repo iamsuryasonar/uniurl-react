@@ -30,7 +30,6 @@ const uploadProfilePicture = (file) => {
 
     axios.post(API_URL_PROFILE + 'profile-upload', formData, getMultipartheaders())
         .then((response) => {
-            console.log(response)
             return response.data;
         })
 };

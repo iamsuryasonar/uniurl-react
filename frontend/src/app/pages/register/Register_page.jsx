@@ -20,7 +20,6 @@ function RegisterPage() {
     }, [dispatch]);
 
     const onChangeHandler = (e) => {
-        console.log(e.target.name, e.target.value);
         setInput({
             ...input,
             [e.target.name]: e.target.value,
@@ -29,7 +28,6 @@ function RegisterPage() {
 
     const registerHandler = () => {
         setSuccessful(false);
-        console.log(input)
         dispatch(register(input))
             .unwrap()
             .then(() => {

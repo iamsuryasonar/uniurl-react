@@ -32,7 +32,6 @@ const deleteUrl = (id) => {
     return axios
         .delete(API_URL_MY_URL + id, getheaders())
         .then((response) => {
-            console.log(response)
             return response.data;
         });
 }
