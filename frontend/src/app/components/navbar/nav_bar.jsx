@@ -47,8 +47,8 @@ const NavBar = () => {
 
     const PrivateNav = () => (
         <>
-            <div class={s.line_container}>
-                <div class={s.moving_gradient}></div>
+            <div className={s.line_container}>
+                <div className={s.moving_gradient}></div>
             </div>
             <nav className={s.nav}>
                 <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
