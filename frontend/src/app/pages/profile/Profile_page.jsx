@@ -8,7 +8,6 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
 
     const profileInfo = useSelector(state => state.profile.profileInfo)
-    console.log(profileInfo)
     const { message } = useSelector((state) => state.message);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
     const [name, setName] = useState('');
