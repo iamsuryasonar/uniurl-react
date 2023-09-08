@@ -1,0 +1,10 @@
+.footer_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #277470;
+    width: 100%;
+    height: 100px;
+    padding: 30px auto;
+}

@@ -1,0 +1,165 @@
+.wrapper {
+    width: 100%;
+    margin: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container {
+    position: relative;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.loginandforgotpassword {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+li {
+    font-weight: 500;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+p {
+    font-size: 16px;
+    align-self: center;
+}
+
+.list_items {
+    list-style: none;
+}
+
+.inputField {
+    border: 1px solid rgb(45, 209, 154);
+    border-radius: 0.25rem;
+    padding: 0.5em 0.75em;
+    background-color: transparent;
+    width: 100%;
+}
+
+.inputField::placeholder {
+    opacity: 0.56;
+}
+
+.inputField:hover {
+    border-color: yellow;
+}
+
+.inputField:focus {
+    outline: none;
+    border: 1px solid transparent;
+    box-shadow: 0px 0px 1px 1px yellow;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    align-self: center;
+}
+
+li {
+    margin: 2%;
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+    text-decoration-line: none;
+    font-size: 15px;
+    align-self: center;
+}
+
+a:hover {
+    border-bottom: 2px solid #e4e403;
+}
+
+.forgotpasswordoverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, #8e9eab, #eef2f3);
+}
+
+.forgotpasswordoverlay ul {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0%;
+}
+
+.overlaybuttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.textsize {
+    font-size: 20px;
+}
+
+.loginandalreadyuser {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 701px) {
+    .wrapper {
+        width: 100%;
+        padding: 10%;
+        margin: auto;
+    }
+
+    ul {
+        width: 100%;
+    }
+
+    li {
+        margin: 2%;
+        width: 100%;
+    }
+
+    .textsize {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .wrapper {
+        padding: 0;
+        margin: auto;
+    }
+
+    .container {
+        width: 85%;
+    }
+
+    ul {
+        width: 100%;
+    }
+
+    li {
+        margin: 2%;
+        width: 100%;
+    }
+
+    .textsize {
+        font-size: 16px;
+    }
+}

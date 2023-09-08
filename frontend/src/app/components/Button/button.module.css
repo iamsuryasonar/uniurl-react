@@ -1,0 +1,17 @@
+.custom_button {
+    font-size: 18px;
+    text-decoration: none;
+    padding: 8px 20px;
+    background-color: #49afa8;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 5px 5px 15px #357e79,
+        -5px -5px 15px #5de0d7;
+}
+
+.custom_button:hover {
+    box-shadow: inset 5px 5px 15px #357e79,
+        inset -5px -5px 15px #5de0d7;
+}

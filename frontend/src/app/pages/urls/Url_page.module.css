@@ -1,0 +1,66 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 40px;
+}
+
+.message {
+    padding: 20px;
+}
+
+.url_box {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    /* margin: 40px; */
+    padding: 20px 30px;
+    width: 60%;
+    height: 120px;
+    background-color: blueviolet;
+    border-radius: 13px;
+    background: #49afa8;
+    box-shadow: 5px 5px 10px #357e79,
+        -5px -5px 10px #5de0d7;
+
+}
+
+.url_box:hover {
+    box-shadow: inset 5px 5px 10px #357e79,
+        inset -5px -5px 10px #5de0d7;
+}
+
+
+
+.delete_button {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: grid;
+    place-items: center;
+    color: rgb(129, 5, 5);
+    border-radius: 50%;
+    background: #49afa8;
+    box-shadow: 5px 5px 10px #357e79,
+        -5px -5px 10px #5de0d7;
+}
+
+.delete_button:hover {
+    color: rgb(228, 14, 14);
+    box-shadow: inset 5px 5px 10px #357e79,
+        inset -5px -5px 10px #5de0d7;
+}
+
+@media (max-width:750px) {
+    .url_box {
+        width: 100%;
+    }
+}
