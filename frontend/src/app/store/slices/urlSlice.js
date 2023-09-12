@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
+import { setLoading } from "./loadingSlice";
 import urlService from "../../services/urls.services";
 
 export const get_urls = createAsyncThunk(
     "url/geturls",
     async (username, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const response = await urlService.getUrls(username);
-            thunkAPI.dispatch(setMessage(response.message));
+            // thunkAPI.dispatch(setMessage(response.message));
+            // console.log(response.data);
             return response.data;
         } catch (error) {
             const message =
@@ -22,19 +25,20 @@ export const get_urls = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );
 
 
-const initialState = { urls: null };
+const initialState = { urlsinfo: null };
 
 const urlSlice = createSlice({
-    name: "urls",
+    name: "urlsinfo",
     initialState,
     extraReducers: {
         [get_urls.fulfilled]: (state, action) => {
-            state.urls = action.payload;
+            state.urlsinfo = action.payload;
         },
         [get_urls.rejected]: (state, action) => {
         },

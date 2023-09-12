@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
 import myUrlService from "../../services/myurl.services";
+import { setLoading } from "./loadingSlice";
 
 export const get_my_urls = createAsyncThunk(
     "url/geturl",
     async (_, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.getAllUrl();
-            thunkAPI.dispatch(setMessage(response.message));
+            // thunkAPI.dispatch(setMessage(response.message));
             return response.data;
         } catch (error) {
             const message =
@@ -22,6 +24,7 @@ export const get_my_urls = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );
@@ -30,7 +33,7 @@ export const create_my_urls = createAsyncThunk(
     "url/createurl",
     async (url, thunkAPI) => {
         try {
-
+            thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.createNewUrl(url);
             thunkAPI.dispatch(setMessage(response.message));
             return response.data;
@@ -47,6 +50,7 @@ export const create_my_urls = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );
@@ -55,6 +59,7 @@ export const delete_my_url = createAsyncThunk(
     "url/deleteurl",
     async (url, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.deleteUrl(url);
             thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
@@ -71,6 +76,7 @@ export const delete_my_url = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );

@@ -12,7 +12,7 @@
     padding: 20px;
 }
 
-.url_box {
+.url_card {
     cursor: pointer;
     position: relative;
     display: flex;
@@ -31,7 +31,7 @@
 
 }
 
-.url_box:hover {
+.url_card:hover {
     box-shadow: inset 5px 5px 10px #357e79,
         inset -5px -5px 10px #5de0d7;
 }
@@ -60,7 +60,7 @@
 }
 
 @media (max-width:750px) {
-    .url_box {
+    .url_card {
         width: 100%;
     }
 }

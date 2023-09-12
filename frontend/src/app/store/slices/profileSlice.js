@@ -1,15 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
 import ProfileService from "../../services/profile.services";
-
-
-
-
+import { setLoading } from "./loadingSlice";
 
 export const upload_profile_picture = createAsyncThunk(
     "profile/upload",
     async (file, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.uploadProfilePicture(file);
             thunkAPI.dispatch(setMessage(response.message));
             return response.data;
@@ -26,6 +24,7 @@ export const upload_profile_picture = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );
@@ -34,7 +33,7 @@ export const get_profile_info = createAsyncThunk(
     "profile/getprofile",
     async (_, thunkAPI) => {
         try {
-
+            thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.getProfileInfo();
             thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
@@ -51,6 +50,7 @@ export const get_profile_info = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );
@@ -59,6 +59,7 @@ export const update_bio_or_status = createAsyncThunk(
     "profile/update",
     async (body, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.updateBioOrStatus(body);
             thunkAPI.dispatch(setMessage(response.message));
             return response.data;
@@ -75,6 +76,7 @@ export const update_bio_or_status = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );

@@ -101,7 +101,6 @@ const ProfilePage = () => {
         <div className={s.wrapper}>
             <div className={s.card}>
                 <div className={s.container}>
-                    <h1>Profile Card</h1>
                     <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
                         <div className={`${s['img-wrap']} ${s['img-upload']}`}>
                             <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />

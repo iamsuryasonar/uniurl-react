@@ -12,6 +12,7 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const menu = useSelector(state => state.menu.value);
+    const { loading } = useSelector((state) => state.loading);
 
     const token = localStorage.getItem(LOCAL_STORAGE_NAME)
     const [activeMenu, setActiveMenu] = useState(null);
@@ -47,9 +48,9 @@ const NavBar = () => {
 
     const PrivateNav = () => (
         <>
-            <div className={s.line_container}>
+            {loading && <div className={s.line_container}>
                 <div className={s.moving_gradient}></div>
-            </div>
+            </div>}
             <nav className={s.nav}>
                 <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                 <div className={s.menuitems_expanded}  >
@@ -76,6 +77,9 @@ const NavBar = () => {
 
     const PublicNav = () => (
         <>
+            {loading && <div className={s.line_container}>
+                <div className={s.moving_gradient}></div>
+            </div>}
             <nav className={s.nav}>
                 <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                 <div className={s.menuitems_expanded}>

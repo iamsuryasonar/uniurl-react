@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
 import { LOCAL_STORAGE_NAME } from '../../common/constants'
 import AuthService from "../../services/auth.services";
+import { setLoading } from "./loadingSlice";
 
 const user = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME));
 
@@ -9,6 +10,7 @@ export const register = createAsyncThunk(
     "auth/register",
     async (creds, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const response = await AuthService.register(creds);
             thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
@@ -25,6 +27,7 @@ export const register = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );
@@ -33,6 +36,7 @@ export const login = createAsyncThunk(
     "auth/login",
     async (creds, thunkAPI) => {
         try {
+            thunkAPI.dispatch(setLoading(true));
             const data = await AuthService.login(creds);
             return { user: data.data };
         } catch (error) {
@@ -48,6 +52,7 @@ export const login = createAsyncThunk(
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
             }, 3000);
+            thunkAPI.dispatch(setLoading(false));
         }
     }
 );

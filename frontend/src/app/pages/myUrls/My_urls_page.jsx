@@ -6,6 +6,25 @@ import { get_my_urls, delete_my_url } from '../../store/slices/myUrlSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Message from '../../components/Message/Message'
 
+function MyUrlCard({ urlData, onClick, onDelete }) {
+    const { _id, title, description, url } = urlData;
+
+    return (
+        <div className={s.url_card} onClick={() => onClick(url)}>
+            <div className={s.title}>
+                {title}
+            </div>
+            <div className={s.description}>
+                {description}
+            </div>
+            <div className={s.delete_button} onClick={(e) => onDelete(e, _id)}>
+                <FontAwesomeIcon icon='fa-solid fa-trash' />
+            </div>
+        </div>
+    )
+}
+
+
 function MyUrlPage() {
     const dispatch = useDispatch();
     const urls = useSelector((state) => state.myurl.urls);
@@ -33,17 +52,7 @@ function MyUrlPage() {
             {
                 urls ? Object.values(urls).map((url) => {
                     return (
-                        <div className={s.url_box} key={url._id} onClick={() => onCardClicked(url.url)}>
-                            <div className={s.title}>
-                                {url.title}
-                            </div>
-                            <div className={s.description}>
-                                {url.description}
-                            </div>
-                            <div className={s.delete_button} onClick={(e) => onDeleteHandler(e, url._id)}>
-                                <FontAwesomeIcon icon='fa-solid fa-trash' />
-                            </div>
-                        </div>
+                        <MyUrlCard urlData={url} onClick={onCardClicked} onDelete={onDeleteHandler} key={url._id} />
                     )
                 }) : null
             }

@@ -7,6 +7,21 @@ import { get_urls } from '../../store/slices/urlSlice';
 import { useParams } from 'react-router-dom';
 import Message from '../../components/Message/Message'
 
+function UrlCard({ urlData, onClick }) {
+    const { _id, title, description, url } = urlData;
+    return (
+        <div className={s.url_card} onClick={() => onClick(url)}>
+            <div className={s.title}>
+                {title}
+            </div>
+            <div className={s.description}>
+                {description}
+            </div>
+        </div>
+    )
+}
+
+
 function UrlsPage() {
     const { username } = useParams();
     const dispatch = useDispatch();
@@ -16,28 +31,40 @@ function UrlsPage() {
     }, []);
 
     const { message } = useSelector((state) => state.message);
-    const urls = useSelector((state) => state.urls.urls);
+    const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
+
     const onCardClicked = (url) => {
         window.open(url, '_blank');
     }
+    // const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
+    const imageUrl = 'https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true'
+
     return (
         <div className={s.wrapper}>
-            {message && <Message label={message} />}
-           
-            {
-                urls ? Object.values(urls).map((url) => {
-                    return (
-                        <div className={s.url_box} key={url._id} onClick={() => onCardClicked(url.url)}>
-                            <div className={s.title}>
-                                {url.title}
-                            </div>
-                            <div className={s.description}>
-                                {url.description}
-                            </div>
+            <div className={s.profile_box}>
+                <div className={s.container}>
+                    <div className={s.outer_ring}>
+                        <div className={s.img_wrap}>
+                            <img src={urlsinfo?.picture ? urlsinfo?.picture : imageUrl} className={s.img} />
                         </div>
-                    )
-                }) : null
-            }
+                    </div>
+                    <div className={s.name_bio_status}>
+                        <p className={s.name}>{urlsinfo?.name}</p>
+                        <p className={s.status}>{urlsinfo?.status}</p>
+                        <p className={s.bio}>{urlsinfo?.bio}</p>
+                    </div>
+                </div>
+            </div>
+            <div className={s.url_box}>
+                {message && <Message label={message} />}
+                {
+                    urlsinfo?.links ? Object.values(urlsinfo?.links).map((item) => {
+                        return (
+                            <UrlCard urlData={item} onClick={onCardClicked} key={item['_id']} />
+                        )
+                    }) : null
+                }
+            </div>
         </div>
     );
 }

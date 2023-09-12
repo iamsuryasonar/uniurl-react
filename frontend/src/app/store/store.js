@@ -5,14 +5,16 @@ import myUrlsReducer from "./slices/myUrlSlice";
 import profileInfoReducer from "./slices/profileSlice";
 import urlsReducer from "./slices/urlSlice";
 import menuReducer from './slices/menuSlice'
+import loadingReducer from "./slices/loadingSlice";
 
 const reducer = {
     auth: authReducer,
     message: messageReducer,
     myurl: myUrlsReducer,
     profile: profileInfoReducer,
-    urls: urlsReducer,
+    urlsinfo: urlsReducer,
     menu: menuReducer,
+    loading: loadingReducer,
 }
 
 export const store = configureStore({
