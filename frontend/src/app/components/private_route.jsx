@@ -1,8 +1,4 @@
-// PrivateRoute.js
-
-import React, { useEffect } from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { LOCAL_STORAGE_NAME } from '../common/constants'
 
 function PrivateRoute({ children }) {

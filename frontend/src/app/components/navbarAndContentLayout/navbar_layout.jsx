@@ -3,6 +3,7 @@ import NavBar from '../navbar/nav_bar';
 import s from './navbar_layout.module.css'
 import { closeMenu } from "../../store/slices/menuSlice";
 import { useDispatch } from 'react-redux'
+import Footer from '../Footer/Footer'
 
 function NavbarLayout() {
     const dispatch = useDispatch()
@@ -13,6 +14,7 @@ function NavbarLayout() {
             <div className={ s.main_wrapper} onClick={() => dispatch(closeMenu())}>
                 <Outlet />
             </div>
+            <Footer />
         </>
     )
 }

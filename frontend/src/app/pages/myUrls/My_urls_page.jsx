@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect } from 'react';
 import s from './My_urls_page.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice';
 import { get_my_urls, delete_my_url } from '../../store/slices/myUrlSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import Message from '../../components/Message/Message'
 
 function MyUrlCard({ urlData, onClick, onDelete }) {
@@ -18,7 +19,7 @@ function MyUrlCard({ urlData, onClick, onDelete }) {
                 {description}
             </div>
             <div className={s.delete_button} onClick={(e) => onDelete(e, _id)}>
-                <FontAwesomeIcon icon='fa-solid fa-trash' />
+                <FontAwesomeIcon icon={faTrash} />
             </div>
         </div>
     )

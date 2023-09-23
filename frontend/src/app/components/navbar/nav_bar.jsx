@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import s from './nav_bar.module.css'
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Searchbar from '../searchbar/searchbar'
 import { APP_NAME, LOCAL_STORAGE_NAME } from '../../common/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
 
 const NavBar = () => {
@@ -61,7 +62,7 @@ const NavBar = () => {
                 </div>
                 <div className={s.searchbarandmenu}>
                     <Searchbar />
-                    <FontAwesomeIcon icon='fa-solid fa-bars' className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
+                    <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                 </div>
             </nav>
             {menu &&
@@ -88,7 +89,7 @@ const NavBar = () => {
                 </div>
                 <div className={s.searchbarandmenu}>
                     <Searchbar />
-                    <FontAwesomeIcon icon='fa-solid fa-bars' className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
+                    <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                 </div>
             </nav>
             {menu &&

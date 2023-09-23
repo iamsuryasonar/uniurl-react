@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import s from './Profile_page.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { upload_profile_picture, get_profile_info, update_bio_or_status } from './../../store/slices/profileSlice'
 import Message from '../../components/Message/Message'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
 
 const ProfilePage = () => {
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     const profileInfo = useSelector(state => state.profile.profileInfo)
     const { message } = useSelector((state) => state.message);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
@@ -85,7 +86,6 @@ const ProfilePage = () => {
         try {
             const originname = window.location.origin;
             await navigator.clipboard.writeText(originname + '/' + name);
-            // You can provide user feedback here, e.g., showing a success message
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
                 dispatch(clearMessage());
@@ -96,7 +96,6 @@ const ProfilePage = () => {
             setTimeout(() => {
                 dispatch(clearMessage());
             }, 2000)
-            // Handle any errors that may occur during copying
         }
     };
 
@@ -125,7 +124,7 @@ const ProfilePage = () => {
                                 className={s.inputText}
                                 readOnly
                             />
-                            <FontAwesomeIcon icon='fa-solid fa-copy' className={s.copyicon} />
+                            <FontAwesomeIcon icon={faCopy} className={s.copyicon} />
                         </div>
                     </div>
                     {message ? <Message label={message} /> : null}

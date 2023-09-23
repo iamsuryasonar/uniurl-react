@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import s from './searchbar.module.css'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 function Searchbar() {
     const [isFocused, setIsFocused] = useState(false);
@@ -51,7 +51,7 @@ function Searchbar() {
                 >
                 </input>
                 <div className={s.search_btn} onClick={onSearchHandler} >
-                    <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' className={s.search_icon} />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className={s.search_icon} />
                 </div>
             </div>
         </>

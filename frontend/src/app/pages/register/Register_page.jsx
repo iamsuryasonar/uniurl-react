@@ -1,12 +1,13 @@
 import s from './Register_page.module.css'
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
 import Message from '../../components/Message/Message'
 import Footer from '../../components/Footer/Footer'
+
 function RegisterPage() {
     const dispatch = useDispatch();
 
@@ -85,10 +86,8 @@ function RegisterPage() {
                         {message && <Message label={message} />}
                     </ul >
                 </div >
-
             </div >
-
-            <Footer /></>
+        </>
     )
 }
 

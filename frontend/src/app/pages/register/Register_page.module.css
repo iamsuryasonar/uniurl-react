@@ -1,6 +1,6 @@
 .wrapper {
     width: 100%;
-    margin: auto;
+    /* margin: auto; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -8,10 +8,8 @@
     align-items: center;
 }
 
-
 .container {
-    position: relative;
-    width: 60%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -64,8 +62,12 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 70%;
     align-self: center;
+    padding: 20px;
+        border-radius: 14px;
+    box-shadow: 5px 5px 10px #357e79,
+        -5px -5px 10px #5de0d7;
 }
 
 li {
@@ -119,19 +121,19 @@ a:hover {
     align-items: center;
 }
 
-@media only screen and (max-width: 1100px) and (min-width: 701px) {
+@media only screen and (min-width: 1200px) {
     .wrapper {
         width: 100%;
-        padding: 10%;
+        padding: 10px;
         margin: auto;
     }
 
     ul {
-        width: 100%;
+        width: 60%;
     }
 
     li {
-        margin: 2%;
+        margin: 10px;
         width: 100%;
     }
 
@@ -141,12 +143,7 @@ a:hover {
 }
 
 @media only screen and (max-width: 700px) {
-    .wrapper {
-        padding: 0;
-        margin: auto;
-    }
-
-    .container {
+    .overlaycontainer {
         width: 85%;
     }
 
@@ -155,7 +152,7 @@ a:hover {
     }
 
     li {
-        margin: 2%;
+        margin: 10px;
         width: 100%;
     }
 

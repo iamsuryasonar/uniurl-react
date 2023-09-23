@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import s from './Login_page.module.css'
+import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import s from './Login_page.module.css'
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
 import Button from '../../components/Button/button';
 import Message from '../../components/Message/Message'
-import { Link } from 'react-router-dom'
 import Footer from '../../components/Footer/Footer'
-
 
 function LogInPage() {
     const [forgotpassword, setforgotpassword] = useState(false);
@@ -83,9 +83,8 @@ function LogInPage() {
                                 />
                             </li>
                             <li className={s.list_items}>
-                                {loading && <Message label={'loading...'} />}
                                 <div className={s.loginandforgotpassword}>
-                                    <Button onClick={logInHandler} label='Log In' />
+                                    {loading ? <Button label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button onClick={logInHandler} label='Log In' />}
                                     <a onClick={forgotpassword_handler}>Reset password?</a>
                                 </div>
                             </li>
@@ -113,7 +112,6 @@ function LogInPage() {
                     )}
                 </div >
             </div >
-            <Footer />
         </>
     );
 }
