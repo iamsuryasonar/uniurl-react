@@ -88,10 +88,14 @@ const ProfilePage = () => {
             // You can provide user feedback here, e.g., showing a success message
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
-                clearMessage()
-            }, 1000)
+                dispatch(clearMessage());
+            }, 2000)
         } catch (err) {
             console.error('Copy failed:', err);
+            dispatch(setMessage('could not copy To clipboard'))
+            setTimeout(() => {
+                dispatch(clearMessage());
+            }, 2000)
             // Handle any errors that may occur during copying
         }
     };

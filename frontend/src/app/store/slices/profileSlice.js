@@ -9,7 +9,7 @@ export const upload_profile_picture = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.uploadProfilePicture(file);
-            thunkAPI.dispatch(setMessage(response.message));
+            // thunkAPI.dispatch(setMessage(response.message));
             return response.data;
         } catch (error) {
             const message =
@@ -35,7 +35,7 @@ export const get_profile_info = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.getProfileInfo();
-            thunkAPI.dispatch(setMessage(response.data.message));
+            // thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
         } catch (error) {
             const message =
@@ -61,7 +61,7 @@ export const update_bio_or_status = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.updateBioOrStatus(body);
-            thunkAPI.dispatch(setMessage(response.message));
+            // thunkAPI.dispatch(setMessage(response.message));
             return response.data;
         } catch (error) {
             const message =
