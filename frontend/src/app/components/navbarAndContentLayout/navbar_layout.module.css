@@ -4,18 +4,18 @@
     justify-content: center;
     align-items: center; */
     margin: auto;
+    padding: 20px;
 }
 
 @media (max-width: 600px) {
     .main_wrapper {
         width: 100%;
-        /* padding: 20px; */
+
     }
 }
 
 @media (min-width: 1000px) {
     .main_wrapper {
         width: 1000px;
-        /* padding: 20px; */
     }
 }

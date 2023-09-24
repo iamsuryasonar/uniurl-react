@@ -59,7 +59,7 @@
 
 @media (max-width:750px) {
     .wrapper {
-        margin: 80px 20px;
+        /* margin: 80px 20px; */
     }
 
     .url_card {

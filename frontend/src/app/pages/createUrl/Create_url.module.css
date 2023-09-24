@@ -104,11 +104,6 @@ li {
 
 
 @media only screen and (max-width: 700px) {
-    .wrapper {
-        padding: 0;
-        margin: auto;
-    }
-
     .container {
         width: 85%;
     }
@@ -118,7 +113,6 @@ li {
     }
 
     li {
-        margin: 2%;
         width: 100%;
     }
 

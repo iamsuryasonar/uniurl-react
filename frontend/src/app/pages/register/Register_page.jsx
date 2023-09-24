@@ -80,7 +80,7 @@ function RegisterPage() {
                         <li className={s.list_items}>
                             <div className={s.loginandalreadyuser}>
                                 <Button onClick={registerHandler} label='Register' />
-                                <Link to="/user/login">Already have an account?</Link>
+                                <Link to="/user/login">Already have a user?</Link>
                             </div>
                         </li>
                         {message && <Message label={message} />}
