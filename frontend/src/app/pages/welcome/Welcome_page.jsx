@@ -1,5 +1,5 @@
 import s from './Welcome_page.module.css';
-import image from '../../assets/home_screen_main_image.png'
+import image from '../../assets/home_screen_main_image.jpg'
 import Footer from '../../components/Footer/Footer'
 
 function WelcomePage() {

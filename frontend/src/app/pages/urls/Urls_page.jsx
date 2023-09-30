@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import s from './Url_page.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice';
@@ -7,15 +7,13 @@ import { useParams } from 'react-router-dom';
 import Message from '../../components/Message/Message'
 
 function UrlCard({ urlData, onClick }) {
-    const { _id, title, description, url } = urlData;
+    const { _id, title, url } = urlData;
     return (
         <div className={s.url_card} onClick={() => onClick(url)}>
             <div className={s.title}>
                 {title}
             </div>
-            <div className={s.description}>
-                {description}
-            </div>
+
         </div>
     )
 }
@@ -49,7 +47,7 @@ function UrlsPage() {
                     </div>
                     <div className={s.name_bio_status}>
                         <p className={s.name}>{urlsinfo?.name}</p>
-                        <p className={s.status}>{urlsinfo?.status}</p>
+                        {/* <p className={s.status}>{urlsinfo?.status}</p> */}
                         <p className={s.bio}>{urlsinfo?.bio}</p>
                     </div>
                 </div>

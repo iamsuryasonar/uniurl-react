@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const linkSchema = new mongoose.Schema({
-    url:{
+    url: {
         type: String,
         required: true,
     },
-    description:{
-        type: String,
-        required: true,
-    },
+    // description:{
+    //     type: String,
+    //     required: true,
+    // },
     title: {
         type: String,
         required: true,

@@ -15,9 +15,9 @@ function MyUrlCard({ urlData, onClick, onDelete }) {
             <div className={s.title}>
                 {title}
             </div>
-            <div className={s.description}>
+            {/* <div className={s.description}>
                 {description}
-            </div>
+            </div> */}
             <div className={s.delete_button} onClick={(e) => onDelete(e, _id)}>
                 <FontAwesomeIcon icon={faTrash} />
             </div>

@@ -7,8 +7,8 @@
 
 .card {
     width: 310px;
-    height: 627px;
-    padding: 15px;
+    /* height: 627px; */
+    padding: 60px;
     margin-top: 40px;
     border-radius: 25px;
     display: flex;

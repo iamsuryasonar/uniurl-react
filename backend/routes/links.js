@@ -10,7 +10,6 @@ router.post("/", verify, async (req, res) => {
   try {
     if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
     if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
-    if (!req.body.description) return res.status(400).json({ success: false, message: 'description required!!!' });
 
     let url = req.body.url;
     url = url.trim();
@@ -27,7 +26,6 @@ router.post("/", verify, async (req, res) => {
     const link = new Link({
       url: url,
       title: req.body.title,
-      description: req.body.description,
     });
 
     link.author = req.user._id;
@@ -62,7 +60,7 @@ router.get("/", verify, async (req, res) => {
 router.put("/:linkid", verify, async (req, res) => {
   if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
   if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
-  if (!req.body.description) return res.status(400).json({ success: false, message: 'description required!!!' });
+  // if (!req.body.description) return res.status(400).json({ success: false, message: 'description required!!!' });
   try {
     const doc = await Link.find({
       _id: req.params.linkid,
@@ -73,7 +71,7 @@ router.put("/:linkid", verify, async (req, res) => {
       if (doc[0].author._id.toString() === req.user._id) {
         doc[0].url = req.body.url;
         doc[0].title = req.body.title;
-        doc[0].description = req.body.description;
+        // doc[0].description = req.body.description;
 
         const data = await doc[0].save();
         res.status(200).json({ success: true, message: 'Url updated successfully', data: data });

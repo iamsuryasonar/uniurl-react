@@ -16,7 +16,6 @@ const ProfilePage = () => {
     const [name, setName] = useState('');
     const [input, setInput] = useState({
         'bio': '',
-        'status': '',
     });
 
     useEffect(() => {
@@ -29,14 +28,14 @@ const ProfilePage = () => {
             const dataURL = `data:image/png;base64,${profileInfo.picture}`;
             setImagePreviewUrl(dataURL);
         }
-        if (profileInfo?.status) {
-            setInput(prev => (
-                {
-                    ...prev,
-                    'status': profileInfo.status,
-                }
-            ))
-        }
+        // if (profileInfo?.status) {
+        //     setInput(prev => (
+        //         {
+        //             ...prev,
+        //             'status': profileInfo.status,
+        //         }
+        //     ))
+        // }
         if (profileInfo?.bio) {
             setInput(prev => (
                 {
@@ -78,7 +77,6 @@ const ProfilePage = () => {
     }
 
     const onFocusRemoved = () => {
-        console.log(input)
         dispatch(update_bio_or_status(input))
     }
 
@@ -128,7 +126,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     {message ? <Message label={message} /> : null}
-                    <div className={s.field}>
+                    {/* <div className={s.field}>
                         <label htmlFor="status">status:</label>
                         <input
                             id={s.status}
@@ -142,7 +140,7 @@ const ProfilePage = () => {
                             required
                             className={s.inputText}
                         />
-                    </div>
+                    </div> */}
                     <div className={s.field}>
                         <label htmlFor="bio">bio:</label>
                         <input

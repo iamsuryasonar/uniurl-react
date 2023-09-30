@@ -1,5 +1,5 @@
 import s from './Create_url.module.css'
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { create_my_urls } from '../../store/slices/myUrlSlice';
 import { clearMessage } from '../../store/slices/messageSlice';
@@ -16,7 +16,6 @@ function CreateUrl() {
     const { message } = useSelector((state) => state.message);
     const [inputValue, setInputValue] = useState({
         'title': '',
-        'description': '',
         'url': '',
     });
 
@@ -31,7 +30,6 @@ function CreateUrl() {
         dispatch(create_my_urls(inputValue)).unwrap().then(() => {
             setInputValue({
                 'title': '',
-                'description': '',
                 'url': '',
             })
         }).catch(() => {
@@ -42,9 +40,7 @@ function CreateUrl() {
     return (
         <div className={s.wrapper} >
             <div className={s.container}>
-
                 <ul>
-
                     <li className={s.list_items}>
                         <input
                             className={`${s.textsize} ${s.inputField}`}
@@ -56,7 +52,7 @@ function CreateUrl() {
                             onChange={onChangeHandler}
                         />
                     </li>
-                    <li className={s.list_items}>
+                    {/* <li className={s.list_items}>
                         <input
                             className={`${s.textsize} ${s.inputField}`}
                             placeholder="Description"
@@ -66,7 +62,7 @@ function CreateUrl() {
                             required
                             onChange={onChangeHandler}
                         />
-                    </li>
+                    </li> */}
                     <li className={s.list_items}>
                         <input
                             className={`${s.textsize} ${s.inputField}`}
