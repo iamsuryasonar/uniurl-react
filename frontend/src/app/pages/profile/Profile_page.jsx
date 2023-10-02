@@ -19,7 +19,9 @@ const ProfilePage = () => {
     });
 
     useEffect(() => {
-        dispatch(get_profile_info())
+        if (!profileInfo) {
+            dispatch(get_profile_info())
+        }
     }, []);
 
     useEffect(() => {
