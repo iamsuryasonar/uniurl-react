@@ -28,9 +28,10 @@ const NavBar = () => {
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
 
     useEffect(() => {
-        if (!profileInfo) {
-            dispatch(get_profile_info())
-        }
+        dispatch(get_profile_info())
+    }, [])
+
+    useEffect(() => {
         if (profileInfo?.picture) {
             const dataURL = `data:image/png;base64,${profileInfo.picture}`;
             setImagePreviewUrl(dataURL);
