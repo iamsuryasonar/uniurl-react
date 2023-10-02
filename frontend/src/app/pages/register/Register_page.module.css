@@ -75,14 +75,14 @@ li {
     width: 100%;
 }
 
-a {
+link {
     cursor: pointer;
     text-decoration-line: none;
     font-size: 15px;
     align-self: center;
 }
 
-a:hover {
+link:hover {
     border-bottom: 2px solid #e4e403;
 }
 

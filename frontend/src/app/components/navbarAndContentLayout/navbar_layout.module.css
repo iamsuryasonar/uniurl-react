@@ -1,8 +1,5 @@
 .main_wrapper {
     min-height: 90vh;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     margin: auto;
     padding: 20px;
 }
@@ -10,7 +7,6 @@
 @media (max-width: 600px) {
     .main_wrapper {
         width: 100%;
-
     }
 }
 

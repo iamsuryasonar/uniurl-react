@@ -8,7 +8,6 @@ import Footer from '../Footer/Footer'
 function NavbarLayout() {
     const dispatch = useDispatch()
     const currentPageName = window.location.pathname;
-    console.log(currentPageName)
 
     return (
         <>
@@ -17,7 +16,7 @@ function NavbarLayout() {
                 <Outlet />
             </div>
             {
-                currentPageName === '/user/login' || currentPageName === '/user/register' ? <Footer /> : <></>
+                currentPageName === '/user/login' || currentPageName === '/user/register' || currentPageName === '/' ? <Footer /> : <></>
             }
 
         </>
