@@ -79,7 +79,9 @@ const NavBar = () => {
                     </div>}
                     <nav className={s.nav}>
                         <div className={s.title_image}>
-                            <img src={imagePreviewUrl} className={s.img} />
+                            <Link to="/user/profile" >
+                                <img src={imagePreviewUrl} className={s.img} />
+                            </Link>
                             <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                         </div>
                         <div className={s.menuitems_expanded}  >
