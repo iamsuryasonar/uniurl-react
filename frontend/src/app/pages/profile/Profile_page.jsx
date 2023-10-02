@@ -28,14 +28,6 @@ const ProfilePage = () => {
             const dataURL = `data:image/png;base64,${profileInfo.picture}`;
             setImagePreviewUrl(dataURL);
         }
-        // if (profileInfo?.status) {
-        //     setInput(prev => (
-        //         {
-        //             ...prev,
-        //             'status': profileInfo.status,
-        //         }
-        //     ))
-        // }
         if (profileInfo?.bio) {
             setInput(prev => (
                 {
@@ -126,21 +118,6 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     {message ? <Message label={message} /> : null}
-                    {/* <div className={s.field}>
-                        <label htmlFor="status">status:</label>
-                        <input
-                            id={s.status}
-                            type="text"
-                            name="status"
-                            onChange={onChangeHandler}
-                            onBlur={onFocusRemoved}
-                            maxLength="42"
-                            value={input.status}
-                            placeholder="It's a nice day!"
-                            required
-                            className={s.inputText}
-                        />
-                    </div> */}
                     <div className={s.field}>
                         <label htmlFor="bio">bio:</label>
                         <input

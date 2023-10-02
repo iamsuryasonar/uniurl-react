@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import s from './searchbar.module.css'
-import  { useState } from 'react'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
@@ -43,7 +43,7 @@ function Searchbar() {
                 <input className={s.search_txt}
                     type="text"
                     name=""
-                    placeholder="Type to search"
+                    placeholder="Search..."
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
                     onChange={inputHandler}

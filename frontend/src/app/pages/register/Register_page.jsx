@@ -39,7 +39,6 @@ function RegisterPage() {
             });
     }
 
-
     return (
         <>
             <div className={s.wrapper}>

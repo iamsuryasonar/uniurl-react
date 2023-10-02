@@ -65,7 +65,7 @@ ul {
     width: 70%;
     align-self: center;
     padding: 20px;
-        border-radius: 14px;
+    border-radius: 14px;
     box-shadow: 5px 5px 10px #357e79,
         -5px -5px 10px #5de0d7;
 }
@@ -119,6 +119,7 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: right;
 }
 
 @media only screen and (min-width: 1200px) {

@@ -7,14 +7,19 @@ import Footer from '../Footer/Footer'
 
 function NavbarLayout() {
     const dispatch = useDispatch()
+    const currentPageName = window.location.pathname;
+    console.log(currentPageName)
 
     return (
         <>
             <NavBar />
-            <div className={ s.main_wrapper} onClick={() => dispatch(closeMenu())}>
+            <div className={s.main_wrapper} onClick={() => dispatch(closeMenu())}>
                 <Outlet />
             </div>
-            <Footer />
+            {
+                currentPageName === '/user/login' || currentPageName === '/user/register' ? <Footer /> : <></>
+            }
+
         </>
     )
 }

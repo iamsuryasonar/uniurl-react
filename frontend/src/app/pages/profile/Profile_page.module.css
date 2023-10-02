@@ -7,7 +7,6 @@
 
 .card {
     width: 310px;
-    /* height: 627px; */
     padding: 60px;
     margin-top: 40px;
     border-radius: 25px;
@@ -15,11 +14,6 @@
     justify-content: center;
     box-shadow: 15px 10px 25px 0px #3fa1a9;
     background: #49afa8;
-    background-image: url('https://github.com/OlgaKoplik/CodePen/blob/master/leaf2.png?raw=true'), url('https://github.com/OlgaKoplik/CodePen/blob/master/leaf.png?raw=true');
-    background-repeat: no-repeat, no-repeat;
-    background-position: 120% -5%, 200% -40%;
-    background-size: 40%, 80%;
-    animation: open .5s;
     box-shadow: 5px 5px 10px #357e79,
         -5px -5px 10px #5de0d7;
 }
@@ -208,18 +202,4 @@
     animation-delay: -0.5s;
 }
 
-
-.fa-instagram {
-    position: absolute;
-    color: #79f1a4;
-    top: 3%;
-    right: 2%;
-    font-size: 38px;
-}
-
-.fa-instagram:hover {
-    font-size: 42px;
-    color: #caff81;
-    transition: all .1s linear;
-    cursor: pointer;
-}
+@media only screen and (max-width: 700px) {}

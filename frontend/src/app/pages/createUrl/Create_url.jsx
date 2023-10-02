@@ -52,17 +52,6 @@ function CreateUrl() {
                             onChange={onChangeHandler}
                         />
                     </li>
-                    {/* <li className={s.list_items}>
-                        <input
-                            className={`${s.textsize} ${s.inputField}`}
-                            placeholder="Description"
-                            type="description"
-                            name="description"
-                            value={inputValue.description}
-                            required
-                            onChange={onChangeHandler}
-                        />
-                    </li> */}
                     <li className={s.list_items}>
                         <input
                             className={`${s.textsize} ${s.inputField}`}
