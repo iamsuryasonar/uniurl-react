@@ -8,8 +8,6 @@ function Searchbar() {
     const [isFocused, setIsFocused] = useState(false);
     const [value, setValue] = useState('')
 
-    const navigate = useNavigate();
-
     const handleInputFocus = (e) => {
         setIsFocused(true);
     };
@@ -32,6 +30,7 @@ function Searchbar() {
     }
 
     const onSubmitHandler = (e) => {
+        e.preventDefault();
         if (e.key === 'Enter') {
             onSearchHandler()
         }

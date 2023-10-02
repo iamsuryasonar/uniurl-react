@@ -10,7 +10,7 @@ const fs = require('fs');
 router.get("/:username", async (req, res) => {
     try {
         const user = await User.findOne({ name: req.params.username })
-        if (!user) return res.status(404).json({ success: false, message: 'User ' + username + ' not found!' });
+        if (!user) return res.status(404).json({ success: false, message: 'User ' + req.params.username + ' not found!' });
 
         const links = await Link.find({ author: user._id }).exec()
 
