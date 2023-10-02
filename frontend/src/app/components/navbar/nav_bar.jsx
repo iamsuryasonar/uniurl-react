@@ -9,6 +9,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { get_profile_info } from './../../store/slices/profileSlice'
+import avatar from '../../assets/avatar.jpg';
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const NavBar = () => {
     const [activeMenu, setActiveMenu] = useState(currentPageName);
 
     const profileInfo = useSelector(state => state.profile.profileInfo)
-    const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
 
     useEffect(() => {
         if (!profileInfo) {
@@ -66,7 +67,6 @@ const NavBar = () => {
         localStorage.removeItem(LOCAL_STORAGE_NAME)
         navigate('/user/login');
     }
-    console.log(activeMenu)
 
     return <>
         {

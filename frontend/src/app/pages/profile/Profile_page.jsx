@@ -6,13 +6,15 @@ import Message from '../../components/Message/Message'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import avatar from '../../assets/avatar.jpg';
+
 
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
     const profileInfo = useSelector(state => state.profile.profileInfo)
     const { message } = useSelector((state) => state.message);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState('https://github.com/OlgaKoplik/CodePen/blob/master/profile.jpg?raw=true')
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [name, setName] = useState('');
     const [input, setInput] = useState({
         'bio': '',
@@ -24,7 +26,10 @@ const ProfilePage = () => {
         }
     }, []);
 
+
+
     useEffect(() => {
+
 
         if (profileInfo?.picture) {
             const dataURL = `data:image/png;base64,${profileInfo.picture}`;
