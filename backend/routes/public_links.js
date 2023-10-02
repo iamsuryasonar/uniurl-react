@@ -10,7 +10,7 @@ const fs = require('fs');
 router.get("/:username", async (req, res) => {
     try {
         const user = await User.findOne({ name: req.params.username })
-        if (!user) return res.status(404).json({ success: false, message: 'user not found' });
+        if (!user) return res.status(404).json({ success: false, message: 'User ' + username + ' not found!' });
 
         const links = await Link.find({ author: user._id }).exec()
 
@@ -31,7 +31,7 @@ router.get("/:username", async (req, res) => {
         }
         if (links.length < 1) {
             console.log('no urls found')
-            return res.status(200).json({ success: true, message: 'No urls found', data: result });
+            return res.status(200).json({ success: true, message: 'No urls found!', data: result });
         }
 
         res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
