@@ -40,8 +40,7 @@ router.post('/register', async (req, res) => {
         // res.json({ message: 'User registered successfully' });
         utils.responseHandler(res, 201, 'success', 'User registered successfully', null);
     } catch (error) {
-        // res.status(500).json({ error: 'An error occurred' });
-        utils.responseHandler(res, 500, 'error', 'An error occurred', null);
+        utils.responseHandler(res, 500, 'error', 'Internal server error', null);
     }
 })
 
@@ -49,25 +48,29 @@ router.post('/login', async (req, res) => {
     if (!req.body.email) return res.status(400).json({ success: false, message: 'email required!!!' });
     if (!req.body.password) return res.status(400).json({ success: false, message: 'password required!!!' });
 
-    // validate the data before saving to database
-    const { error } = loginValidation(req.body)
-    if (error) return utils.responseHandler(res, 400, 'error', error.details[0].message, null);
-    // check if email exists in the database and get the user's password(data) so that we can compare hashes
-    const user = await User.findOne({ email: req.body.email })
-    if (!user) return utils.responseHandler(res, 400, 'error', 'Email not found', null);
+    try {
+        // validate the data before saving to database
+        const { error } = loginValidation(req.body)
+        if (error) return utils.responseHandler(res, 400, 'error', error.details[0].message, null);
+        // check if email exists in the database and get the user's password(data) so that we can compare hashes
+        const user = await User.findOne({ email: req.body.email })
+        if (!user) return utils.responseHandler(res, 400, 'error', 'Email not found', null);
 
-    const matched = await bcrypt.compare(req.body.password, user.password);
-    if (!matched) return utils.responseHandler(res, 400, 'error', 'Invalid Password', null);
+        const matched = await bcrypt.compare(req.body.password, user.password);
+        if (!matched) return utils.responseHandler(res, 400, 'error', 'Invalid Password', null);
 
-    // create token using jsonwebtoken library
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
-    const userData = await User.findOne({ email: req.body.email })
-    const userinfo = {
-        'name': userData.name,
-        'email': userData.email,
+        // create token using jsonwebtoken library
+        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
+        const userData = await User.findOne({ email: req.body.email })
+        const userinfo = {
+            'name': userData.name,
+            'email': userData.email,
+        }
+        const response = { ...userinfo, token }
+        utils.responseHandler(res, 200, 'success', 'User logged in successfully', response);
+    } catch (error) {
+        utils.responseHandler(res, 500, 'error', 'Internal server error', null);
     }
-    const response = { ...userinfo, token }
-    utils.responseHandler(res, 200, 'success', 'User logged in successfully', response);
 })
 
 router.post('/verifyToken', async (req, res) => {

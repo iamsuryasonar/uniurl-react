@@ -23,7 +23,7 @@ router.get("/profile-info", verify, async (req, res) => {
         res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
-        res.status(400).json({ success: false, message: err.message });
+        res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 
@@ -44,7 +44,7 @@ router.post('/profile-upload', verify, upload.single('file'), async (req, res) =
         res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
-        res.status(400).json({ success: false, message: err.message });
+        res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 })
 
@@ -52,22 +52,22 @@ router.post('/profile-upload', verify, upload.single('file'), async (req, res) =
 router.put("/status_and_bio", verify, async (req, res) => {
     try {
 
-    const user = await User.findById({ _id: req.user._id })
-    if (req?.body?.bio) {
-        user.bio = req.body.bio;
-    }
-    await user.save();
-    const userdata = await User.findById({ _id: req.user._id }).select('-password');
+        const user = await User.findById({ _id: req.user._id })
+        if (req?.body?.bio) {
+            user.bio = req.body.bio;
+        }
+        await user.save();
+        const userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-    if (userdata?.picture) {
-        const fileData = await fs.promises.readFile(userdata.picture);
-        const base64Data = fileData.toString('base64');
-        userdata.picture = base64Data;
-    }
+        if (userdata?.picture) {
+            const fileData = await fs.promises.readFile(userdata.picture);
+            const base64Data = fileData.toString('base64');
+            userdata.picture = base64Data;
+        }
 
-    res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
     } catch (err) {
-        res.status(400).json({ success: false, message: err.message });
+        res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 

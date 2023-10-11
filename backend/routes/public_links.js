@@ -3,7 +3,6 @@ const { verify } = require("../middleware/verifyToken");
 const User = require("../model/User");
 const { linkValidation } = require("../middleware/authValidation");
 const Link = require("../model/Link");
-const mongoose = require("mongoose");
 const fs = require('fs');
 
 // retrieve links
@@ -31,12 +30,12 @@ router.get("/:username", async (req, res) => {
         }
         if (links.length < 1) {
             console.log('no urls found')
-            return res.status(200).json({ success: true, message: 'No urls found!', data: result });
+            return res.status(404).json({ success: false, message: 'No urls found!', data: result });
         }
 
         res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
     } catch (err) {
-        res.status(400).json({ success: false, message: err.message });
+        res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 module.exports = router;

@@ -12,6 +12,7 @@ router.post("/", verify, async (req, res) => {
     if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
 
     let url = req.body.url;
+
     url = url.trim();
     if (url.substr(0, 3) === "www") {
       url = "https://" + url;
@@ -22,6 +23,7 @@ router.post("/", verify, async (req, res) => {
     } else {
       return res.status(400).json({ success: false, message: 'Invalid url' });
     }
+
 
     const link = new Link({
       url: url,
@@ -38,7 +40,7 @@ router.post("/", verify, async (req, res) => {
     res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
   } catch (err) {
     console.log(err)
-    res.status(400).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });
 
@@ -52,7 +54,7 @@ router.get("/", verify, async (req, res) => {
     }
     res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: userdata.links });
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
@@ -71,14 +73,13 @@ router.put("/:linkid", verify, async (req, res) => {
       if (doc[0].author._id.toString() === req.user._id) {
         doc[0].url = req.body.url;
         doc[0].title = req.body.title;
-        // doc[0].description = req.body.description;
 
         const data = await doc[0].save();
         res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
       }
     }
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });
 
@@ -99,11 +100,11 @@ router.delete("/:linkid", verify, async (req, res) => {
         const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
         res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });
       } else {
-        res.status(400).json({ success: false, message: 'Not authorised to delete' });
+        res.status(401).json({ success: false, message: 'Not authorised to delete' });
       }
     }
   } catch (err) {
-    res.status(400).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });
 module.exports = router;

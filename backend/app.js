@@ -42,11 +42,11 @@ const db = mongoose.connection;
 db.on('error', error => {
     console.error('MongoDB connection error:', error);
 });
-db.once('open', () => {
-    console.log('MongoDB connection established');
+db.once('open', (error) => {
+    console.log('MongoDB connection established', error);
 });
-db.on('disconnected', () => {
-    console.log('MongoDB disconnected');
+db.on('disconnected', (error) => {
+    console.log('MongoDB disconnected', error);
 });
 
 
