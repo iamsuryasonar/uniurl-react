@@ -28,6 +28,7 @@ const NavBar = () => {
     const profileInfo = useSelector(state => state.profile.profileInfo)
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [searchedByKeywordValues, setSearchedByKeywordValues] = useState([])
+    const [isInputHidden, setIsInputHidden] = useState(false)
 
     useEffect(() => {
         dispatch(get_profile_info())
@@ -107,7 +108,7 @@ const NavBar = () => {
                             <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
                         </div>
                         <div className={s.searchbarandmenu}>
-                            <Searchbar searchKeywordHandler={searchKeywordHandler} />
+                            <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
                             <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                         </div>
                     </nav>
@@ -120,7 +121,7 @@ const NavBar = () => {
                         </div>
                     }
                     {
-                        searchedByKeywordValues.length > 0 &&
+                        searchedByKeywordValues.length > 0 && !isInputHidden &&
                         <div className={s.keywords_wrapper}>
                             <div className={s.keywords_container}>
                                 {searchedByKeywordValues.map((item) => {
@@ -144,7 +145,7 @@ const NavBar = () => {
                             <Link to='/user/register' className={`${s.button} ${s.bold_button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`}>Get Started</Link>
                         </div>
                         <div className={s.searchbarandmenu}>
-                            <Searchbar searchKeywordHandler={searchKeywordHandler} />
+                            <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
                             <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                         </div>
                     </nav>
@@ -155,7 +156,7 @@ const NavBar = () => {
                         </div>
                     }
                     {
-                        searchedByKeywordValues.length > 0 &&
+                        searchedByKeywordValues.length > 0 && !isInputHidden &&
                         <div className={s.keywords_wrapper}>
                             <div className={s.keywords_container}>
                                 {searchedByKeywordValues.map((item) => {

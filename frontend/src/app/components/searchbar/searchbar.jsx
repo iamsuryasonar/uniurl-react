@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/slices/messageSlice'
 
-function Searchbar({ searchKeywordHandler }) {
+function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const [isFocused, setIsFocused] = useState(false);
     const [value, setValue] = useState('')
     const [debounced, setDebounced] = useState();
@@ -16,17 +16,21 @@ function Searchbar({ searchKeywordHandler }) {
 
     const handleInputFocus = (e) => {
         setIsFocused(true);
+        setIsInputHidden(true)
     };
 
     const handleInputBlur = () => {
         setIsFocused(false);
-        searchKeywordHandler([])
+        console.log('Input focus')
+        setIsInputHidden(true)
+        // searchKeywordHandler([])
     };
 
     const handleSearch = async (keyword) => {
         const response = await axios
             .get(API_URL_PROFILE + 'keyword/' + keyword, { headers: { 'Content-Type': 'application/json', } });
         if (response.data.success === true) {
+            setIsInputHidden(false)
             searchKeywordHandler(response.data.data)
         }
     }
