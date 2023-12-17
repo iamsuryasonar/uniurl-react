@@ -49,7 +49,7 @@ router.post('/profile-upload', verify, upload.single('file'), async (req, res) =
 })
 
 // add status and bio
-router.put("/status_and_bio", verify, async (req, res) => {
+router.put("/status_and_bio", async (req, res) => {
     try {
 
         const user = await User.findById({ _id: req.user._id })
@@ -66,6 +66,19 @@ router.put("/status_and_bio", verify, async (req, res) => {
         }
 
         res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Internal server error ' });
+    }
+});
+
+// retrieve usernames for searchbar suggestions
+router.get("/keyword/:keyword", async (req, res) => {
+    try {
+        const similarUsers = await User.find({
+            name: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
+        }).select('-password');
+
+        res.status(200).json({ success: true, message: 'Username retrieved successfully', data: similarUsers });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Internal server error ' });
     }

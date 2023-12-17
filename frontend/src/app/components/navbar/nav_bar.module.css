@@ -132,6 +132,40 @@
      justify-content: center;
  }
 
+ .keywords_wrapper {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: flex-end;
+ }
+
+ .keywords_container {
+     position: fixed;
+     z-index: 2;
+     background-color: #1d9b92;
+     padding: 40px;
+     display: flex;
+     flex-direction: column;
+     align-items: end;
+     gap: 20px;
+     box-shadow: 40px -30px 40px 40px #044b47;
+     border-radius: 0px 0px 0px 6px;
+ }
+
+ .keyword {
+     font-size: 18px;
+     border-radius: 40px;
+     padding: 2px 10px;
+     border: 1px solid #0005;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+ }
+
+ .keyword:hover {
+     border: 1px solid rgba(229, 255, 0, 0.333);
+ }
+
 
  @media (max-width: 800px) {
      .nav {

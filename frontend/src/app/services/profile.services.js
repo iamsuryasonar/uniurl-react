@@ -16,33 +16,29 @@ const getheaders = () => {
     }
     return { headers }
 }
-const getProfileInfo = () => {
-    return axios
-        .get(API_URL_PROFILE + 'profile-info', getheaders())
-        .then((response) => {
-            return response.data;
-        });
+const getProfileInfo = async () => {
+    const response = await axios
+        .get(API_URL_PROFILE + 'profile-info', getheaders());
+    return response.data;
 }
 
-const uploadProfilePicture = (file) => {
+const uploadProfilePicture = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    axios.post(API_URL_PROFILE + 'profile-upload', formData, getMultipartheaders())
+    await axios.post(API_URL_PROFILE + 'profile-upload', formData, getMultipartheaders())
         .then((response) => {
             return response.data;
         })
 };
 
 
-const updateBioOrStatus = (body) => {
-    return axios
+const updateBioOrStatus = async (body) => {
+    const response = await axios
         .put(
             API_URL_PROFILE + 'status_and_bio', body, getheaders()
-        )
-        .then((response) => {
-            return response.data;
-        });
+        );
+    return response.data;
 }
 
 

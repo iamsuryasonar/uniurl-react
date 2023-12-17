@@ -6,7 +6,6 @@ import { register } from '../../store/slices/authSlice'
 import { clearMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
 import Message from '../../components/Message/Message'
-import Footer from '../../components/Footer/Footer'
 
 function RegisterPage() {
     const dispatch = useDispatch();
@@ -27,7 +26,8 @@ function RegisterPage() {
         })
     }
 
-    const registerHandler = () => {
+    const registerHandler = (e) => {
+        e.preventDefault();
         setSuccessful(false);
         dispatch(register(input))
             .unwrap()
@@ -43,8 +43,8 @@ function RegisterPage() {
         <>
             <div className={s.wrapper}>
                 <div className={s.container}>
-                    <ul >
-                        <li className={s.list_items}>
+                    <form className={s.form}>
+                        <div className={s.list_items}>
                             <input
                                 className={`${s.textsize} ${s.inputField}`}
                                 placeholder="Username"
@@ -53,8 +53,8 @@ function RegisterPage() {
                                 required
                                 onChange={onChangeHandler}
                             />
-                        </li>
-                        <li className={s.list_items}>
+                        </div>
+                        <div className={s.list_items}>
                             <input
                                 className={`${s.textsize} ${s.inputField}`}
                                 placeholder="Email"
@@ -64,26 +64,26 @@ function RegisterPage() {
                                 required
                                 onChange={onChangeHandler}
                             />
-                        </li>
-                        <li className={s.list_items}>
+                        </div>
+                        <div className={s.list_items}>
                             <input
                                 className={`${s.textsize} ${s.inputField}`}
                                 placeholder="Password"
                                 type="password"
                                 name="password"
-                                // autoComplete="off"
+                                autoComplete="new-password"
                                 required
                                 onChange={onChangeHandler}
                             />
-                        </li>
-                        <li className={s.list_items}>
+                        </div>
+                        <div className={s.list_items}>
                             <div className={s.loginandalreadyuser}>
                                 <Button onClick={registerHandler} label='Register' />
                                 <Link to="/user/login">Already have a user?</Link>
                             </div>
-                        </li>
+                        </div>
                         {message && <Message label={message} />}
-                    </ul >
+                    </form >
                 </div >
             </div >
         </>

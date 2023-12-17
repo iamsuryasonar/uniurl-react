@@ -60,7 +60,7 @@
 }
 
 .img-upload:before {
-    content: "\f093";
+    content: "+";
     font-size: 90px;
     position: absolute;
     padding-top: 80px;
@@ -78,7 +78,7 @@
 }
 
 .img-upload:hover:before {
-    opacity: 1;
+    opacity: 0.8;
 }
 
 .img {

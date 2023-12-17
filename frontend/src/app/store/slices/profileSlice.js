@@ -9,7 +9,7 @@ export const upload_profile_picture = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.uploadProfilePicture(file);
-            // thunkAPI.dispatch(setMessage(response.message));
+            thunkAPI.dispatch(get_profile_info());
             return response?.data;
         } catch (error) {
             const message =
@@ -55,6 +55,7 @@ export const get_profile_info = createAsyncThunk(
     }
 );
 
+
 export const update_bio_or_status = createAsyncThunk(
     "profile/update",
     async (body, thunkAPI) => {
@@ -96,11 +97,6 @@ const ProfileSlice = createSlice({
             state.profileInfo = action.payload;
         },
         [upload_profile_picture.rejected]: (state, action) => {
-        },
-        [get_profile_info.fulfilled]: (state, action) => {
-            state.profileInfo = action.payload;
-        },
-        [get_profile_info.rejected]: (state, action) => {
         },
         [update_bio_or_status.fulfilled]: (state, action) => {
             state.profileInfo = action.payload;

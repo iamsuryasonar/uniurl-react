@@ -8,7 +8,6 @@ import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
 import Button from '../../components/Button/button';
 import Message from '../../components/Message/Message'
-import Footer from '../../components/Footer/Footer'
 
 function LogInPage() {
     const [forgotpassword, setforgotpassword] = useState(false);
@@ -36,7 +35,8 @@ function LogInPage() {
         })
     }
 
-    const logInHandler = () => {
+    const logInHandler = (e) => {
+        e.preventDefault();
         setLoading(true);
         dispatch(login(input))
             .unwrap()
@@ -48,7 +48,8 @@ function LogInPage() {
             });
     }
 
-    const send_email_handler = () => {
+    const send_email_handler = (e) => {
+        e.preventDefault();
         setSend_email(true);
         setTimeout(() => {
             setSend_email(false);
@@ -61,8 +62,8 @@ function LogInPage() {
             <div className={s.wrapper} >
                 <div className={s.overlaycontainer}>
                     <div className={s.container} >
-                        <ul>
-                            <li className={s.list_items}>
+                        <form className={s.form}>
+                            <div className={s.list_items}>
                                 <input
                                     className={`${s.textsize} ${s.inputField}`}
                                     placeholder="Email"
@@ -71,29 +72,30 @@ function LogInPage() {
                                     required
                                     onChange={onChangeHandler}
                                 />
-                            </li>
-                            <li className={s.list_items}>
+                            </div>
+                            <div className={s.list_items}>
                                 <input
                                     className={`${s.textsize} ${s.inputField}`}
                                     placeholder="Password"
                                     type="password"
                                     name="password"
                                     required
+                                    // autoComplete="current-password"
                                     onChange={onChangeHandler}
                                 />
-                            </li>
-                            <li className={s.list_items}>
+                            </div>
+                            <div className={s.list_items}>
                                 <div className={s.loginandforgotpassword}>
                                     {loading ? <Button label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button onClick={logInHandler} label='Log In' />}
                                     <a onClick={forgotpassword_handler}>Reset password?</a>
                                 </div>
-                            </li>
+                            </div>
                             {message && <Message label={message} />}
-                        </ul>
+                        </form>
                     </div >
                     {forgotpassword && (
-                        <ul className={s.forgotpassword_overlay}>
-                            <li className={s.list_items}>
+                        <form className={s.forgotpassword_overlay}>
+                            <div className={s.list_items}>
                                 <input
                                     placeholder="Email"
                                     type="email"
@@ -106,9 +108,9 @@ function LogInPage() {
                                     <Button onClick={forgotpassword_handler} label='Cancel' />
                                     <Button label='Send Email' onClick={send_email_handler} />
                                 </div>
-                            </li >
+                            </div >
                             {send_email && <Message label={'Not implemented'} />}
-                        </ul >
+                        </form >
                     )}
                 </div >
             </div >

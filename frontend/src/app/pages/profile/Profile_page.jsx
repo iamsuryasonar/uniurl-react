@@ -29,8 +29,6 @@ const ProfilePage = () => {
 
 
     useEffect(() => {
-
-
         if (profileInfo?.picture) {
             const dataURL = `data:image/png;base64,${profileInfo.picture}`;
             setImagePreviewUrl(dataURL);
@@ -103,6 +101,7 @@ const ProfilePage = () => {
                 <div className={s.container}>
                     <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
                         <div className={`${s['img-wrap']} ${s['img-upload']}`}>
+
                             <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />
                         </div>
                         <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />

@@ -10,6 +10,7 @@ import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
+import { API_URL_PROFILE } from '../../common/constants'
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const NavBar = () => {
 
     const profileInfo = useSelector(state => state.profile.profileInfo)
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
+    const [searchedByKeywordValues, setSearchedByKeywordValues] = useState([])
 
     useEffect(() => {
         dispatch(get_profile_info())
@@ -69,6 +71,20 @@ const NavBar = () => {
         navigate('/user/login');
     }
 
+    const searchKeywordHandler = (userdata) => {
+        console.log(userdata)
+        setSearchedByKeywordValues(userdata)
+    }
+
+    const keywordClickedHandler = (username) => {
+        const originname = window.location.origin;
+        window.location.replace(originname + '/' + username);
+    }
+
+    
+
+
+
     return <>
         {
             token ?
@@ -91,7 +107,7 @@ const NavBar = () => {
                             <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
                         </div>
                         <div className={s.searchbarandmenu}>
-                            <Searchbar />
+                            <Searchbar searchKeywordHandler={searchKeywordHandler} />
                             <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                         </div>
                     </nav>
@@ -101,6 +117,17 @@ const NavBar = () => {
                             <Link to="/user/createurl" className={`${s.button} ${activeMenu === '/user/createurl' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
                             <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
                             <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
+                        </div>
+                    }
+                    {
+                        searchedByKeywordValues.length > 0 &&
+                        <div className={s.keywords_wrapper}>
+                            <div className={s.keywords_container}>
+                                {searchedByKeywordValues.map((item) => {
+                                    console.log(item)
+                                    return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
+                                })}
+                            </div>
                         </div>
                     }
                 </>
@@ -125,6 +152,17 @@ const NavBar = () => {
                         <div className={s.menuitems_collapse}>
                             <Link to="/user/login" className={`${s.button} ${activeMenu === '/user/login' ? s.active : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
                             <Link to='/user/register' className={`${s.button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                        </div>
+                    }
+                    {
+                        searchedByKeywordValues.length > 0 &&
+                        <div className={s.keywords_wrapper}>
+                            <div className={s.keywords_container}>
+                                {searchedByKeywordValues.map((item) => {
+                                    console.log(item)
+                                    return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
+                                })}
+                            </div>
                         </div>
                     }
                 </>

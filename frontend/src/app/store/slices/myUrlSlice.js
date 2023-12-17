@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
+import { get_profile_info } from "./profileSlice";
 import myUrlService from "../../services/myurl.services";
 import { setLoading } from "./loadingSlice";
 
@@ -9,7 +10,7 @@ export const get_my_urls = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.getAllUrl();
-            // thunkAPI.dispatch(setMessage(response.message));
+            thunkAPI.dispatch(get_profile_info());
             return response.data;
         } catch (error) {
             const message =

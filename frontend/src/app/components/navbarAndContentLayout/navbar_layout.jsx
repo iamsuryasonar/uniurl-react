@@ -1,3 +1,4 @@
+import react, { useState, useEffect } from 'react';
 import { Outlet } from "react-router-dom";
 import NavBar from '../navbar/nav_bar';
 import s from './navbar_layout.module.css'
@@ -7,7 +8,8 @@ import Footer from '../Footer/Footer'
 
 function NavbarLayout() {
     const dispatch = useDispatch()
-    const currentPageName = window.location.pathname;
+
+    const [currentPageName, setCurrentPageName] = useState(window.location.pathname)
 
     return (
         <>
@@ -15,10 +17,10 @@ function NavbarLayout() {
             <div className={s.main_wrapper} onClick={() => dispatch(closeMenu())}>
                 <Outlet />
             </div>
-            {
+            {/* {
                 currentPageName === '/user/login' || currentPageName === '/user/register' || currentPageName === '/' ? <Footer /> : <></>
-            }
-
+            } */}
+            <Footer />
         </>
     )
 }
