@@ -76,7 +76,7 @@ router.get("/keyword/:keyword", async (req, res) => {
     try {
         const similarUsers = await User.find({
             name: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
-        }).select('-password');
+        }).select('-password').limit(5);
 
         res.status(200).json({ success: true, message: 'Username retrieved successfully', data: similarUsers });
     } catch (err) {

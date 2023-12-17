@@ -81,7 +81,7 @@ const NavBar = () => {
         window.location.replace(originname + '/' + username);
     }
 
-    
+
 
 
 
@@ -144,7 +144,7 @@ const NavBar = () => {
                             <Link to='/user/register' className={`${s.button} ${s.bold_button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`}>Get Started</Link>
                         </div>
                         <div className={s.searchbarandmenu}>
-                            <Searchbar />
+                            <Searchbar searchKeywordHandler={searchKeywordHandler} />
                             <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                         </div>
                     </nav>

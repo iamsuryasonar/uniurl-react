@@ -20,6 +20,7 @@ function Searchbar({ searchKeywordHandler }) {
 
     const handleInputBlur = () => {
         setIsFocused(false);
+        searchKeywordHandler([])
     };
 
     const handleSearch = async (keyword) => {
@@ -59,7 +60,8 @@ function Searchbar({ searchKeywordHandler }) {
         if (value.length < 5) {
             // Todo: implement error message notifier that pops out of nav bar and retreats back.
             // need to replace all error messages with this message ui.
-            dispatch(setMessage('Username must be atleast 5 characters long'));
+
+            // dispatch(setMessage('Username must be atleast 5 characters long'));
             return;
         }
         if (value) {

@@ -139,17 +139,19 @@
      align-items: flex-end;
  }
 
+
  .keywords_container {
      position: fixed;
      z-index: 2;
      background-color: #1d9b92;
-     padding: 40px;
+     padding: 30px;
      display: flex;
      flex-direction: column;
      align-items: end;
-     gap: 20px;
+     gap: 15px;
      box-shadow: 40px -30px 40px 40px #044b47;
      border-radius: 0px 0px 0px 6px;
+
  }
 
  .keyword {
