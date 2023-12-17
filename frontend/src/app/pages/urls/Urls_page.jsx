@@ -39,7 +39,7 @@ function UrlsPage() {
 
     return (
         <>
-            {message && <Message label={message} />}
+            {/* {message && <Message label={message} />} */}
             {urlsinfo ?
                 <div className={s.wrapper}>
                     <div className={s.profile_box}>

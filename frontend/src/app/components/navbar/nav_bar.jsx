@@ -10,11 +10,13 @@ import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
-import { API_URL_PROFILE } from '../../common/constants'
+import Message from '../../components/Message/Message'
+import { clearMessage } from '../../store/slices/messageSlice';
 
-const NavBar = () => {
+const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     const currentPageName = window.location.pathname;
 
@@ -22,16 +24,21 @@ const NavBar = () => {
 
     const menu = useSelector(state => state.menu.value);
     const { loading } = useSelector((state) => state.loading);
+    const { message } = useSelector((state) => state.message);
 
     const [activeMenu, setActiveMenu] = useState(currentPageName);
 
     const profileInfo = useSelector(state => state.profile.profileInfo)
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [searchedByKeywordValues, setSearchedByKeywordValues] = useState([])
-    const [isInputHidden, setIsInputHidden] = useState(false)
+
 
     useEffect(() => {
-        dispatch(get_profile_info())
+        dispatch(clearMessage())
+        const token = localStorage.getItem(LOCAL_STORAGE_NAME);
+        if (token) {
+            dispatch(get_profile_info())
+        }
     }, [])
 
     useEffect(() => {
@@ -73,7 +80,6 @@ const NavBar = () => {
     }
 
     const searchKeywordHandler = (userdata) => {
-        console.log(userdata)
         setSearchedByKeywordValues(userdata)
     }
 
@@ -81,10 +87,6 @@ const NavBar = () => {
         const originname = window.location.origin;
         window.location.replace(originname + '/' + username);
     }
-
-
-
-
 
     return <>
         {
@@ -131,6 +133,13 @@ const NavBar = () => {
                             </div>
                         </div>
                     }
+
+                    {
+                        message &&
+                        <div className={s.notification}>
+                            <Message label={message} />
+                        </div>
+                    }
                 </>
                 :
                 //! public navbar
@@ -164,6 +173,12 @@ const NavBar = () => {
                                     return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
                                 })}
                             </div>
+                        </div>
+                    }
+                    {
+                        message &&
+                        <div className={s.notification}>
+                            <Message label={message} />
                         </div>
                     }
                 </>

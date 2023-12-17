@@ -63,7 +63,7 @@ function CreateUrl() {
                             onChange={onChangeHandler}
                         />
                     </li>
-                    {message && <Message label={message} />}
+                    {/* {message && <Message label={message} />} */}
                     <li className={s.list_items}>
                         <Button onClick={createUrlHandler} label='Create' />
                     </li>

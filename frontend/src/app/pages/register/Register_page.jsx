@@ -82,7 +82,7 @@ function RegisterPage() {
                                 <Link to="/user/login">Already have a user?</Link>
                             </div>
                         </div>
-                        {message && <Message label={message} />}
+                        {/* {message && <Message label={message} />} */}
                     </form >
                 </div >
             </div >

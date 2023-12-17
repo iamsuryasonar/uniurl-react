@@ -49,7 +49,7 @@ function MyUrlPage() {
 
     return (
         <div className={s.wrapper}>
-            {message && <Message label={message} />}
+            {/* {message && <Message label={message} />} */}
             {
                 urls ? Object.values(urls).map((url) => {
                     return (

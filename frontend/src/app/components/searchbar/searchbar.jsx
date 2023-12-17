@@ -6,7 +6,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { API_URL_PROFILE } from '../../common/constants'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setMessage } from '../../store/slices/messageSlice'
+import { clearMessage, setMessage } from '../../store/slices/messageSlice';
 
 function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const [isFocused, setIsFocused] = useState(false);
@@ -16,14 +16,10 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
 
     const handleInputFocus = (e) => {
         setIsFocused(true);
-        setIsInputHidden(true)
     };
 
     const handleInputBlur = () => {
         setIsFocused(false);
-        console.log('Input focus')
-        setIsInputHidden(true)
-        // searchKeywordHandler([])
     };
 
     const handleSearch = async (keyword) => {
@@ -46,7 +42,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     }
 
     useEffect(() => {
-        dispatch(setMessage())
+        dispatch(clearMessage())
         setDebounced(() => debounce(handleSearch, 300))
     }, [])
 
@@ -62,10 +58,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
 
     const onSearchHandler = () => {
         if (value.length < 5) {
-            // Todo: implement error message notifier that pops out of nav bar and retreats back.
-            // need to replace all error messages with this message ui.
-
-            // dispatch(setMessage('Username must be atleast 5 characters long'));
+            dispatch(setMessage('Username must be atleast 5 characters long'));
             return;
         }
         if (value) {

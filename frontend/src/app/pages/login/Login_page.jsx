@@ -90,7 +90,7 @@ function LogInPage() {
                                     <a onClick={forgotpassword_handler}>Reset password?</a>
                                 </div>
                             </div>
-                            {message && <Message label={message} />}
+                            {/* {message && <Message label={message} />} */}
                         </form>
                     </div >
                     {forgotpassword && (

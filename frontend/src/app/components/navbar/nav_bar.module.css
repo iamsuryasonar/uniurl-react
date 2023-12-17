@@ -144,10 +144,11 @@
      position: fixed;
      z-index: 2;
      background-color: #1d9b92;
+     width: 100%;
      padding: 30px;
      display: flex;
      flex-direction: column;
-     align-items: end;
+     align-items: center;
      gap: 15px;
      box-shadow: 40px -30px 40px 40px #044b47;
      border-radius: 0px 0px 0px 6px;
@@ -168,6 +169,19 @@
      border: 1px solid rgba(229, 255, 0, 0.333);
  }
 
+ .notification {
+     position: fixed;
+     z-index: 2;
+     background-color: #34a8a1;
+     width: 100%;
+     padding: 16px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     gap: 20px;
+     box-shadow: 0px -40px 10px 40px #0b615d;
+ }
 
  @media (max-width: 800px) {
      .nav {

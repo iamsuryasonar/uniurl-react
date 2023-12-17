@@ -6,12 +6,6 @@ import './App.css';
 import PrivateRoute from './app/components/private_route';
 import PublicRoute from './app/components/authGuard'
 import NavbarLayout from './app/components/navbarAndContentLayout/navbar_layout';
-// import WelcomePage from './app/pages/welcome/Welcome_page'
-// import LogInPage from './app/pages/login/Login_page'
-// import RegisterPage from './app/pages/register/Register_page'
-// import CreateUrl from './app/pages/createUrl/Create_url'
-// import MyUrlPage from './app/pages/myUrls/My_urls_page'
-// import UrlsPage from './app/pages/urls/Urls_page'
 const WelcomePage = lazy(() => import('./app/pages/welcome/Welcome_page'));
 const ProfilePage = lazy(() => import('./app/pages/profile/Profile_page'));
 const LogInPage = lazy(() => import('./app/pages/login/Login_page'));

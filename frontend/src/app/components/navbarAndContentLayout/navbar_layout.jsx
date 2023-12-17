@@ -10,16 +10,19 @@ function NavbarLayout() {
     const dispatch = useDispatch()
 
     const [currentPageName, setCurrentPageName] = useState(window.location.pathname)
+    const [isInputHidden, setIsInputHidden] = useState(false)
+
+    function onClickHandler() {
+        dispatch(closeMenu());
+        setIsInputHidden(true)
+    }
 
     return (
         <>
-            <NavBar />
-            <div className={s.main_wrapper} onClick={() => dispatch(closeMenu())}>
+            <NavBar isInputHidden={isInputHidden} setIsInputHidden={setIsInputHidden} />
+            <div className={s.main_wrapper} onClick={onClickHandler}>
                 <Outlet />
             </div>
-            {/* {
-                currentPageName === '/user/login' || currentPageName === '/user/register' || currentPageName === '/' ? <Footer /> : <></>
-            } */}
             <Footer />
         </>
     )
