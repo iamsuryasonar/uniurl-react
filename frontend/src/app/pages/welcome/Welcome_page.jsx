@@ -13,7 +13,6 @@ function WelcomePage() {
                         <Link to="/user/login" className={`${s.button} ${s.link}`}>Already a user?</Link>
                         <Link to='/user/register' className={`${s.button} ${s.link} ${s.get_started}`}>Get Started</Link>
                     </div>
-
                     <img className={s.main_image} src={image}></img>
                 </div>
                 <div className={s.main_paragraph}>

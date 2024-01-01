@@ -67,7 +67,7 @@ a:hover {
 .paragraph_tag {
     /* font-family: "Jost", sans-serif; */
     font-weight: 500;
-    font-size: 36px;
+    font-size: 20px;
     line-height: 45px;
     padding: 10px 10px;
     text-align: justify;
@@ -100,13 +100,17 @@ a:hover {
         margin-top: 100px;
     }
 
+    .quoteExplain {
+        font-size: 16px;
+    }
+
     .main_paragraph {
         padding: 0 12px;
 
     }
 
     .paragraph_tag {
-        font-size: 20px;
+        font-size: 16px;
         line-height: 28px;
     }
 }
