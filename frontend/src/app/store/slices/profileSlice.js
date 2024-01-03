@@ -89,23 +89,18 @@ const initialState = { profileInfo: null };
 const ProfileSlice = createSlice({
     name: "profileInfo",
     initialState,
-    extraReducers: {
-        [get_profile_info.fulfilled]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(get_profile_info.fulfilled, (state, action) => {
             state.profileInfo = action.payload;
-        },
-        [get_profile_info.rejected]: (state, action) => {
-        },
-        [upload_profile_picture.fulfilled]: (state, action) => {
+        }).addCase(get_profile_info.rejected, (state, action) => {
+        }).addCase(upload_profile_picture.fulfilled, (state, action) => {
             state.profileInfo = action.payload;
-        },
-        [upload_profile_picture.rejected]: (state, action) => {
-        },
-        [update_bio_or_status.fulfilled]: (state, action) => {
+        }).addCase(upload_profile_picture.rejected, (state, action) => {
+        }).addCase(update_bio_or_status.fulfilled, (state, action) => {
             state.profileInfo = action.payload;
-        },
-        [update_bio_or_status.rejected]: (state, action) => {
-        },
-    },
+        }).addCase(update_bio_or_status.rejected, (state, action) => {
+        })
+    }
 });
 
 const { reducer } = ProfileSlice;
