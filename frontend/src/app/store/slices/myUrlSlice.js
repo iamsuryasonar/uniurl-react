@@ -88,20 +88,20 @@ const initialState = { myurls: null };
 const myUrlSlice = createSlice({
     name: "myurls",
     initialState,
-    extraReducers: {
-            (builder) => {
-    builder
-        .addCase(get_my_urls.fulfilled, (state, action) => {
-            state.urls = action.payload;
-        }).addCase(get_my_urls.rejected, (state, action) => {
-        }).addCase(create_my_urls.fulfilled, (state, action) => {
-            state.urls = action.payload;
-        }).addCase(create_my_urls.rejected, (state, action) => {
-        }).addCase(delete_my_url.fulfilled, (state, action) => {
-            state.urls = action.payload;
-        }).addCase(delete_my_url.rejected, (state, action) => {
-        })
-},
+    extraReducers:
+        (builder) => {
+            builder
+                .addCase(get_my_urls.fulfilled, (state, action) => {
+                    state.urls = action.payload;
+                }).addCase(get_my_urls.rejected, (state, action) => {
+                }).addCase(create_my_urls.fulfilled, (state, action) => {
+                    state.urls = action.payload;
+                }).addCase(create_my_urls.rejected, (state, action) => {
+                }).addCase(delete_my_url.fulfilled, (state, action) => {
+                    state.urls = action.payload;
+                }).addCase(delete_my_url.rejected, (state, action) => {
+                })
+        },
 });
 
 const { reducer } = myUrlSlice;
