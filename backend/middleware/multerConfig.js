@@ -1,24 +1,61 @@
 const multer = require('multer');
+const { s3 } = require('../s3Config')
+const crypto = require('crypto');
 
-// Define multer storage and upload configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads');
-    },
-    filename: function (req, file, cb) {
-        const timestamp = Date.now(); // Get the current timestamp in milliseconds
-        const extension = file.originalname.split('.').pop(); // Get the file extension
-        const originalFilenameWithoutExtension = file.originalname
-            .split('.')
-            .slice(0, -1)
-            .join('.'); // Remove the extension from the original filename
-        const newFilename = `${originalFilenameWithoutExtension}_${timestamp}.${extension}`; // Combine original name, timestamp, and extension
-        cb(null, newFilename);
+let upload = multer({
+    limits: 1024 * 1024 * 5,
+    fileFilter: function (req, file, next) {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/webp') {
+            next(null, true)
+        } else {
+            next('milter error -file type is not supported', false)
+        }
     }
-});
+})
 
-const upload = multer({ storage: storage });
+let uploadTos3 = (fileData) => {
+    return new Promise((resolve, reject) => {
+        const uuid = crypto.randomBytes(6).toString("hex");
+        const fileName = `${uuid}_${Date.now().toString()}.webp`;
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: fileName,
+            Body: fileData,
+            ContentType: "image/webp"
+        }
+
+        const request = s3.putObject(params);
+        request.on('httpHeaders', (statusCode, headers) => {
+            console.log(headers)
+            resolve({
+                url: `https://ipfs.filebase.io/ipfs/${headers['x-amz-meta-cid']}`,
+                fileName: fileName
+            })
+        });
+        request.on('httpError', (error, response) => {
+            console.log(error)
+            reject(error)
+        });
+        request.send();
+    })
+}
+
+const deleteS3Object = async (path) => {
+    try {
+        const deleteParams = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: path,
+        };
+
+        const deleteResult = await s3.deleteObject(deleteParams).promise();
+        console.log('Object deleted successfully:', deleteResult);
+    } catch (error) {
+        console.error('Error deleting object:', error);
+    }
+};
 
 module.exports = {
-    upload,
+    upload: upload,
+    uploadTos3: uploadTos3,
+    deleteS3Object: deleteS3Object,
 };

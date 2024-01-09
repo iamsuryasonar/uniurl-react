@@ -30,8 +30,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         if (profileInfo?.picture) {
-            const dataURL = `data:image/png;base64,${profileInfo.picture}`;
-            setImagePreviewUrl(dataURL);
+            setImagePreviewUrl(profileInfo.picture.url);
         }
         if (profileInfo?.bio) {
             setInput(prev => (

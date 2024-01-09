@@ -1,14 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const dotenv = require('dotenv')
 const Joi = require('joi')
 let cors = require('cors')
 let multer = require('multer')
 let app = express()
-
-
-app.use(express.static(__dirname + '/public'));
-app.use('/uploads', express.static('uploads'));
+require('dotenv').config();
 
 app.use(cors())
 
@@ -18,7 +14,6 @@ const linksRoute = require('./routes/links')
 const publicLinksRoute = require('./routes/public_links')
 const profileRoute = require('./routes/profile')
 
-dotenv.config()
 
 // Mongoose options
 const mongooseOptions = {

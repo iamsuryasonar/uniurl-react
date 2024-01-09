@@ -28,42 +28,15 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   picture: {
-    type: String,
+    url: {
+      type: String,
+    },
+    fileName: {
+      type: String,
+    }
   },
 
   links: [{ type: mongoose.Schema.Types.ObjectId, ref: "Link" }],
 });
 
 module.exports = mongoose.model("User", userSchema);
-
-// The mongoose.model() function of the mongoose module is used to create
-// a collection of a particular database of MongoDB.
-
-// collection name will become lowercase and add plural when created
-// for example, User becomes users and Random becomes randoms
-// but randoms will remain randoms and users will remain users (confusing yup)
-
-// Syntax:
-// mongoose.model(<Collectionname>, <CollectionSchema>)
-
-// link: [{
-//     url:{
-//         type: String,
-//         required: true,
-//         minlength: 5,
-//         maxlength: 255,
-
-//     },
-//     description:{
-//         type: String,
-//         required: true,
-//         minlength: 5,
-//         maxlength: 255,
-//     },
-//     title: {
-//         type: String,
-//         required: true,
-//         minlength: 5,
-//         maxlength: 255,
-//     }
-// }]

@@ -43,12 +43,8 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
 
     useEffect(() => {
         if (profileInfo?.picture) {
-            const dataURL = `data:image/png;base64,${profileInfo.picture}`;
-            setImagePreviewUrl(dataURL);
+            setImagePreviewUrl(profileInfo.picture.url);
         }
-        // if (profileInfo?.name) {
-        //     setName(profileInfo.name);
-        // }
     }, [profileInfo]);
 
     useEffect(() => {

@@ -13,7 +13,6 @@ router.get("/:username", async (req, res) => {
 
         const links = await Link.find({ author: user._id }).exec()
 
-
         if (user?.picture) {
             const fileData = await fs.promises.readFile(user.picture);
             const base64Data = fileData.toString('base64');
