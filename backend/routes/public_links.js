@@ -21,13 +21,12 @@ router.get("/:username", async (req, res) => {
             'links': links
         }
         if (links.length < 1) {
-            console.log('no urls found')
             return res.status(404).json({ success: false, message: 'No urls found!', data: result });
         }
 
-        res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
+        return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Internal server error ' });
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 

@@ -12,14 +12,12 @@ router.post('/register', async (req, res) => {
     if (!req.body.password) return res.status(400).json({ success: false, message: 'password required!!!' });
     //validate the data before saving to database
     const { error } = registerValidation(req.body)
-    if (error) return utils.responseHandler(res, 400, 'error', error.details[0].message, null);
+    if (error) return res.status(400).json({ success: false, message: error.details[0].message, data: null });
 
 
     //check if email exists in the database
     const emailExist = await User.findOne({ email: req.body.email })
-
-    if (emailExist) return utils.responseHandler(res, 400, 'error', 'Email already exists', null);
-    // if (emailExist) return res.status(400).json({ error: 'Email already exists' });
+    if (emailExist) return res.status(400).json({ success: false, message: 'Email already exists', data: null });
 
 
     // hash password using bcrypt 
@@ -37,10 +35,9 @@ router.post('/register', async (req, res) => {
         // will convert the user’s input into the JSON format for us.
 
         const savedUser = await user.save();
-        // res.json({ message: 'User registered successfully' });
-        utils.responseHandler(res, 201, 'success', 'User registered successfully', null);
+        return res.status(201).json({ success: true, message: 'User registered successfully', data: null });
     } catch (error) {
-        utils.responseHandler(res, 500, 'error', 'Internal server error', null);
+        return res.status(500).json({ success: false, message: 'Internal server error', data: null });
     }
 })
 
@@ -51,13 +48,13 @@ router.post('/login', async (req, res) => {
     try {
         // validate the data before saving to database
         const { error } = loginValidation(req.body)
-        if (error) return utils.responseHandler(res, 400, 'error', error.details[0].message, null);
+        if (error) return res.status(400).json({ success: false, message: error.details[0].message, data: null });
         // check if email exists in the database and get the user's password(data) so that we can compare hashes
         const user = await User.findOne({ email: req.body.email })
         if (!user) return utils.responseHandler(res, 400, 'error', 'Email not found', null);
 
         const matched = await bcrypt.compare(req.body.password, user.password);
-        if (!matched) return utils.responseHandler(res, 400, 'error', 'Invalid Password', null);
+        if (!matched) return res.status(400).json({ success: false, message: 'Invalid password', data: null });
 
         // create token using jsonwebtoken library
         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
@@ -67,23 +64,19 @@ router.post('/login', async (req, res) => {
             'email': userData.email,
         }
         const response = { ...userinfo, token }
-        utils.responseHandler(res, 200, 'success', 'User logged in successfully', response);
+        return res.status(200).json({ success: true, message: 'User logged in successfully', data: response });
     } catch (error) {
-        utils.responseHandler(res, 500, 'error', 'Internal server error', null);
+        return res.status(500).json({ success: false, message: 'Interal server error', data: null });
     }
 })
 
 router.post('/verifyToken', async (req, res) => {
-    console.log(req.body)
-    if (!req.body.token) {
-        return utils.responseHandler(res, 400, 'error', 'Token required', null);
-    }
+    if (!req.body.token) return res.status(400).json({ success: false, message: 'Token required', data: null });
 
     const verified = await jwt.verify(req?.body?.token, process.env.TOKEN_SECRET)
-    if (verified) {
-        return utils.responseHandler(res, 200, 'success', 'Valid token', { token: req.body.token });
-    }
-    return utils.responseHandler(res, 404, 'error', 'Invalid token', null);
+
+    if (verified) return res.status(200).json({ success: true, message: 'OK', data: { token: req.body.token } });
+    return res.status(400).json({ success: false, message: 'Invalid token', data: null });
 })
 
 

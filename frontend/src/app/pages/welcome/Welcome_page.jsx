@@ -11,7 +11,7 @@ function WelcomePage() {
                         <p className={s.quote}>All links at your username.</p>
                         <p className={s.quoteExplain}>One link for every other links. Now Share all your links by your username.</p>
                         <Link to="/user/login" className={`${s.button} ${s.link}`}>Already a user?</Link>
-                        <Link to='/user/register' className={`${s.button} ${s.link} ${s.get_started}`}>Get Started</Link>
+                        <Link to='/user/register' className={`${s.button} ${s.get_started}`}>Get Started</Link>
                     </div>
                     <img className={s.main_image} src={image}></img>
                 </div>

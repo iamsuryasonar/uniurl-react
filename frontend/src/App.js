@@ -77,7 +77,7 @@ function App() {
             }
           />
           <Route
-            path="/user/createurl"
+            path="/user/create_url"
             element={
               <PrivateRoute>
                 <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>

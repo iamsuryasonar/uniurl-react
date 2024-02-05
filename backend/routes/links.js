@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 // add link
 router.post("/", verify, async (req, res) => {
   try {
+
     if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
     if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
 
@@ -24,6 +25,8 @@ router.post("/", verify, async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid url' });
     }
 
+    let session = await mongoose.startSession();
+    session.startTransaction();
 
     const link = new Link({
       url: url,
@@ -31,30 +34,35 @@ router.post("/", verify, async (req, res) => {
     });
 
     link.author = req.user._id;
-    const savedlink = await link.save();
+    const savedlink = await link.save({ session });
 
     const user = await User.findById({ _id: link.author });
     user.links.push(savedlink._id);
-    const saveduser = await user.save();
+
+    const saveduser = await user.save({ session });
+
+    await session.commitTransaction();
+
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
-    res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
+    return res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
   } catch (err) {
     console.log(err)
-    res.status(500).json({ success: false, message: 'Internal server error ' });
+    await session.abortTransaction();
+    return res.status(500).json({ success: false, message: 'Internal server error ' });
+  } finally {
+    session.endSession();
   }
 });
 
 // retrieve links
 router.get("/", verify, async (req, res) => {
   try {
+    console.time('get_links');
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
-    if (userdata.links.length < 1) {
-      console.log('no url')
-      return res.status(200).json({ success: true, message: 'Please add url', data: userdata.links });
-    }
-    res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: userdata.links });
+    console.timeEnd('get_links');
+    return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: userdata.links });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
@@ -62,7 +70,6 @@ router.get("/", verify, async (req, res) => {
 router.put("/:linkid", verify, async (req, res) => {
   if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
   if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
-  // if (!req.body.description) return res.status(400).json({ success: false, message: 'description required!!!' });
   try {
     const doc = await Link.find({
       _id: req.params.linkid,
@@ -75,11 +82,11 @@ router.put("/:linkid", verify, async (req, res) => {
         doc[0].title = req.body.title;
 
         const data = await doc[0].save();
-        res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
+        return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
       }
     }
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Internal server error ' });
+    return res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });
 
@@ -93,18 +100,18 @@ router.delete("/:linkid", verify, async (req, res) => {
     });
 
     if (child[0] == undefined) {
-      res.status(404).json({ success: false, message: 'Record not found' });
+      return res.status(404).json({ success: false, message: 'Record not found' });
     } else {
       if (child[0].author._id.toString() === req.user._id) {
         child[0].remove();
         const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
-        res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });
+        return res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });
       } else {
-        res.status(401).json({ success: false, message: 'Not authorised to delete' });
+        return res.status(401).json({ success: false, message: 'Not authorised to delete' });
       }
     }
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Internal server error ' });
+    return res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });
 module.exports = router;

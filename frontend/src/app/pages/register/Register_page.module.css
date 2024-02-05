@@ -43,6 +43,10 @@
     border: 2px solid green;
 }
 
+.register_button:hover {
+    background-color: green;
+}
+
 .already_a_user_title {
     cursor: pointer;
     text-decoration-line: none;
@@ -51,7 +55,7 @@
 }
 
 .already_a_user_title:hover {
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid green;
 }
 
 .forgotpasswordoverlay {

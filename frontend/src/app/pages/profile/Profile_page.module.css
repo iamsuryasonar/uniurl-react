@@ -51,14 +51,11 @@
     border-radius: 50%;
 }
 
-.img-upload:before {
-    content: "+";
-    font-size: 90px;
+.image_overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
     color: white;
     width: 200px;
     height: 200px;
@@ -66,17 +63,23 @@
     opacity: 0;
     transition: .5s ease;
     background-color: black;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.img-upload:hover:before {
+.image_overlay p {
+    font-size: 100px;
+    color: white;
+}
+
+.image_overlay:hover {
     opacity: 0.5;
 }
 
 .img {
     width: auto;
     height: 100%;
-
 }
 
 .label {

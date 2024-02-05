@@ -16,10 +16,10 @@ router.get("/profile-info", verify, async (req, res) => {
     try {
         let userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-        res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+       return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Internal server error ' });
+       return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 
@@ -52,10 +52,10 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         await user.save();
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
-        res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return  res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Internal server error ' });
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 })
 
@@ -70,9 +70,9 @@ router.put("/status_and_bio", verify, async (req, res) => {
         await user.save();
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-        res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Internal server error ' });
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 
@@ -83,9 +83,9 @@ router.get("/keyword/:keyword", async (req, res) => {
             name: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
         }).select('-password').limit(5);
 
-        res.status(200).json({ success: true, message: 'Username retrieved successfully', data: similarUsers });
+        return res.status(200).json({ success: true, message: 'Username retrieved successfully', data: similarUsers });
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Internal server error ' });
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
 

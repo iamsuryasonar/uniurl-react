@@ -31,7 +31,7 @@ export const get_my_urls = createAsyncThunk(
 );
 
 export const create_my_urls = createAsyncThunk(
-    "url/createurl",
+    "url/create_url",
     async (url, thunkAPI) => {
         try {
             thunkAPI.dispatch(setLoading(true));

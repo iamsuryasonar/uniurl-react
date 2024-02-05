@@ -52,8 +52,8 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
             case '/user/myurls':
                 setActiveMenu('/user/myurls');
                 break;
-            case '/user/createurl':
-                setActiveMenu('/user/createurl');
+            case '/user/create_url':
+                setActiveMenu('/user/create_url');
                 break;
             case '/user/profile':
                 setActiveMenu('/user/profile');
@@ -110,7 +110,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                             <div className={s.menuitems_expanded}  >
                                 <Link to="/user/myurls" className={`${s.button} ${activeMenu === '/user/myurls' ? s.active : ''}`} >My urls</Link>
-                                <Link to="/user/createurl" className={`${s.button} ${activeMenu === '/user/createurl' ? s.active : ''}`} >Create url</Link>
+                                <Link to="/user/create_url" className={`${s.button} ${activeMenu === '/user/create_url' ? s.active : ''}`} >Create url</Link>
                                 <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} >Profile</Link>
                                 <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
                             </div>
@@ -119,7 +119,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                     {menu &&
                         <div className={s.menuitems_collapse}>
                             <Link to="/user/myurls" className={`${s.button} ${activeMenu === '/user/myurls' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                            <Link to="/user/createurl" className={`${s.button} ${activeMenu === '/user/createurl' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
+                            <Link to="/user/create_url" className={`${s.button} ${activeMenu === '/user/create_url' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
                             <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
                             <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
                         </div>

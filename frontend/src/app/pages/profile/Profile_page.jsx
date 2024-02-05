@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import s from './Profile_page.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { upload_profile_picture, get_profile_info, update_bio_or_status } from './../../store/slices/profileSlice'
-import { useLocation } from 'react-router-dom'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
@@ -12,7 +11,6 @@ import avatar from '../../assets/avatar.jpg';
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
-    const location = useLocation();
     const profileInfo = useSelector(state => state.profile.profileInfo)
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [name, setName] = useState('');
@@ -25,8 +23,6 @@ const ProfilePage = () => {
             dispatch(get_profile_info())
         }
     }, []);
-
-
 
     useEffect(() => {
         if (profileInfo?.picture) {
@@ -78,7 +74,7 @@ const ProfilePage = () => {
 
     const copyToClipboard = async () => {
         try {
-            const originname = location.origin;
+            const originname = window.location.origin;
             await navigator.clipboard.writeText(originname + '/' + name);
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
@@ -97,7 +93,8 @@ const ProfilePage = () => {
         <div className={s.wrapper}>
             <div className={s.card}>
                 <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
-                    <div className={`${s['img-wrap']} ${s['img-upload']}`}>
+                    <div className={`${s['img-wrap']}`}>
+                        <div className={s.image_overlay}><p>+</p></div>
                         <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />
                     </div>
                     <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />

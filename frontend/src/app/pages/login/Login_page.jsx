@@ -36,15 +36,26 @@ function LogInPage() {
 
     const logInHandler = (e) => {
         e.preventDefault();
-        setLoading(true);
+        let flag = '';
+        if (input.email.length < 7) {
+            flag = 'Email';
+        }
+        if (input.password.length < 7) {
+            flag = 'Password';
+        }
+        if (flag !== '') {
+            dispatch(setMessage(flag + ' must be 6 characters long!'))
+            setTimeout(() => {
+                dispatch(clearMessage());
+            }, 2000)
+            return;
+        }
+
         dispatch(login(input))
             .unwrap()
             .then(() => {
                 navigate("/user/myurls");
             })
-            .catch(() => {
-                setLoading(false);
-            });
     }
 
     const send_email_handler = (e) => {
@@ -74,12 +85,11 @@ function LogInPage() {
                         type="password"
                         name="password"
                         required
-                        // autoComplete="current-password"
                         onChange={onChangeHandler}
                     />
                     <div className={s.loginandforgotpassword}>
                         {loading ? <Button className={s.log_in_button} label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className={s.log_in_button} onClick={logInHandler} label='Log In' />}
-                        <a className={s.reset_title} onClick={forgotpassword_handler}>Reset password?</a>
+                        <a className={s.reset_title_anchor} onClick={forgotpassword_handler}>Reset password?</a>
                     </div>
                 </div>
                 {forgotpassword && (
@@ -95,7 +105,7 @@ function LogInPage() {
                                 className={`${s.textsize} ${s.inputField}`}
                             />
                             <div className={s.overlaybuttons}>
-                                <Button onClick={forgotpassword_handler} label='Cancel' />
+                                <Button className={s.cancel_button} onClick={forgotpassword_handler} label='Cancel' />
                                 <Button className={s.send_email_button} label='Send Email' onClick={send_email_handler} />
                             </div>
                         </div >
