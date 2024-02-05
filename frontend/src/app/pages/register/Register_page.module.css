@@ -1,32 +1,24 @@
 .wrapper {
     width: 100%;
-    /* margin: auto; */
-    min-height: 100vh;
+    min-height: 100vmin;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin-top: calc(20% + 0px);
 }
 
 .container {
-    width: 85%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .loginandforgotpassword {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.list_items {
-    margin: 2%;
-    width: 100%;
-    font-weight: 500;
-    font-size: 18px;
-    text-decoration: none;
 }
 
 .inputField {
@@ -50,19 +42,6 @@
     border: 1px solid transparent;
     box-shadow: 0px 0px 1px 1px yellow;
 }
-
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70%;
-    align-self: center;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 5px 5px 10px #357e79,
-        -5px -5px 10px #5de0d7;
-}
-
 
 link {
     cursor: pointer;
@@ -112,20 +91,6 @@ link:hover {
 }
 
 @media only screen and (min-width: 1200px) {
-    .wrapper {
-        width: 100%;
-        padding: 10px;
-        margin: auto;
-    }
-
-    .form {
-        width: 60%;
-    }
-
-    .list_item {
-        margin: 10px;
-        width: 100%;
-    }
 
     .textsize {
         font-size: 18px;
@@ -133,19 +98,6 @@ link:hover {
 }
 
 @media only screen and (max-width: 700px) {
-    .overlaycontainer {
-        width: 85%;
-    }
-
-    .form {
-        width: 100%;
-    }
-
-    .list_item {
-        margin: 10px;
-        width: 100%;
-    }
-
     .textsize {
         font-size: 16px;
     }

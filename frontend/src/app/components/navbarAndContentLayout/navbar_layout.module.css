@@ -1,17 +1,6 @@
 .main_wrapper {
-    min-height: 90vh;
+    min-height: 100vmin;
+    max-width: 600px;
     margin: auto;
     padding: 20px;
-}
-
-@media (max-width: 600px) {
-    .main_wrapper {
-        width: 100%;
-    }
-}
-
-@media (min-width: 1000px) {
-    .main_wrapper {
-        width: 1000px;
-    }
 }

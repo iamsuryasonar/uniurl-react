@@ -1,55 +1,23 @@
 .wrapper {
+    position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100vmin;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.overlaycontainer {
-    position: relative;
+    margin-top: calc(20% + 0px);
 }
 
 .container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .loginandforgotpassword {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.overlaycontainer {
-    width: 85%;
-}
-
-.form {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-self: center;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 5px 5px 10px #357e79,
-        -5px -5px 10px #5de0d7;
-}
-
-.list_items {
-    width: 100%;
-    margin: 10px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    text-decoration: none;
-}
-
-.list_items {
-    list-style: none;
 }
 
 .inputField {
@@ -88,15 +56,24 @@ a:hover {
     background-color: #49afa8;
     position: absolute;
     top: 0;
-    right: 0;
+    left: -30px;
     bottom: 0;
-    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    z-index: 2;
+}
+
+.list_items {
     width: 100%;
-    align-self: center;
-    z-index: 999;
+    padding: 20px;
+    margin-top: calc(20% + 0px);
+}
+
+.reset_title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .overlaybuttons {
@@ -112,37 +89,12 @@ a:hover {
 
 @media only screen and (min-width: 1200px) {
 
-    .form {
-        width: 60%;
-    }
-
-    .list_items {
-        margin: 10px;
-        width: 100%;
-    }
-
     .textsize {
         font-size: 18px;
     }
 }
 
 @media only screen and (max-width: 700px) {
-    .wrapper {
-        width: 100%;
-    }
-
-    .overlaycontainer {
-        width: 85%;
-    }
-
-    .form {
-        width: 100%;
-    }
-
-    .list_items {
-        margin: 10px;
-        width: 100%;
-    }
 
     .textsize {
         font-size: 16px;

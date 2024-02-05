@@ -60,5 +60,18 @@ app.use('/api/user', authRoute)
 app.use('/api/url', linksRoute)
 app.use('/api/public_urls', publicLinksRoute)
 app.use('/api/profile', profileRoute)
-// listens to the port
-app.listen(3001, console.log("server running on port 3001"))
+
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+app.listen(process.env.PORT, function () {
+    console.log("Started application on port %d", process.env.PORT);
+    // this setInterval makes sure that the server don't spin down on idle.
+    // reference - https://docs.render.com/free#spinning-down-on-idle
+    setInterval(() => {
+        https.get('https://limo-backend-e2jw.onrender.com/', (res) => {
+            console.log(res.statusCode)
+        })
+    }, 14 * 60 * 1000)
+});

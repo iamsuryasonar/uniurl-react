@@ -39,36 +39,25 @@ function CreateUrl() {
 
     return (
         <div className={s.wrapper} >
-            <div className={s.container}>
-                <ul>
-                    <li className={s.list_items}>
-                        <input
-                            className={`${s.textsize} ${s.inputField}`}
-                            placeholder="Title"
-                            type="title"
-                            name="title"
-                            value={inputValue.title}
-                            required
-                            onChange={onChangeHandler}
-                        />
-                    </li>
-                    <li className={s.list_items}>
-                        <input
-                            className={`${s.textsize} ${s.inputField}`}
-                            placeholder="Url"
-                            type="url"
-                            name="url"
-                            value={inputValue.url}
-                            required
-                            onChange={onChangeHandler}
-                        />
-                    </li>
-                    {/* {message && <Message label={message} />} */}
-                    <li className={s.list_items}>
-                        <Button onClick={createUrlHandler} label='Create' />
-                    </li>
-                </ul>
-            </div >
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Title"
+                        type="title"
+                        name="title"
+                        value={inputValue.title}
+                        required
+                        onChange={onChangeHandler}
+                    />
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Url"
+                        type="url"
+                        name="url"
+                        value={inputValue.url}
+                        required
+                        onChange={onChangeHandler}
+                    />
+                    <Button className={s.create_url_button } onClick={createUrlHandler} label='Create' />
         </div >
     )
 }

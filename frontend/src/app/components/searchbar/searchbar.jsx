@@ -59,6 +59,9 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const onSearchHandler = () => {
         if (value.length < 5) {
             dispatch(setMessage('Username must be atleast 5 characters long'));
+            setTimeout(() => {
+                dispatch(setMessage(''));
+            }, 2000);
             return;
         }
         if (value) {

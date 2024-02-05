@@ -43,8 +43,6 @@ function RegisterPage() {
         <>
             <div className={s.wrapper}>
                 <div className={s.container}>
-                    <form className={s.form}>
-                        <div className={s.list_items}>
                             <input
                                 className={`${s.textsize} ${s.inputField}`}
                                 placeholder="Username"
@@ -53,19 +51,14 @@ function RegisterPage() {
                                 required
                                 onChange={onChangeHandler}
                             />
-                        </div>
-                        <div className={s.list_items}>
                             <input
                                 className={`${s.textsize} ${s.inputField}`}
                                 placeholder="Email"
                                 type="email"
                                 name="email"
-                                // autoComplete="off"
                                 required
                                 onChange={onChangeHandler}
                             />
-                        </div>
-                        <div className={s.list_items}>
                             <input
                                 className={`${s.textsize} ${s.inputField}`}
                                 placeholder="Password"
@@ -75,15 +68,10 @@ function RegisterPage() {
                                 required
                                 onChange={onChangeHandler}
                             />
-                        </div>
-                        <div className={s.list_items}>
                             <div className={s.loginandalreadyuser}>
                                 <Button onClick={registerHandler} label='Register' />
                                 <Link to="/user/login">Already have a user?</Link>
                             </div>
-                        </div>
-                        {/* {message && <Message label={message} />} */}
-                    </form >
                 </div >
             </div >
         </>

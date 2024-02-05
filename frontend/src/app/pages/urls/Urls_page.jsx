@@ -43,17 +43,15 @@ function UrlsPage() {
             {urlsinfo ?
                 <div className={s.wrapper}>
                     <div className={s.profile_box}>
-                        <div className={s.container}>
-                            <div className={s.outer_ring}>
-                                <div className={s.img_wrap}>
-                                    <img src={urlsinfo?.picture ? urlsinfo?.picture : avatar} className={s.img} />
-                                </div>
+                        <div className={s.outer_ring}>
+                            <div className={s.img_wrap}>
+                                <img src={urlsinfo?.picture ? urlsinfo?.picture : avatar} className={s.img} />
                             </div>
-                            <div className={s.name_bio_status}>
-                                <p className={s.name}>{urlsinfo?.name}</p>
-                                {/* <p className={s.status}>{urlsinfo?.status}</p> */}
-                                <p className={s.bio}>{urlsinfo?.bio}</p>
-                            </div>
+                        </div>
+                        <div className={s.name_bio_status}>
+                            <p className={s.name}>{urlsinfo?.name}</p>
+                            {/* <p className={s.status}>{urlsinfo?.status}</p> */}
+                            <p className={s.bio}>{urlsinfo?.bio}</p>
                         </div>
                     </div>
                     <div className={s.url_box}>

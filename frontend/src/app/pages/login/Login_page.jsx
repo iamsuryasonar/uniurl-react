@@ -60,59 +60,49 @@ function LogInPage() {
     return (
         <>
             <div className={s.wrapper} >
-                <div className={s.overlaycontainer}>
-                    <div className={s.container} >
-                        <form className={s.form}>
-                            <div className={s.list_items}>
-                                <input
-                                    className={`${s.textsize} ${s.inputField}`}
-                                    placeholder="Email"
-                                    type="email"
-                                    name="email"
-                                    required
-                                    onChange={onChangeHandler}
-                                />
+                <div className={s.container} >
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Email"
+                        type="email"
+                        name="email"
+                        required
+                        onChange={onChangeHandler}
+                    />
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Password"
+                        type="password"
+                        name="password"
+                        required
+                        // autoComplete="current-password"
+                        onChange={onChangeHandler}
+                    />
+                    <div className={s.loginandforgotpassword}>
+                        {loading ? <Button label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button onClick={logInHandler} label='Log In' />}
+                        <a onClick={forgotpassword_handler}>Reset password?</a>
+                    </div>
+                </div>
+                {forgotpassword && (
+                    <form className={s.forgotpassword_overlay}>
+                        <div className={s.list_items}>
+                            <p className={ s.reset_title}>Reset password</p>
+                            <input
+                                placeholder="Email"
+                                type="email"
+                                name="Email"
+                                autocomplete="off"
+                                required
+                                className={`${s.textsize} ${s.inputField}`}
+                            />
+                            <div className={s.overlaybuttons}>
+                                <Button onClick={forgotpassword_handler} label='Cancel' />
+                                <Button label='Send Email' onClick={send_email_handler} />
                             </div>
-                            <div className={s.list_items}>
-                                <input
-                                    className={`${s.textsize} ${s.inputField}`}
-                                    placeholder="Password"
-                                    type="password"
-                                    name="password"
-                                    required
-                                    // autoComplete="current-password"
-                                    onChange={onChangeHandler}
-                                />
-                            </div>
-                            <div className={s.list_items}>
-                                <div className={s.loginandforgotpassword}>
-                                    {loading ? <Button label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button onClick={logInHandler} label='Log In' />}
-                                    <a onClick={forgotpassword_handler}>Reset password?</a>
-                                </div>
-                            </div>
-                            {/* {message && <Message label={message} />} */}
-                        </form>
-                    </div >
-                    {forgotpassword && (
-                        <form className={s.forgotpassword_overlay}>
-                            <div className={s.list_items}>
-                                <input
-                                    placeholder="Email"
-                                    type="email"
-                                    name="Email"
-                                    autocomplete="off"
-                                    required
-                                    className={`${s.textsize} ${s.inputField}`}
-                                />
-                                <div className={s.overlaybuttons}>
-                                    <Button onClick={forgotpassword_handler} label='Cancel' />
-                                    <Button label='Send Email' onClick={send_email_handler} />
-                                </div>
-                            </div >
-                            {send_email && <Message label={'Not implemented'} />}
-                        </form >
-                    )}
-                </div >
+                        </div >
+                        {send_email && <Message label={'Not implemented'} />}
+                    </form >
+                )}
             </div >
         </>
     );

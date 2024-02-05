@@ -2,11 +2,11 @@
     min-height: 90vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: calc(20% + 0px);
 }
 
 .card {
-    width: 310px;
+    height: 100%;
     padding: 60px;
     margin-top: 40px;
     border-radius: 25px;
@@ -16,6 +16,9 @@
     background: #49afa8;
     box-shadow: 5px 5px 10px #357e79,
         -5px -5px 10px #5de0d7;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes open {
@@ -28,15 +31,8 @@
     }
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .field {
-    margin: 5px;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -201,5 +197,3 @@
 .lds-ripple div:nth-child(2) {
     animation-delay: -0.5s;
 }
-
-@media only screen and (max-width: 700px) {}

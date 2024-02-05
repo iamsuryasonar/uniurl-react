@@ -2,13 +2,16 @@
     display: flex;
     flex-direction: column;
     margin: 40px auto;
+    margin-top: 10%;
+    min-height: 100svh;
 }
 
 .profile_box {
     height: 340px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    gap: 20px;
 }
 
 .name_bio_status {
@@ -37,12 +40,11 @@
 
 .url_card {
     cursor: pointer;
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding: 20px 30px;
-    width: 80%;
+    width: 100%;
     background-color: blueviolet;
     border-radius: 13px;
     background: #49afa8;
@@ -58,14 +60,6 @@
 
 
 /* --------------------profile-------------------- */
-
-.container {
-    display: flex;
-    gap: 20px;
-    /* flex-direction: row; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
-}
 
 .outer_ring {
     border-radius: 50%;
@@ -89,7 +83,6 @@
     height: 100%;
 }
 
-
 .name {
     font-size: 22px;
 }
@@ -104,22 +97,11 @@
 
 
 /* ---------------------------------------- */
-@media only screen and (min-width: 1000px) {
-    .url_card {
-        width: 80%;
-    }
-}
-
-/* ---------------------------------------- */
 @media only screen and (max-width: 700px) {
     .wrapper {
         display: flex;
         flex-direction: column;
         margin: 0px 0px;
-    }
-
-    .url_card {
-        width: 100%;
     }
 
     .img_wrap {

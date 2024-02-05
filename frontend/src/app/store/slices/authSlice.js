@@ -26,7 +26,7 @@ export const register = createAsyncThunk(
         } finally {
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
-            }, 3000);
+            }, 2000);
             thunkAPI.dispatch(setLoading(false));
         }
     }
@@ -51,7 +51,7 @@ export const login = createAsyncThunk(
         } finally {
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
-            }, 3000);
+            }, 2000);
             thunkAPI.dispatch(setLoading(false));
         }
     }

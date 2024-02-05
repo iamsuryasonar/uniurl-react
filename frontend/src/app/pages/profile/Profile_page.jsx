@@ -97,47 +97,45 @@ const ProfilePage = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.card}>
-                <div className={s.container}>
-                    <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
-                        <div className={`${s['img-wrap']} ${s['img-upload']}`}>
+                <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
+                    <div className={`${s['img-wrap']} ${s['img-upload']}`}>
 
-                            <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />
-                        </div>
-                        <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />
-                    </label>
-                    <div className={s.field} onClick={copyToClipboard}>
-                        <label htmlFor="name">username:</label>
-                        <div className={s.input_copy}>
-                            <input
-                                id={s.name}
-                                type="text"
-                                name="name"
-                                value={name}
-                                maxLength="30"
-                                placeholder="Alexa"
-                                required
-                                className={s.inputText}
-                                readOnly
-                            />
-                            <FontAwesomeIcon icon={faCopy} className={s.copyicon} />
-                        </div>
+                        <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />
                     </div>
-                    {message ? <Message label={message} /> : null}
-                    <div className={s.field}>
-                        <label htmlFor="bio">bio:</label>
+                    <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />
+                </label>
+                <div className={s.field} onClick={copyToClipboard}>
+                    <label htmlFor="name">username:</label>
+                    <div className={s.input_copy}>
                         <input
-                            id={s.bio}
+                            id={s.name}
                             type="text"
-                            name="bio"
-                            onChange={onChangeHandler}
-                            onBlur={onFocusRemoved}
-                            maxLength="64"
-                            value={input.bio}
-                            placeholder="Write something!"
+                            name="name"
+                            value={name}
+                            maxLength="30"
+                            placeholder="Alexa"
                             required
                             className={s.inputText}
+                            readOnly
                         />
+                        <FontAwesomeIcon icon={faCopy} className={s.copyicon} />
                     </div>
+                </div>
+                {message ? <Message label={message} /> : null}
+                <div className={s.field}>
+                    <label htmlFor="bio">bio:</label>
+                    <input
+                        id={s.bio}
+                        type="text"
+                        name="bio"
+                        onChange={onChangeHandler}
+                        onBlur={onFocusRemoved}
+                        maxLength="64"
+                        value={input.bio}
+                        placeholder="Write something!"
+                        required
+                        className={s.inputText}
+                    />
                 </div>
             </div>
         </div >
