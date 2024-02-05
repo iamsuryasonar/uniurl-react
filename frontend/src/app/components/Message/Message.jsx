@@ -1,8 +1,8 @@
 import s from './Message.module.css'
-function message({ label }) {
+function message({ message }) {
     return (
-        <div className={s.constainer}>
-            <p>{label}</p>
+        <div className={s.container}>
+            {message}
         </div>
     )
 }

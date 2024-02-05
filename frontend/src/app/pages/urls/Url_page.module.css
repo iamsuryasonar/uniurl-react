@@ -2,13 +2,14 @@
     display: flex;
     flex-direction: column;
     margin: 40px auto;
-    margin-top: 10%;
-    min-height: 100svh;
+    margin-top: 20%;
+    margin-bottom: 80px;
 }
 
 .profile_box {
     height: 340px;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
     gap: 20px;
@@ -30,6 +31,12 @@
 
 .url_card {
     width: 100%;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.url_card:hover {
+    color: black;
 }
 
 /* ---------------------------- */
@@ -45,17 +52,12 @@
     justify-content: space-around;
     padding: 20px 30px;
     width: 100%;
-    background-color: blueviolet;
     border-radius: 13px;
-    background: #49afa8;
-    box-shadow: 5px 5px 10px #357e79,
-        -5px -5px 10px #5de0d7;
-
+    background: black;
 }
 
 .url_card:hover {
-    box-shadow: inset 5px 5px 10px #357e79,
-        inset -5px -5px 10px #5de0d7;
+    background-color: rgba(0, 0, 0, 0.103);
 }
 
 
@@ -66,8 +68,6 @@
     display: inline-block;
     position: relative;
     padding: 6px;
-    background: linear-gradient(270deg, #3fa1a9, #79f1a4);
-    margin-bottom: 25px;
 }
 
 .img_wrap {
@@ -84,15 +84,11 @@
 }
 
 .name {
-    font-size: 22px;
-}
-
-.status {
-    font-size: 18px;
+    font-size: 1.8rem;
 }
 
 .bio {
-    font-size: 18px;
+    font-size: 1.2rem;
 }
 
 
@@ -102,6 +98,15 @@
         display: flex;
         flex-direction: column;
         margin: 0px 0px;
+    }
+
+    .profile_box {
+        margin: 20px 0px;
+        height: auto;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .img_wrap {

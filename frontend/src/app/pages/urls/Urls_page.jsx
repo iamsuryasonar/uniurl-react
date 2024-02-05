@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice';
 import { get_urls } from '../../store/slices/urlSlice';
 import { useParams } from 'react-router-dom';
-import Message from '../../components/Message/Message'
 import avatar from '../../assets/avatar.jpg'
 
 function UrlCard({ urlData, onClick }) {
@@ -30,7 +29,6 @@ function UrlsPage() {
         dispatch(get_urls(username));
     }, []);
 
-    const { message } = useSelector((state) => state.message);
     const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
 
     const onCardClicked = (url) => {

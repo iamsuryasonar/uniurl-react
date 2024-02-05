@@ -1,11 +1,10 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import s from './My_urls_page.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice';
 import { get_my_urls, delete_my_url } from '../../store/slices/myUrlSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import Message from '../../components/Message/Message'
 
 function MyUrlCard({ urlData, onClick, onDelete }) {
     const { _id, title, description, url } = urlData;
@@ -37,7 +36,6 @@ function MyUrlPage() {
     }, []);
 
 
-    const { message } = useSelector((state) => state.message);
 
     const onDeleteHandler = (e, id) => {
         e.stopPropagation();

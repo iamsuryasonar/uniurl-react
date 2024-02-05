@@ -5,14 +5,13 @@ import { useEffect, useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
-import Message from '../../components/Message/Message'
+
 
 function RegisterPage() {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState({});
     const [successful, setSuccessful] = useState(false);
-    const { message } = useSelector((state) => state.message);
 
 
     useEffect(() => {
@@ -43,35 +42,35 @@ function RegisterPage() {
         <>
             <div className={s.wrapper}>
                 <div className={s.container}>
-                            <input
-                                className={`${s.textsize} ${s.inputField}`}
-                                placeholder="Username"
-                                type="text"
-                                name="name"
-                                required
-                                onChange={onChangeHandler}
-                            />
-                            <input
-                                className={`${s.textsize} ${s.inputField}`}
-                                placeholder="Email"
-                                type="email"
-                                name="email"
-                                required
-                                onChange={onChangeHandler}
-                            />
-                            <input
-                                className={`${s.textsize} ${s.inputField}`}
-                                placeholder="Password"
-                                type="password"
-                                name="password"
-                                autoComplete="new-password"
-                                required
-                                onChange={onChangeHandler}
-                            />
-                            <div className={s.loginandalreadyuser}>
-                                <Button onClick={registerHandler} label='Register' />
-                                <Link to="/user/login">Already have a user?</Link>
-                            </div>
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Username"
+                        type="text"
+                        name="name"
+                        required
+                        onChange={onChangeHandler}
+                    />
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Email"
+                        type="email"
+                        name="email"
+                        required
+                        onChange={onChangeHandler}
+                    />
+                    <input
+                        className={`${s.textsize} ${s.inputField}`}
+                        placeholder="Password"
+                        type="password"
+                        name="password"
+                        autoComplete="new-password"
+                        required
+                        onChange={onChangeHandler}
+                    />
+                    <div className={s.loginandalreadyuser}>
+                        <Button onClick={registerHandler} label='Register' />
+                        <Link className={s.already_a_user_title} to="/user/login">Already have a user?</Link>
+                    </div>
                 </div >
             </div >
         </>

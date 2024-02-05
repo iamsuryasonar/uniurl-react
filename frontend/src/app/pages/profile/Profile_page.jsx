@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import s from './Profile_page.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { upload_profile_picture, get_profile_info, update_bio_or_status } from './../../store/slices/profileSlice'
-import Message from '../../components/Message/Message'
+import { useLocation } from 'react-router-dom'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
@@ -12,8 +12,8 @@ import avatar from '../../assets/avatar.jpg';
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
+    const location = useLocation();
     const profileInfo = useSelector(state => state.profile.profileInfo)
-    const { message } = useSelector((state) => state.message);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [name, setName] = useState('');
     const [input, setInput] = useState({
@@ -78,14 +78,13 @@ const ProfilePage = () => {
 
     const copyToClipboard = async () => {
         try {
-            const originname = window.location.origin;
+            const originname = location.origin;
             await navigator.clipboard.writeText(originname + '/' + name);
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
                 dispatch(clearMessage());
             }, 2000)
         } catch (err) {
-            console.error('Copy failed:', err);
             dispatch(setMessage('could not copy To clipboard'))
             setTimeout(() => {
                 dispatch(clearMessage());
@@ -99,13 +98,12 @@ const ProfilePage = () => {
             <div className={s.card}>
                 <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
                     <div className={`${s['img-wrap']} ${s['img-upload']}`}>
-
                         <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />
                     </div>
                     <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />
                 </label>
                 <div className={s.field} onClick={copyToClipboard}>
-                    <label htmlFor="name">username:</label>
+                    <label className={s.status_bio_label} htmlFor="name">Username:</label>
                     <div className={s.input_copy}>
                         <input
                             id={s.name}
@@ -121,9 +119,9 @@ const ProfilePage = () => {
                         <FontAwesomeIcon icon={faCopy} className={s.copyicon} />
                     </div>
                 </div>
-                {message ? <Message label={message} /> : null}
+
                 <div className={s.field}>
-                    <label htmlFor="bio">bio:</label>
+                    <label className={s.status_bio_label} htmlFor="bio">Bio:</label>
                     <input
                         id={s.bio}
                         type="text"

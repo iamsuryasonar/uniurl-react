@@ -1,24 +1,22 @@
 .wrapper {
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    margin-top: calc(20% + 0px);
+    width: 90%;
+    max-width: 350px;
+    margin: auto;
+    margin-top: 20%;
+    margin-bottom: 80px;
 }
 
 .card {
     height: 100%;
     padding: 60px;
-    margin-top: 40px;
     border-radius: 25px;
     display: flex;
     justify-content: center;
-    box-shadow: 15px 10px 25px 0px #3fa1a9;
-    background: #49afa8;
-    box-shadow: 5px 5px 10px #357e79,
-        -5px -5px 10px #5de0d7;
+    background: rgba(0, 0, 0, 0.062);
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 @keyframes open {
@@ -43,8 +41,6 @@
     position: relative;
     padding: 6px;
     cursor: pointer;
-    background: linear-gradient(270deg, #3fa1a9, #79f1a4);
-    margin-bottom: 25px;
 }
 
 .img-wrap {
@@ -59,33 +55,34 @@
     content: "+";
     font-size: 90px;
     position: absolute;
-    padding-top: 80px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #63d3a6;
+    color: white;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     opacity: 0;
     transition: .5s ease;
-    background-color: #fff;
+    background-color: black;
+
 }
 
 .img-upload:hover:before {
-    opacity: 0.8;
+    opacity: 0.5;
 }
 
 .img {
     width: auto;
     height: 100%;
+
 }
 
 .label {
     text-transform: uppercase;
     font-weight: 700;
-    color: #676767;
+    color: black;
 }
 
 .inputFile {
@@ -93,28 +90,30 @@
 }
 
 .inputText {
+    width: 100%;
     border-radius: 15px;
-    border: 1px solid hsl(64, 100%, 50%);
+    border: 1px solid black;
     padding: 5px 5px 5px 10px;
     font-size: 18px;
     transition: 0.2s;
     background-color: transparent;
+    color: black;
 }
 
 .inputText:focus {
     outline: none;
-    border: 1px solid #64d488;
+    border: 1px solid green;
 }
 
 .inputText::placeholder {
-    color: #bebebe;
+    color: black;
 }
 
 .name {
     text-align: center;
     text-transform: uppercase;
     font-weight: 700;
-    color: #676767;
+    color: black;
     max-width: 220px;
     overflow-wrap: break-word;
 }
@@ -129,6 +128,11 @@
     right: 5px;
     transform: translateY(-50%);
     cursor: pointer;
+    color: black;
+}
+
+.copyicon:hover {
+    color: green;
 }
 
 .status,
@@ -138,62 +142,18 @@
     overflow-wrap: break-word;
 }
 
-.button {
-    position: relative;
-    color: #054231;
-    letter-spacing: 1px;
-    margin: 20px;
-    font-size: 18px;
-    padding: 10px;
-    text-align: center;
-    transition: 0.5s;
-    border-radius: 10px;
-    cursor: pointer;
-    border-radius: 25px;
-    border: none;
-    background: #64d488;
+.bio::placeholder,
+.status::placeholder {
+    color: black;
 }
 
-.save {
-    font-weight: 600;
-    left: -20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    width: 20px;
-    box-shadow: 20px 0px 40px 0px #63d3a6;
+
+.status_bio_label {
+    color: black;
 }
 
-.edit {
-    color: #fff;
-    width: 180px;
-}
-
-.button:hover {
-    left: 0;
-    color: #fff;
-    width: 180px;
-    box-shadow: 0px 0px 20px 0px #63d3a6;
-}
-
-.button:focus {
-    outline: none;
-}
-
-.lds-ripple {
-    display: inline-block;
-    position: relative;
-    width: 64px;
-    height: 64px;
-}
-
-.lds-ripple div {
-    position: absolute;
-    border: 4px solid #fff;
-    opacity: 1;
-    border-radius: 50%;
-    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-
-.lds-ripple div:nth-child(2) {
-    animation-delay: -0.5s;
+@media only screen and (max-width:600px) {
+    .card {
+        padding: 40px;
+    }
 }

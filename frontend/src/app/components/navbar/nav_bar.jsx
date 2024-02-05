@@ -85,31 +85,36 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     }
 
     return <>
+
         {
             token ?
                 //! private navbar
                 <>
-                    {loading && <div className={s.line_container}>
-                        <div className={s.moving_gradient}></div>
-                    </div>}
-                    <nav className={s.nav}>
-                        <div className={s.title_image}>
-                            <Link to="/user/profile" >
-                                <img src={imagePreviewUrl} className={s.img} />
-                            </Link>
-                            <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
+                    {
+                        loading && <div className={s.line_container}>
+                            <div className={s.moving_gradient}></div>
                         </div>
-                        <div className={s.searchbarandmenu}>
-                            <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
-                            <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
-                        </div>
-                        <div className={s.menuitems_expanded}  >
-                            <Link to="/user/myurls" className={`${s.button} ${activeMenu === '/user/myurls' ? s.active : ''}`} >My urls</Link>
-                            <Link to="/user/createurl" className={`${s.button} ${activeMenu === '/user/createurl' ? s.active : ''}`} >Create url</Link>
-                            <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} >Profile</Link>
-                            <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
-                        </div>
+                    }
 
+                    <nav className={s.nav}>
+                        <div className={s.nav_container}>
+                            <div className={s.title_image}>
+                                <Link to="/user/profile" className={s.image_anchor}>
+                                    <img src={imagePreviewUrl} className={s.img} />
+                                </Link>
+                                <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
+                            </div>
+                            <div className={s.searchbarandmenu}>
+                                <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
+                                <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
+                            </div>
+                            <div className={s.menuitems_expanded}  >
+                                <Link to="/user/myurls" className={`${s.button} ${activeMenu === '/user/myurls' ? s.active : ''}`} >My urls</Link>
+                                <Link to="/user/createurl" className={`${s.button} ${activeMenu === '/user/createurl' ? s.active : ''}`} >Create url</Link>
+                                <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} >Profile</Link>
+                                <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
+                            </div>
+                        </div>
                     </nav>
                     {menu &&
                         <div className={s.menuitems_collapse}>
@@ -131,12 +136,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         </div>
                     }
 
-                    {
-                        message &&
-                        <div className={s.notification}>
-                            <Message label={message} />
-                        </div>
-                    }
+
                 </>
                 :
                 //! public navbar
@@ -145,15 +145,17 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         <div className={s.moving_gradient}></div>
                     </div>}
                     <nav className={s.nav}>
-                        <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
+                        <div className={s.nav_container}>
+                            <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
 
-                        <div className={s.searchbarandmenu}>
-                            <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
-                            <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
-                        </div>
-                        <div className={s.menuitems_expanded}>
-                            <Link to="/user/login" className={`${s.button} ${activeMenu === '/user/login' ? s.active : ''}`}>Log In</Link>
-                            <Link to='/user/register' className={`${s.button} ${s.bold_button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`}>Get Started</Link>
+                            <div className={s.searchbarandmenu}>
+                                <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
+                                <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
+                            </div>
+                            <div className={s.menuitems_expanded}>
+                                <Link to="/user/login" className={`${s.button} ${activeMenu === '/user/login' ? s.active : ''}`}>Log In</Link>
+                                <Link to='/user/register' className={`${s.button} ${s.bold_button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`}>Get Started</Link>
+                            </div>
                         </div>
                     </nav>
                     {menu &&
@@ -173,13 +175,11 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                         </div>
                     }
-                    {
-                        message &&
-                        <div className={s.notification}>
-                            <Message label={message} />
-                        </div>
-                    }
                 </>
+        }
+        {
+            message &&
+            <Message message={message} />
         }
     </>;
 };

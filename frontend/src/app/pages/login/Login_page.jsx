@@ -7,12 +7,11 @@ import s from './Login_page.module.css'
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
 import Button from '../../components/Button/button';
-import Message from '../../components/Message/Message'
+import { setMessage } from '../../store/slices/messageSlice';
 
 function LogInPage() {
     const [forgotpassword, setforgotpassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [send_email, setSend_email] = useState(false);
 
     let forgotpassword_handler = (e) => {
         setforgotpassword(!forgotpassword);
@@ -20,7 +19,7 @@ function LogInPage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { message } = useSelector((state) => state.message);
+
 
     const [input, setInput] = useState({});
 
@@ -50,10 +49,10 @@ function LogInPage() {
 
     const send_email_handler = (e) => {
         e.preventDefault();
-        setSend_email(true);
+        dispatch(setMessage('Not implemented!!!'))
         setTimeout(() => {
-            setSend_email(false);
-        }, 3000);
+            dispatch(clearMessage());
+        }, 2000)
     }
 
 
@@ -79,14 +78,14 @@ function LogInPage() {
                         onChange={onChangeHandler}
                     />
                     <div className={s.loginandforgotpassword}>
-                        {loading ? <Button label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button onClick={logInHandler} label='Log In' />}
-                        <a onClick={forgotpassword_handler}>Reset password?</a>
+                        {loading ? <Button className={s.log_in_button} label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className={s.log_in_button} onClick={logInHandler} label='Log In' />}
+                        <a className={s.reset_title} onClick={forgotpassword_handler}>Reset password?</a>
                     </div>
                 </div>
                 {forgotpassword && (
                     <form className={s.forgotpassword_overlay}>
                         <div className={s.list_items}>
-                            <p className={ s.reset_title}>Reset password</p>
+                            <p className={s.reset_title}>Reset password</p>
                             <input
                                 placeholder="Email"
                                 type="email"
@@ -97,10 +96,9 @@ function LogInPage() {
                             />
                             <div className={s.overlaybuttons}>
                                 <Button onClick={forgotpassword_handler} label='Cancel' />
-                                <Button label='Send Email' onClick={send_email_handler} />
+                                <Button className={s.send_email_button} label='Send Email' onClick={send_email_handler} />
                             </div>
                         </div >
-                        {send_email && <Message label={'Not implemented'} />}
                     </form >
                 )}
             </div >

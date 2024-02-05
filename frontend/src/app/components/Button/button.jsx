@@ -1,9 +1,9 @@
 import s from './button.module.css'
 
-function Button({ onClick, label }) {
+function Button({ className, onClick, label }) {
     return (
         <>
-            <button onClick={onClick} className={s.custom_button}> {label}</button>
+            <button onClick={onClick} className={`${s.custom_button}  ${className}`}> {label}</button>
         </>
     )
 
