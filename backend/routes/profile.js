@@ -28,7 +28,7 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         const webpImageBuffer = await sharp(image.buffer)
             .webp([{ near_lossless: true }, { quality: 20 }])
             .toBuffer();
-
+        console.log(webpImageBuffer)
         let uploadedImageInfo;
         await uploadTos3(webpImageBuffer).then((result) => {
             uploadedImageInfo = result;
