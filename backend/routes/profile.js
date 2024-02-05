@@ -32,6 +32,9 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         let uploadedImageInfo;
         await uploadTos3(webpImageBuffer).then((result) => {
             uploadedImageInfo = result;
+        }).catch((error) => {
+            console.log('upload error ', error)
+            return res.status(500).json({ success: false, message: 'something went wrong, while uploading image' });
         })
 
         if (uploadedImageInfo) console.log('Image uploaded...')
