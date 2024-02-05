@@ -15,7 +15,6 @@ const linksRoute = require('./routes/links')
 const publicLinksRoute = require('./routes/public_links')
 const profileRoute = require('./routes/profile')
 
-
 // Mongoose options
 const mongooseOptions = {
     useNewUrlParser: true,

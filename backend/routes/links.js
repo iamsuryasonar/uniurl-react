@@ -25,7 +25,7 @@ router.post("/", verify, async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid url' });
     }
 
-    let session = await mongoose.startSession();
+    var session = await mongoose.startSession();
     session.startTransaction();
 
     const link = new Link({
@@ -57,9 +57,7 @@ router.post("/", verify, async (req, res) => {
 // retrieve links
 router.get("/", verify, async (req, res) => {
   try {
-    console.time('get_links');
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
-    console.timeEnd('get_links');
     return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: userdata.links });
   } catch (err) {
     return res.status(500).json({ success: false, message: 'Internal server error' });

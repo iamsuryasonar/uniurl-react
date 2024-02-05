@@ -42,6 +42,7 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
+    console.log('hgfghf')
     if (!req.body.email) return res.status(400).json({ success: false, message: 'email required!!!' });
     if (!req.body.password) return res.status(400).json({ success: false, message: 'password required!!!' });
 

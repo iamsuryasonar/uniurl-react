@@ -9,20 +9,17 @@ const fs = require('fs');
 
 const sharp = require('sharp');
 
-
-
 // retrieve profile info
 router.get("/profile-info", verify, async (req, res) => {
     try {
         let userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-       return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
-       return res.status(500).json({ success: false, message: 'Internal server error ' });
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
-
 
 router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 1 }]), async (req, res) => {
     const image = req?.files['file'][0];
@@ -37,22 +34,25 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
             uploadedImageInfo = result;
         })
 
+        if (uploadedImageInfo) console.log('Image uploaded...')
+
         const user = await User.findById({ _id: req.user._id })
-        if (user.picture !== '' || user.picture !== null) {
+        if (user.picture !== '' || user.picture !== null || user.picture !== undefined) {
             await deleteS3Object(user?.picture?.fileName).then((result) => {
-                console.log('deleted thumbnail', result);
+                console.log('Old image deleted...', result);
             })
         }
+
         user.picture = {
             url: uploadedImageInfo.url,
             fileName: uploadedImageInfo.fileName,
         }
 
-
-        await user.save();
+        const updatedUser = await user.save();
+        if (updatedUser) console.log('user updated...')
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
-        return  res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
 
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
@@ -62,7 +62,6 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 // add status and bio
 router.put("/status_and_bio", verify, async (req, res) => {
     try {
-
         const user = await User.findById({ _id: req.user._id })
         if (req?.body?.bio) {
             user.bio = req.body.bio;
