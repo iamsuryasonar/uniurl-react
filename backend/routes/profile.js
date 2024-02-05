@@ -28,7 +28,6 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         const webpImageBuffer = await sharp(image.buffer)
             .webp([{ near_lossless: true }, { quality: 20 }])
             .toBuffer();
-        console.log(webpImageBuffer)
         let uploadedImageInfo;
         await uploadTos3(webpImageBuffer).then((result) => {
             uploadedImageInfo = result;
@@ -37,10 +36,9 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
             return res.status(500).json({ success: false, message: 'something went wrong, while uploading image' });
         })
 
-        if (uploadedImageInfo) console.log('Image uploaded...')
-
         const user = await User.findById({ _id: req.user._id })
-        if (user.picture !== '' || user.picture !== null || user.picture !== undefined) {
+        console.log('filename', user?.picture?.fileName);
+        if (user?.picture?.fileName !== '' || user?.picture?.fileName !== null || user?.picture?.fileName !== undefined) {
             await deleteS3Object(user?.picture?.fileName).then((result) => {
                 console.log('Old image deleted...', result);
             })
@@ -52,7 +50,6 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         }
 
         const updatedUser = await user.save();
-        if (updatedUser) console.log('user updated...')
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
         return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });

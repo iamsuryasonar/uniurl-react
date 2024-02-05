@@ -19,6 +19,7 @@ const profileRoute = require('./routes/profile')
 const mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 50000,
 };
 
 // Connect to the MongoDB server
@@ -64,6 +65,8 @@ app.use('/api/profile', profileRoute)
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
+
+
 
 app.listen(process.env.PORT, function () {
     console.log("Started application on port %d", process.env.PORT);
