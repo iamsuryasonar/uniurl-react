@@ -9,7 +9,6 @@ export const upload_profile_picture = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await ProfileService.uploadProfilePicture(file);
-
             thunkAPI.dispatch(get_profile_info());
             return response?.data;
         } catch (error) {

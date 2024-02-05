@@ -11,7 +11,7 @@ import { setMessage } from '../../store/slices/messageSlice';
 
 function LogInPage() {
     const [forgotpassword, setforgotpassword] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const { loading } = useSelector((state) => state.loading);
 
     let forgotpassword_handler = (e) => {
         setforgotpassword(!forgotpassword);
@@ -35,12 +35,12 @@ function LogInPage() {
     }
 
     const logInHandler = (e) => {
-        e.preventDefault();
+        console.log('clicked')
         let flag = '';
-        if (input.email.length < 7) {
+        if (input?.email?.length < 7) {
             flag = 'Email';
         }
-        if (input.password.length < 7) {
+        if (input?.password?.length < 7) {
             flag = 'Password';
         }
         if (flag !== '') {
@@ -48,6 +48,7 @@ function LogInPage() {
             setTimeout(() => {
                 dispatch(clearMessage());
             }, 2000)
+            flag = '';
             return;
         }
 
@@ -65,7 +66,6 @@ function LogInPage() {
             dispatch(clearMessage());
         }, 2000)
     }
-
 
     return (
         <>

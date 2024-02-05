@@ -25,13 +25,13 @@ function RegisterPage() {
 
     const registerHandler = (e) => {
         let flag = '';
-        if (input.name.length < 7) {
+        if (input?.name?.length < 7) {
             flag = 'Name';
         }
-        if (input.email.length < 7) {
+        if (input?.email?.length < 7) {
             flag = 'Email';
         }
-        if (input.password.length < 7) {
+        if (input?.password?.length < 7) {
             flag = 'Password';
         }
         if (flag !== '') {

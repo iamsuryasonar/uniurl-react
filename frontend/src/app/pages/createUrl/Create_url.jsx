@@ -26,10 +26,10 @@ function CreateUrl() {
 
     const createUrlHandler = () => {
         let flag = '';
-        if (inputValue.title.length < 1) {
+        if (inputValue?.title?.length < 1) {
             flag = 'Title';
         }
-        if (inputValue.url.length < 1) {
+        if (inputValue?.url?.length < 1) {
             flag = 'URL';
         }
         if (flag !== '') {
