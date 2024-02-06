@@ -15,7 +15,7 @@ function UrlCard({ urlData, onClick }) {
             <div className={s.title}>
                 {title}
             </div>
-
+            <p>🚀</p>
         </div>
     )
 }
@@ -53,11 +53,11 @@ function UrlsPage() {
                     </div>
                     <div className={s.url_box}>
                         {
-                            urlsinfo?.links ? Object.values(urlsinfo?.links).map((item) => {
+                            urlsinfo?.links.length > 0 ? urlsinfo?.links.map((item) => {
                                 return (
                                     <UrlCard urlData={item} onClick={onCardClicked} key={item['_id']} />
                                 )
-                            }) : null
+                            }) : <p> {'Urls not yet added by ' + urlsinfo?.name} 😭</p>
                         }
                     </div>
                 </div>

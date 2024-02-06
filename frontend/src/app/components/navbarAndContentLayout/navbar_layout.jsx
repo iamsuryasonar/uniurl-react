@@ -20,8 +20,10 @@ function NavbarLayout() {
     return (
         <>
             <NavBar isInputHidden={isInputHidden} setIsInputHidden={setIsInputHidden} />
-            <div className={s.main_wrapper} onClick={onClickHandler}>
-                <Outlet />
+            <div className={s.main_wrapper} >
+                <div className={s.container} onClick={onClickHandler}>
+                    <Outlet />
+                </div>
             </div>
             <Footer />
         </>

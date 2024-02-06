@@ -29,16 +29,6 @@
     align-items: center;
 }
 
-.url_card {
-    width: 100%;
-    color: white;
-    font-size: 1.2rem;
-}
-
-.url_card:hover {
-    color: black;
-}
-
 /* ---------------------------- */
 
 .message {
@@ -46,10 +36,13 @@
 }
 
 .url_card {
+    width: 100%;
+    color: white;
+    font-size: 1.2rem;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 20px 30px;
     width: 100%;
     background: black;
@@ -57,6 +50,7 @@
 
 .url_card:hover {
     background-color: rgba(0, 0, 0, 0.103);
+    color: black;
 }
 
 
@@ -78,7 +72,8 @@
 }
 
 .img {
-    width: auto;
+    object-fit: cover;
+    width: 100%;
     height: 100%;
 }
 
