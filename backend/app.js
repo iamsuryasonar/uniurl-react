@@ -45,7 +45,6 @@ db.on('disconnected', (error) => {
     console.log('MongoDB disconnected', error);
 });
 
-
 // middleware express.json
 // Returns middleware that only parses JSON and only looks at requests
 // where the Content-Type header matches the type option.
@@ -66,14 +65,12 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-
-
 app.listen(process.env.PORT, function () {
     console.log("Started application on port %d", process.env.PORT);
     // this setInterval makes sure that the server don't spin down on idle.
     // reference - https://docs.render.com/free#spinning-down-on-idle
     setInterval(() => {
-        https.get('https://limo-backend-e2jw.onrender.com/', (res) => {
+        https.get('https://urlshare-backend.onrender.com/', (res) => {
             console.log(res.statusCode)
         })
     }, 14 * 60 * 1000)

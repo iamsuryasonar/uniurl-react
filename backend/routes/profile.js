@@ -1,11 +1,7 @@
 const router = require("express").Router();
 const { verify } = require("../middleware/verifyToken");
 const User = require("../model/User");
-const { linkValidation } = require("../middleware/authValidation");
-const Link = require("../model/Link");
-const mongoose = require("mongoose");
 const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
-const fs = require('fs');
 
 const sharp = require('sharp');
 
@@ -28,6 +24,7 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         const webpImageBuffer = await sharp(image.buffer)
             .webp([{ near_lossless: true }, { quality: 20 }])
             .toBuffer();
+        
         let uploadedImageInfo;
         await uploadTos3(webpImageBuffer).then((result) => {
             uploadedImageInfo = result;
