@@ -1,7 +1,8 @@
 .main_wrapper {
     background-color: rgba(0, 0, 0, 0.015);
-    max-width: 1200px;
+    max-width: calc(1100px);
     margin: auto;
+    overflow: none;
 }
 
 .container {
