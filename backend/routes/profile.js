@@ -79,7 +79,6 @@ router.put("/status_and_bio", verify, async (req, res) => {
 // retrieve usernames for searchbar suggestions
 router.get("/keyword/:keyword", async (req, res) => {
     try {
-        if (req?.params?.keyword) return res.status(400).json({ success: false, message: '' });
 
         const similarUsers = await User.find({
             name: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
