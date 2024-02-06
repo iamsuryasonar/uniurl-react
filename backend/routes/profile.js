@@ -10,7 +10,7 @@ router.get("/profile-info", verify, async (req, res) => {
     try {
         let userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-        return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return res.status(200).json({ success: true, message: '', data: userdata });
 
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
@@ -18,27 +18,26 @@ router.get("/profile-info", verify, async (req, res) => {
 });
 
 router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 1 }]), async (req, res) => {
-    const image = req?.files['file'][0];
     try {
+        const image = req?.files['file'][0];
+
+        if (!req?.files['file'][0]) return res.status(400).json({ success: false, message: '' });
+
         // convert to webp with quality 20%
         const webpImageBuffer = await sharp(image.buffer)
             .webp([{ near_lossless: true }, { quality: 20 }])
             .toBuffer();
-        
+
         let uploadedImageInfo;
+
         await uploadTos3(webpImageBuffer).then((result) => {
             uploadedImageInfo = result;
-        }).catch((error) => {
-            console.log('upload error ', error)
-            return res.status(500).json({ success: false, message: 'something went wrong, while uploading image' });
         })
 
         const user = await User.findById({ _id: req.user._id })
-        console.log('filename', user?.picture?.fileName);
+
         if (user?.picture?.fileName !== '' || user?.picture?.fileName !== null || user?.picture?.fileName !== undefined) {
-            await deleteS3Object(user?.picture?.fileName).then((result) => {
-                console.log('Old image deleted...', result);
-            })
+            await deleteS3Object(user?.picture?.fileName)
         }
 
         user.picture = {
@@ -46,27 +45,32 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
             fileName: uploadedImageInfo.fileName,
         }
 
-        const updatedUser = await user.save();
+        await user.save();
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
-        return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return res.status(200).json({ success: true, message: '', data: userdata });
 
     } catch (err) {
-        return res.status(500).json({ success: false, message: 'Internal server error ' });
+        return res.status(500).json({ success: false, message: 'Failed to upload image' });
     }
 })
 
 // add status and bio
 router.put("/status_and_bio", verify, async (req, res) => {
     try {
+        if (req?.body?.bio) return res.status(400).json({ success: false, message: '' });
+
         const user = await User.findById({ _id: req.user._id })
+
         if (req?.body?.bio) {
             user.bio = req.body.bio;
         }
+
         await user.save();
+
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
 
-        return res.status(200).json({ success: true, message: 'Profile retrieved successfully', data: userdata });
+        return res.status(200).json({ success: true, message: '', data: userdata });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
@@ -75,11 +79,13 @@ router.put("/status_and_bio", verify, async (req, res) => {
 // retrieve usernames for searchbar suggestions
 router.get("/keyword/:keyword", async (req, res) => {
     try {
+        if (req?.params?.keyword) return res.status(400).json({ success: false, message: '' });
+
         const similarUsers = await User.find({
             name: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
         }).select('-password').limit(5);
 
-        return res.status(200).json({ success: true, message: 'Username retrieved successfully', data: similarUsers });
+        return res.status(200).json({ success: true, message: '', data: similarUsers });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }

@@ -1,8 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const Joi = require('joi')
 let cors = require('cors')
-let multer = require('multer')
 let app = express()
 require('dotenv').config();
 const https = require('https');

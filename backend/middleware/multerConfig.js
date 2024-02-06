@@ -14,50 +14,52 @@ let upload = multer({
 })
 
 let uploadTos3 = (fileData) => {
-    try {
-        return new Promise((resolve, reject) => {
-            const uuid = crypto.randomBytes(6).toString("hex");
-            const fileName = `${uuid}_${Date.now().toString()}.webp`;
-            const params = {
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: fileName,
-                Body: fileData,
-                ContentType: "image/webp"
-            }
+    return new Promise((resolve, reject) => {
+        const uuid = crypto.randomBytes(6).toString("hex");
+        const fileName = `${uuid}_${Date.now().toString()}.webp`;
 
-            const request = s3.putObject(params);
-            request.on('httpHeaders', (statusCode, headers) => {
-                resolve({
-                    url: `https://ipfs.filebase.io/ipfs/${headers['x-amz-meta-cid']}`,
-                    fileName: fileName
-                })
-            });
-            request.on('httpError', (error, response) => {
-                console.log('request error', error)
-                reject(error)
-            });
-            request.send();
-        })
-    } catch (error) {
-        // Handle synchronous errors that might occur outside the Promise
-        console.error('Synchronous error:', error);
-        return Promise.reject(error);
-    }
+        const params = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Key: fileName,
+            Body: fileData,
+            ContentType: "image/webp"
+        }
+
+        const bucketParams = {
+            Bucket: process.env.AWS_BUCKET_NAME,
+        };
+
+        s3.headBucket(bucketParams, function (err, data) {
+            if (err) {
+                // bucket might not exist or access is denied
+                reject('Bucket might not exist or access is denied');
+            } else {
+                // Bucket exists and accessible, you can proceed with putObject or other operations
+                const request = s3.putObject(params);
+                request.on('httpHeaders', (statusCode, headers) => {
+                    resolve({
+                        url: `https://ipfs.filebase.io/ipfs/${headers['x-amz-meta-cid']}`,
+                        fileName: fileName
+                    })
+                });
+                request.on('httpError', (error, response) => {
+                    console.log('request error', error)
+                    reject(error)
+                });
+                request.send();
+            }
+        });
+    })
 }
 
 const deleteS3Object = async (path) => {
-    try {
-        const deleteParams = {
-            Bucket: process.env.AWS_BUCKET_NAME,
-            Key: path,
-        };
-        console.log(deleteParams);
 
-        const deleteResult = await s3.deleteObject(deleteParams).promise();
-        console.log('Object deleted successfully:', deleteResult);
-    } catch (error) {
-        console.error('Error deleting object:', error);
-    }
+    const deleteParams = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: path,
+    };
+
+    await s3.deleteObject(deleteParams).promise();
 };
 
 module.exports = {
