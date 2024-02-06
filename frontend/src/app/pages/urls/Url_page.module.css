@@ -57,10 +57,11 @@
 /* --------------------profile-------------------- */
 
 .outer_ring {
+    border: 1px solid black;
     border-radius: 50%;
     display: inline-block;
     position: relative;
-    padding: 6px;
+    padding: 5px;
 }
 
 .img_wrap {

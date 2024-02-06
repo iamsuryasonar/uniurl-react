@@ -35,7 +35,6 @@ function LogInPage() {
     }
 
     const logInHandler = (e) => {
-        console.log('clicked')
         let flag = '';
         if (input?.email?.length < 7) {
             flag = 'Email';
