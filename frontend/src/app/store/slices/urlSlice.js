@@ -9,8 +9,6 @@ export const get_urls = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await urlService.getUrls(username);
-            // thunkAPI.dispatch(setMessage(response.message));
-            // console.log(response.data);
             return response.data;
         } catch (error) {
             const message =

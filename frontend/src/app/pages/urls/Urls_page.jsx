@@ -30,6 +30,7 @@ function UrlsPage() {
     }, []);
 
     const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
+    console.log(urlsinfo)
 
     const onCardClicked = (url) => {
         window.open(url, '_blank');
@@ -37,7 +38,6 @@ function UrlsPage() {
 
     return (
         <>
-            {/* {message && <Message label={message} />} */}
             {urlsinfo ?
                 <div className={s.wrapper}>
                     <div className={s.profile_box}>
@@ -48,7 +48,6 @@ function UrlsPage() {
                         </div>
                         <div className={s.name_bio_status}>
                             <p className={s.name}>{urlsinfo?.name}</p>
-                            {/* <p className={s.status}>{urlsinfo?.status}</p> */}
                             <p className={s.bio}>{urlsinfo?.bio}</p>
                         </div>
                     </div>

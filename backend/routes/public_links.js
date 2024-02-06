@@ -20,9 +20,6 @@ router.get("/:username", async (req, res) => {
             'bio': user.bio,
             'links': links
         }
-        if (links.length < 1) {
-            return res.status(404).json({ success: false, message: 'No urls found!', data: result });
-        }
 
         return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
     } catch (err) {
