@@ -19,7 +19,7 @@ function App() {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
+    height: '90svh',
     width: '100%',
     fontSize: '80px'
   };
