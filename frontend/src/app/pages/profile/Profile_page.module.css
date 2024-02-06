@@ -36,6 +36,7 @@
 }
 
 .custom-file-upload {
+    border: 1px solid black;
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -78,7 +79,8 @@
 }
 
 .img {
-    width: auto;
+    object-fit: cover;
+    width: 100%;
     height: 100%;
 }
 
