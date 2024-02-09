@@ -30,7 +30,6 @@ function UrlsPage() {
     }, []);
 
     const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
-    console.log(urlsinfo)
 
     const onCardClicked = (url) => {
         window.open(url, '_blank');

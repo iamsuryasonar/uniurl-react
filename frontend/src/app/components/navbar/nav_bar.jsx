@@ -129,7 +129,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         <div className={s.keywords_wrapper}>
                             <div className={s.keywords_container}>
                                 {searchedByKeywordValues.map((item) => {
-                                    console.log(item)
                                     return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
                                 })}
                             </div>
@@ -169,7 +168,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         <div className={s.keywords_wrapper}>
                             <div className={s.keywords_container}>
                                 {searchedByKeywordValues.map((item) => {
-                                    console.log(item)
                                     return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
                                 })}
                             </div>

@@ -1,11 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 let cors = require('cors')
+const https = require('https');
+var responseTime = require('response-time')
+
+
 let app = express()
 require('dotenv').config();
-const https = require('https');
-
 app.use(cors())
+app.use(responseTime())
 
 // import routes
 const authRoute = require('./routes/authentication')

@@ -14,6 +14,7 @@
     "mongoose": "^6.0.10",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.13",
+    "response-time": "^2.3.2",
     "sharp": "0.32.6"
   },
   "scripts": {
