@@ -9,7 +9,7 @@ router.get("/:username", async (req, res) => {
         const user = await User.findOne({ name: req.params.username })
         if (!user) return res.status(404).json({ success: false, message: 'User ' + req.params.username + ' not found!' });
 
-        const cachedData = await redis.get(req.params.username);
+        const cachedData = await redis.get('userlink:'+req.params.username);
         if (cachedData) return res.status(200).json({ success: true, message: 'Urls retrieved successfully!!!', data: JSON.parse(cachedData) });
 
         const links = await Link.find({ author: user._id }).exec()
@@ -23,7 +23,7 @@ router.get("/:username", async (req, res) => {
         }
 
         // expires in 30 seconds 
-        redis.set(req.params.username, JSON.stringify(result), "EX", 12 * 60 * 60);
+        redis.set('userlink:'+req.params.username, JSON.stringify(result), "EX", 12 * 60 * 60);
 
         return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
     } catch (err) {
