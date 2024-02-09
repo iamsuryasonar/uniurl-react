@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const { verify } = require("../middleware/verifyToken");
-const User = require("../model/User");
-const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
-
 const sharp = require('sharp');
+const { verify } = require("../middleware/verifyToken");
+const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
+const { redis } = require('../services/redis');
+const User = require("../model/User");
 
 // retrieve profile info
 router.get("/profile-info", verify, async (req, res) => {
@@ -47,6 +47,9 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 
         await user.save();
 
+        // invalidate cache
+        redis.del(req.user.username);
+
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
         return res.status(200).json({ success: true, message: '', data: userdata });
 
@@ -67,6 +70,9 @@ router.put("/status_and_bio", verify, async (req, res) => {
         }
 
         await user.save();
+
+        // invalidate cache
+        redis.del(req.user.username);
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
 

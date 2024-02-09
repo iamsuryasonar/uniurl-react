@@ -4,7 +4,7 @@ const User = require("../model/User");
 const { linkValidation } = require("../middleware/authValidation");
 const Link = require("../model/Link");
 const mongoose = require("mongoose");
-
+const { redis } = require('../services/redis');
 // add link
 router.post("/", verify, async (req, res) => {
   try {
@@ -43,6 +43,9 @@ router.post("/", verify, async (req, res) => {
 
     await session.commitTransaction();
 
+    // invalidate cache
+    redis.del(req.user.username);
+
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
     return res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
   } catch (err) {
@@ -72,17 +75,24 @@ router.put("/:linkid", verify, async (req, res) => {
     const doc = await Link.find({
       _id: req.params.linkid,
     });
-    if (doc[0] == undefined) {
-      res.status(404).json({ success: false, message: 'Record not found' });
-    } else {
-      if (doc[0].author._id.toString() === req.user._id) {
-        doc[0].url = req.body.url;
-        doc[0].title = req.body.title;
 
-        const data = await doc[0].save();
-        return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
-      }
+    if (doc[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
+
+
+    if (doc[0].author._id.toString() === req.user._id) {
+      doc[0].url = req.body.url;
+      doc[0].title = req.body.title;
+
+      const data = await doc[0].save();
+
+      // invalidate cache
+      redis.del(req.user.username);
+
+      return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
+    } else {
+      return res.status(401).json({ success: false, message: 'Not authorised to update' });
     }
+
   } catch (err) {
     return res.status(500).json({ success: false, message: 'Internal server error ' });
   }
@@ -97,17 +107,20 @@ router.delete("/:linkid", verify, async (req, res) => {
       author: req.user._id,
     });
 
-    if (child[0] == undefined) {
-      return res.status(404).json({ success: false, message: 'Record not found' });
+    if (child[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
+
+    if (child[0].author._id.toString() === req.user._id) {
+      child[0].remove();
+
+      // invalidate cache
+      redis.del(req.user.username);
+
+      const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
+      return res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });
     } else {
-      if (child[0].author._id.toString() === req.user._id) {
-        child[0].remove();
-        const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
-        return res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });
-      } else {
-        return res.status(401).json({ success: false, message: 'Not authorised to delete' });
-      }
+      return res.status(401).json({ success: false, message: 'Not authorised to delete' });
     }
+
   } catch (err) {
     return res.status(500).json({ success: false, message: 'Internal server error ' });
   }

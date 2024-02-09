@@ -23,7 +23,7 @@ router.get("/:username", async (req, res) => {
         }
 
         // expires in 30 seconds 
-        redis.set(req.params.username, JSON.stringify(result), "EX", 30);
+        redis.set(req.params.username, JSON.stringify(result), "EX", 12 * 60 * 60);
 
         return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
     } catch (err) {

@@ -42,7 +42,6 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    console.log('hgfghf')
     if (!req.body.email) return res.status(400).json({ success: false, message: 'email required!!!' });
     if (!req.body.password) return res.status(400).json({ success: false, message: 'password required!!!' });
 
@@ -58,7 +57,7 @@ router.post('/login', async (req, res) => {
         if (!matched) return res.status(400).json({ success: false, message: 'Invalid password', data: null });
 
         // create token using jsonwebtoken library
-        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
+        const token = jwt.sign({ _id: user._id, username: user.name }, process.env.TOKEN_SECRET)
         const userData = await User.findOne({ email: req.body.email })
         const userinfo = {
             'name': userData.name,
