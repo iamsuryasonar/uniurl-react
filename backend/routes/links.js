@@ -44,7 +44,7 @@ router.post("/", verify, async (req, res) => {
     await session.commitTransaction();
 
     // invalidate cache
-    redis.del(req.user.username);
+    redis.del('userlink:'+req.user.username);
 
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
     return res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
@@ -87,7 +87,7 @@ router.put("/:linkid", verify, async (req, res) => {
       const data = await doc[0].save();
 
       // invalidate cache
-      redis.del(req.user.username);
+      redis.del('userlink:'+req.user.username);
 
       return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
     } else {
@@ -115,7 +115,7 @@ router.delete("/:linkid", verify, async (req, res) => {
       child[0].remove();
 
       // invalidate cache
-      redis.del(req.user.username);
+      redis.del('userlink:'+req.user.username);
 
       const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
       return res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });
