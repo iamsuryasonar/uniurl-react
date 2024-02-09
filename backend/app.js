@@ -4,7 +4,6 @@ let cors = require('cors')
 const https = require('https');
 var responseTime = require('response-time')
 
-
 let app = express()
 require('dotenv').config();
 app.use(cors())

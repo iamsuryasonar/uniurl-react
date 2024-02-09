@@ -5,7 +5,6 @@ const { redis } = require('../services/redis');
 
 // retrieve links
 router.get("/:username", async (req, res) => {
-    // redis-uniurl
     try {
         const user = await User.findOne({ name: req.params.username })
         if (!user) return res.status(404).json({ success: false, message: 'User ' + req.params.username + ' not found!' });
@@ -23,9 +22,8 @@ router.get("/:username", async (req, res) => {
             'links': links
         }
 
-        // expires in 10 seconds 
+        // expires in 30 seconds 
         redis.set(req.params.username, JSON.stringify(result), "EX", 30);
-
 
         return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result });
     } catch (err) {
@@ -33,7 +31,5 @@ router.get("/:username", async (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
 });
-
-
 
 module.exports = router;
