@@ -63,6 +63,7 @@ router.get("/", verify, async (req, res) => {
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
     return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: userdata.links });
   } catch (err) {
+    console.log(err)
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
@@ -94,6 +95,7 @@ router.put("/:linkid", verify, async (req, res) => {
     }
 
   } catch (err) {
+    console.log(err)
     return res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });
@@ -122,6 +124,7 @@ router.delete("/:linkid", verify, async (req, res) => {
     }
 
   } catch (err) {
+    console.log(err)
     return res.status(500).json({ success: false, message: 'Internal server error ' });
   }
 });

@@ -61,7 +61,7 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 // add status and bio
 router.put("/status_and_bio", verify, async (req, res) => {
     try {
-        if (req?.body?.bio) return res.status(400).json({ success: false, message: '' });
+        if (!req?.body?.bio) return res.status(400).json({ success: false, message: 'Bio is required' });
 
         const user = await User.findById({ _id: req.user._id })
 
