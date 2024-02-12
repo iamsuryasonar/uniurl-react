@@ -105,7 +105,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                             </div>
                             <div className={s.searchbarandmenu}>
-                                <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
+                                {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
                                 <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                             </div>
                             <div className={s.menuitems_expanded}  >
@@ -148,7 +148,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
 
                             <div className={s.searchbarandmenu}>
-                                <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />
+                                {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
                                 <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
                             </div>
                             <div className={s.menuitems_expanded}>

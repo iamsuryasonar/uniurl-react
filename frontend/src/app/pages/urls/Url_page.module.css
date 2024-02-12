@@ -66,8 +66,8 @@
 
 .img_wrap {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 210px;
+    height: 210px;
     overflow: hidden;
     border-radius: 50%;
 }
@@ -105,8 +105,8 @@
     }
 
     .img_wrap {
-        width: 120px;
-        height: 120px;
+        width: 180px;
+        height: 180px;
     }
 
 }

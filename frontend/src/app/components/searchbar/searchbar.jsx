@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import s from './searchbar.module.css'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { API_URL_PROFILE } from '../../common/constants'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -91,7 +91,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                 >
                 </input>
                 <div className={s.search_btn} onClick={onSearchHandler} >
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className={s.search_icon} />
+                    <FontAwesomeIcon icon={faArrowRight} className={s.search_icon} />
                 </div>
             </div>
 
