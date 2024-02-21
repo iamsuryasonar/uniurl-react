@@ -100,9 +100,9 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         <div className={s.nav_container}>
                             <div className={s.title_image}>
                                 <Link to="/user/profile" className={s.image_anchor}>
-                                    <img src={imagePreviewUrl} className={s.img} />
+                                    <img src={imagePreviewUrl} className='object-cover w-10 h-10 aspect-square rounded-full' />
                                 </Link>
-                                <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
+                                <Link to="/" className='font-bold text-xl ml-2' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                             </div>
                             <div className={s.searchbarandmenu}>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}

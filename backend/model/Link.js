@@ -9,6 +9,14 @@ const linkSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    icon: {
+        type: String,
+        default: 'fas fa-link',
+    },
+    color: {
+        type: String,
+        default: '#ffffff',
+    },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 module.exports = mongoose.model('Link', linkSchema)

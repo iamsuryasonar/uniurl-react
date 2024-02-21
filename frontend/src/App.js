@@ -58,14 +58,7 @@ function App() {
               </PublicRoute>
             }
           />
-          <Route
-            path="/:username"
-            element={
-              <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>
-                <UrlsPage />
-              </Suspense>
-            }
-          />
+
           <Route
             path="/user/myurls"
             element={
@@ -97,6 +90,14 @@ function App() {
             }
           />
         </Route>
+        <Route
+          path="/:username"
+          element={
+            <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>
+              <UrlsPage />
+            </Suspense>
+          }
+        />
         {/* <Route path="*" element={<NotFoundPage />}  */}
       </Routes>
     </>

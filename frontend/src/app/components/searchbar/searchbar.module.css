@@ -1,16 +1,11 @@
 .search {
-    width: 70%;
+    max-width: 250px;
     border-radius: 40px;
     border: 1px solid white;
     padding: 0 0 0 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: ease-in 0.4s;
-}
-
-.search:hover {
-    width: 100%;
 }
 
 .search_btn {

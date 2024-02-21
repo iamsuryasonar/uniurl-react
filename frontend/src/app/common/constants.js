@@ -7,3 +7,4 @@ export const API_URL_PROFILE = API_URL + "/api/profile/";
 export const API_URL_AUTH = API_URL + "/api/user/";
 export const API_URL_MY_URL = API_URL + '/api/url/';
 export const API_URL_URL = API_URL + '/api/public_urls/';
+export const API_URL_THEME = API_URL + '/api/theme/' 

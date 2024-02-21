@@ -13,7 +13,8 @@ app.use(responseTime())
 const authRoute = require('./routes/authentication')
 const linksRoute = require('./routes/links')
 const publicLinksRoute = require('./routes/public_links')
-const profileRoute = require('./routes/profile')
+const profileRoute = require('./routes/profile');
+const themeRoute = require('./routes/theme');
 
 // Mongoose options
 const mongooseOptions = {
@@ -60,6 +61,7 @@ app.use('/api/user', authRoute)
 app.use('/api/url', linksRoute)
 app.use('/api/public_urls', publicLinksRoute)
 app.use('/api/profile', profileRoute)
+app.use('/api/theme', themeRoute)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

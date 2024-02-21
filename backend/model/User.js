@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
       type: String,
     }
   },
-
+  theme: { type: mongoose.Schema.Types.ObjectId, ref: 'Theme' },
   links: [{ type: mongoose.Schema.Types.ObjectId, ref: "Link" }],
 });
 

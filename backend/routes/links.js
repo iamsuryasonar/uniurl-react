@@ -5,6 +5,7 @@ const { linkValidation } = require("../middleware/authValidation");
 const Link = require("../model/Link");
 const mongoose = require("mongoose");
 const { redis } = require('../services/redis');
+
 // add link
 router.post("/", verify, async (req, res) => {
   try {
@@ -29,8 +30,10 @@ router.post("/", verify, async (req, res) => {
     session.startTransaction();
 
     const link = new Link({
-      url: url,
-      title: req.body.title,
+      url: req?.body?.url,
+      title: req?.body?.title,
+      icon: req?.body?.icon,
+      color: req?.body?.color,
     });
 
     link.author = req.user._id;
@@ -44,7 +47,7 @@ router.post("/", verify, async (req, res) => {
     await session.commitTransaction();
 
     // invalidate cache
-    redis.del('userlink:'+req.user.username);
+    redis.del('userlink:' + req.user.username);
 
     const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
     return res.status(200).json({ success: true, message: "Url saved successfully!!!", data: userdata.links });
@@ -87,7 +90,7 @@ router.put("/:linkid", verify, async (req, res) => {
       const data = await doc[0].save();
 
       // invalidate cache
-      redis.del('userlink:'+req.user.username);
+      redis.del('userlink:' + req.user.username);
 
       return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
     } else {
@@ -115,7 +118,7 @@ router.delete("/:linkid", verify, async (req, res) => {
       child[0].remove();
 
       // invalidate cache
-      redis.del('userlink:'+req.user.username);
+      redis.del('userlink:' + req.user.username);
 
       const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
       return res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: userdata.links });

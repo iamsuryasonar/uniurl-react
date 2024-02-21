@@ -11,13 +11,12 @@ function MyUrlCard({ urlData, onClick, onDelete }) {
     const { _id, title, url } = urlData;
 
     return (
-        <div className={s.url_card} onClick={() => onClick(url)}>
-            <div className={s.title}>
+        <div className={`bg-black text-white hover:bg-slate-200 hover:text-black w-full px-4 py-2 flex flex-row justify-between  items-center`} onClick={() => onClick(url)}>
+            <p className='flex items-center gap-2 text-xl'>
+                {urlData?.icon && <FontAwesomeIcon className='text-2xl hover:scale-150 transition-all duration-300 ease-in-out' icon={urlData?.icon} />}
                 {title}
-            </div>
-            <div className={s.delete_button} onClick={(e) => onDelete(e, _id)}>
-                <FontAwesomeIcon icon={faTrash} />
-            </div>
+            </p>
+            <FontAwesomeIcon icon={faTrash} className='p-4 hover:bg-black hover:text-red-500 rounded-full' onClick={(e) => onDelete(e, _id)} />
         </div>
     )
 }

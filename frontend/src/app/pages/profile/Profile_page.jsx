@@ -6,17 +6,29 @@ import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
 import avatar from '../../assets/avatar.jpg';
-
+import ThemeServices from '../../services/theme.services';
 
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
-    const profileInfo = useSelector(state => state.profile.profileInfo)
+    const profileInfo = useSelector(state => state.profile.profileInfo);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [name, setName] = useState('');
+    const [theme, setTheme] = useState('');
+    const [themes, setThemes] = useState(null);
     const [input, setInput] = useState({
         'bio': '',
+        'theme': '',
     });
+
+    const getAllTheme = async () => {
+        const results = await ThemeServices.getTheme()
+        setThemes(results?.data)
+    }
+
+    useEffect(() => {
+        getAllTheme();
+    }, [])
 
     useEffect(() => {
         if (!profileInfo) {
@@ -42,8 +54,6 @@ const ProfilePage = () => {
         }
 
     }, [profileInfo]);
-
-
 
     const photoUpload = async (e) => {
         e.preventDefault();
@@ -132,6 +142,14 @@ const ProfilePage = () => {
                         className={s.inputText}
                     />
                 </div>
+                <select onChange={onChangeHandler} onBlur={onFocusRemoved} name='theme' className='border-[1px] bg-white rounded-2xl h-10 p-2 border-black w-full placeholder:p-2 drop-shadow-sm '>
+                    <option value='' className=''>select theme...</option>
+                    {
+                        themes?.map((item) => {
+                            return <option key={item._id} value={item._id} className=''> {item.name}</option>
+                        })
+                    }
+                </select>
             </div>
         </div >
     );

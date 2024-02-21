@@ -4,6 +4,7 @@ const { verify } = require("../middleware/verifyToken");
 const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
 const { redis } = require('../services/redis');
 const User = require("../model/User");
+const Theme = require("../model/Theme");
 
 // retrieve profile info
 router.get("/profile-info", verify, async (req, res) => {
@@ -48,7 +49,7 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         await user.save();
 
         // invalidate cache
-        redis.del('userlink:'+req.user.username);
+        redis.del('userlink:' + req.user.username);
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
         return res.status(200).json({ success: true, message: '', data: userdata });
@@ -61,18 +62,23 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 // add status and bio
 router.put("/status_and_bio", verify, async (req, res) => {
     try {
+        console.log(req?.body)
         if (!req?.body?.bio) return res.status(400).json({ success: false, message: 'Bio is required' });
 
         const user = await User.findById({ _id: req.user._id })
 
         if (req?.body?.bio) {
             user.bio = req.body.bio;
+
+        }
+        if (req?.body?.theme) {
+            user.theme = req.body.theme;
         }
 
         await user.save();
 
         // invalidate cache
-        redis.del('userlink:'+req.user.username);
+        redis.del('userlink:' + req.user.username);
 
         const userdata = await User.findById({ _id: req.user._id }).select('-password');
 

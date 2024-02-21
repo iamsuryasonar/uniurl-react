@@ -7,14 +7,6 @@
      overflow: hidden;
  }
 
- .img {
-     object-fit: cover;
-     width: 40px;
-     height: 40px;
-     border-radius: 50%;
-     margin-right: 5px;
- }
-
  .moving_gradient {
      width: 100%;
      height: 100%;
@@ -71,6 +63,7 @@
      display: flex;
      justify-content: space-between;
      align-items: center;
+     flex-shrink: 0;
  }
 
  .image_anchor {
@@ -88,6 +81,7 @@
      font-weight: bold;
      font-size: 20px;
      grid-area: brand;
+
  }
 
  .menuitems_expanded {

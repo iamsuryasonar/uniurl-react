@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { store } from './app/store/store'
 import React from 'react'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fab,fas);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
