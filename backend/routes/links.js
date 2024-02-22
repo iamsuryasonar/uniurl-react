@@ -82,7 +82,7 @@ router.put("/:linkid", verify, async (req, res) => {
     if (doc[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
 
 
-    if (doc[0].author._id.toString() === req.user._id) {
+    if (doc[0].author._id.toString() === req.user._id.toString()) {
       doc[0].url = req.body.url;
       doc[0].title = req.body.title;
 
@@ -112,8 +112,7 @@ router.delete("/:linkid", verify, async (req, res) => {
     });
 
     if (child[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
-
-    if (child[0].author._id.toString() === req.user._id) {
+    if (child[0].author._id.toString() === req.user._id.toString()) {
       child[0].remove();
 
       // invalidate cache
