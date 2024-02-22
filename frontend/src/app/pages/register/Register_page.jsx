@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
 
 function RegisterPage() {
     const dispatch = useDispatch();
-
+    const { loading } = useSelector((state) => state.loading);
     const [input, setInput] = useState({});
 
 
@@ -47,7 +50,7 @@ function RegisterPage() {
 
     return (
         <>
-            <div className='w-full flex flex-col p-14 '>
+            <div className='w-full flex flex-col py-14 '>
                 <div className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Sign Up</p>
                     <input
@@ -75,8 +78,8 @@ function RegisterPage() {
                         required
                         onChange={onChangeHandler}
                     />
-                    <div className='flex  justify-between items-center mt-6'>
-                        <Button className='text-white bg-black px-4 py-2' onClick={registerHandler} label='Sign Up' />
+                    <div className='flex  justify-between items-center gap-2'>
+                        {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
                         <Link className='cursor-pointer hover:text-green-500' to="/user/login">Already have a user?</Link>
                     </div>
                 </div >

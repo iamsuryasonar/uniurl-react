@@ -78,7 +78,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     return (
         <>
             <div className='max-w-[250px] rounded-full border border-1 border-white pl-2 flex justify-center items-center'>
-                <input className='px-2 w-full text-white bg-transparent border-none outline-none'
+                <input className='py-1 px-2 w-full text-white bg-transparent border-none outline-none'
                     type="text"
                     name=""
                     placeholder="Search..."
@@ -88,7 +88,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                     onKeyUp={onSubmitHandler}
                 >
                 </input>
-                <div className='w-[28px] h-[28px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white' onClick={onSearchHandler} >
+                <div className='w-[22px] h-[22px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white' onClick={onSearchHandler} >
                     <FontAwesomeIcon icon={faArrowRight} className='text-white hover:text-black' />
                 </div>
             </div>

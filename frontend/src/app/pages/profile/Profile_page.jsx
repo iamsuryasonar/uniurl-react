@@ -16,7 +16,7 @@ const ProfilePage = () => {
     const [themes, setThemes] = useState(null);
     const [input, setInput] = useState({
         'bio': '',
-        'theme': profileInfo?.theme?.name,
+        'theme': profileInfo?.theme?.name || '',
     });
 
     const getAllTheme = async () => {
@@ -141,7 +141,7 @@ const ProfilePage = () => {
                 <div className='w-full flex flex-col'>
                     <label className='' htmlFor="bio">Url page theme:</label>
                     <select onChange={onChangeHandler} onBlur={onFocusRemoved} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-black px-3 py-2 bg-transparent text-black'>
-                        <option value='' disabled className=''>url page theme...</option>
+                        <option value='' disabled className=''>select theme...</option>
                         {
                             themes?.map((item) => {
                                 return <option key={item._id} value={item._id} className=''> {item.name}</option>

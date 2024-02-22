@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Searchbar from '../searchbar/searchbar'
 import { APP_NAME, LOCAL_STORAGE_NAME } from '../../common/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { get_profile_info } from './../../store/slices/profileSlice'
@@ -106,13 +106,17 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
-                                <FontAwesomeIcon icon={faBars} className='flex md:hidden cursor-pointer text-3xl' onClick={() => dispatch(toggleMenu())} />
+                                {menu ?
+                                    <FontAwesomeIcon icon={faXmark} className='flex md:hidden cursor-pointer text-2xl' onClick={() => dispatch(toggleMenu())} />
+                                    :
+                                    <FontAwesomeIcon icon={faBars} className='flex md:hidden cursor-pointer text-2xl' onClick={() => dispatch(toggleMenu())} />
+                                }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
-                                <Link to="/user/myurls" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} >My urls</Link>
-                                <Link to="/user/create_url" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} >Create url</Link>
-                                <Link to="/user/profile" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} >Profile</Link>
-                                <div className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center  bg-white text-black font-bold`} onClick={handleLogOut}>Log out</div>
+                                <Link to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center hover:border-slate-100 ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} >My urls</Link>
+                                <Link to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center  hover:border-slate-100 ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} >Create url</Link>
+                                <Link to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center hover:border-slate-100 ${activeMenu === '/user/profile' ? 'border-white' : ''}`} >Profile</Link>
+                                <div className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center bg-white text-black hover:border-red-500 font-bold`} onClick={handleLogOut}>Log out</div>
                             </div>
                         </div>
                         {
@@ -127,11 +131,11 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         }
                     </nav>
                     {menu &&
-                        <div className='fixed z-10 bg-black text-white w-full p-4 flex flex-col items-center justify-center gap-2'>
-                            <Link to="/user/myurls" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                            <Link to="/user/create_url" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
-                            <Link to="/user/profile" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex -center ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                            <div className={`rounded-full p-2 border border-1 border-black cursor-pointer text-center bg-white text-black font-bold`} onClick={handleLogOut}>Log out</div>
+                        <div className='fixed z-10 bg-black text-white w-full px-4 py-10 flex flex-col items-center justify-center gap-2'>
+                            <Link to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
+                            <Link to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
+                            <Link to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex -center hover:border-slate-100  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
+                            <div className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer text-center bg-white text-black hover:border-red-500  font-bold`} onClick={handleLogOut}>Log out</div>
                         </div>
                     }
                 </>
@@ -146,18 +150,22 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             <Link to="/" className='font-bold text-xl' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
-                                <FontAwesomeIcon icon={faBars} className='flex md:hidden cursor-pointer text-3xl' onClick={() => dispatch(toggleMenu())} />
+                                {menu ?
+                                    <FontAwesomeIcon icon={faXmark} className='flex md:hidden cursor-pointer text-2xl' onClick={() => dispatch(toggleMenu())} />
+                                    :
+                                    <FontAwesomeIcon icon={faBars} className='flex md:hidden cursor-pointer text-2xl' onClick={() => dispatch(toggleMenu())} />
+                                }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
-                                <Link to="/user/login" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center ${activeMenu === '/user/login' ? 'border-white' : ''}`}>Log In</Link>
-                                <Link to='/user/register' className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center  font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`}>Get Started</Link>
+                                <Link to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`}>Log In</Link>
+                                <Link to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center  font-bold hover:border-slate-100 ${activeMenu === '/user/register' ? 'border-white' : ''}`}>Get Started</Link>
                             </div>
                         </div>
                     </nav>
                     {menu &&
-                        <div className='fixed top-15 right-0 left-0 z-10 bg-black text-white p-4 flex-col items-center justify-between gap-4 flex text-nowrap'>
-                            <Link to="/user/login" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center  ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                            <Link to='/user/register' className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center  font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                        <div className='fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 flex-col items-center justify-between gap-4 flex text-nowrap'>
+                            <Link to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
+                            <Link to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
                         </div>
                     }
                     {

@@ -141,8 +141,8 @@ function UrlsPage() {
                     <div style={urlsinfo?.theme?.avatarnamebiocontainer} className={`${!urlsinfo?.theme ? `flex items-center flex-col gap-4 py-10 ` : ''}`}>
                         <div style={{
                             ...urlsinfo?.theme?.avatarimagecontainer
-                        }} className={` ${!urlsinfo?.theme ? `w-28 h-28 aspect-square rounded-full ` : ''}`}>
-                            <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full object-fit' />
+                        }} className={` ${!urlsinfo?.theme ? `w-28 h-28 aspect-square` : ''}`}>
+                            <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-fit' />
                         </div>
                         <div style={urlsinfo?.theme?.namebiocontainer}>
                             <p ref={elementRef} className='text-2xl'>{urlsinfo?.name}</p>

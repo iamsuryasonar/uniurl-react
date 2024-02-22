@@ -67,7 +67,7 @@ function LogInPage() {
 
     return (
         <>
-            <div className='w-full flex flex-col p-14 relative'>
+            <div className='w-full flex flex-col py-14 relative'>
                 <div className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Log In</p>
                     <input
@@ -87,7 +87,7 @@ function LogInPage() {
                         onChange={onChangeHandler}
                     />
                     <div className='flex justify-between items-center'>
-                        {loading ? <Button className='text-white bg-black px-4 py-2' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2' onClick={logInHandler} label='Log In' />}
+                        {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Log In' />}
                         <a className='cursor-pointer hover:text-green-500' onClick={forgotpassword_handler}>Reset password?</a>
                     </div>
                 </div>
@@ -104,8 +104,8 @@ function LogInPage() {
                                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                             />
                             <div className='flex justify-between mt-6'>
-                                <Button className='text-white bg-black px-4 py-2' onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className='text-white bg-black px-4 py-2' label='Send Email' onClick={send_email_handler} />
+                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
+                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
                             </div>
                         </div >
                     </form >
