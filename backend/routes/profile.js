@@ -36,8 +36,8 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         })
 
         const user = await User.findById({ _id: req.user._id })
-
-        if (user?.picture?.fileName !== '' || user?.picture?.fileName !== null || user?.picture?.fileName !== undefined) {
+        console.log(user?.picture?.fileName)
+        if (user?.picture && user?.picture?.fileName) {
             await deleteS3Object(user?.picture?.fileName)
         }
 
@@ -55,6 +55,7 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         return res.status(200).json({ success: true, message: '', data: userdata });
 
     } catch (err) {
+        console.log(err)
         return res.status(500).json({ success: false, message: 'Failed to upload image' });
     }
 })
@@ -62,7 +63,6 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 // add status and bio
 router.put("/status_and_bio", verify, async (req, res) => {
     try {
-        console.log(req?.body)
         if (!req?.body?.bio) return res.status(400).json({ success: false, message: 'Bio is required' });
 
         const user = await User.findById({ _id: req.user._id })

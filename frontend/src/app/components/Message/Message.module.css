@@ -11,9 +11,12 @@
 
 .container {
     width: 80%;
-    display: fixed;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 2;
     margin: auto;
-    background: rgba(0, 255, 76, 0.205);
+    background: rgb(107, 255, 151);
     color: black;
     font-size: 18px;
     padding: 10px;

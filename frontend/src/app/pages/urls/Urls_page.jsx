@@ -10,7 +10,7 @@ function UrlCard({ urlData, onClick, theme }) {
     const { title, url } = urlData;
 
     return (
-        <div style={{ ...theme?.urlcardcontainer, color: urlData?.color }} onClick={() => onClick(url)}>
+        <div style={{ ...theme?.urlcardcontainer, color: urlData?.color }} className={`${!theme ? `w-full bg-black py-2 px-4 flex flex-row justify-between p-4` : ''}`} onClick={() => onClick(url)}>
             <p className={`flex items-center gap-2 text-xl `}>
                 {urlData?.icon && <FontAwesomeIcon className='text-2xl hover:scale-150 transition-all duration-300 ease-in-out' icon={urlData?.icon} />}
                 {title}
@@ -35,12 +35,12 @@ function UrlsPage() {
     }
 
     return (
-        <div style={urlsinfo?.theme?.pagecontainer}>
+        <div style={urlsinfo?.theme?.pagecontainer} className={`${!urlsinfo?.theme ? `max-w-xl min-h-svh bg-slate-100 m-auto flex flex-col p-4 gap-4` : ''}`}>
             {urlsinfo ?
                 <div className='w-full'>
-                    <div style={urlsinfo?.theme?.avatarnamebiocontainer}>
-                        <div style={urlsinfo?.theme?.avatarimagecontainer}>
-                            <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='object-fit' />
+                    <div style={urlsinfo?.theme?.avatarnamebiocontainer} className={`${!urlsinfo?.theme ? `flex items-center flex-col gap-4 py-10 ` : ''}`}>
+                        <div style={urlsinfo?.theme?.avatarimagecontainer} className={`${!urlsinfo?.theme ? `w-28 h-28 aspect-square rounded-full ` : ''}`}>
+                            <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='object-fit rounded-full' />
                         </div>
                         <div style={urlsinfo?.theme?.namebiocontainer}>
                             <p className='text-2xl'>{urlsinfo?.name}</p>

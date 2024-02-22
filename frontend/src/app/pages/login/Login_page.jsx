@@ -70,6 +70,7 @@ function LogInPage() {
         <>
             <div className={s.wrapper} >
                 <div className={s.container} >
+                    <p className='text-4xl font-extrabold font-sans'>Log In</p>
                     <input
                         className={`${s.textsize} ${s.inputField}`}
                         placeholder="Email"

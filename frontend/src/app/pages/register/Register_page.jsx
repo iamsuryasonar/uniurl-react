@@ -50,6 +50,7 @@ function RegisterPage() {
         <>
             <div className={s.wrapper}>
                 <div className={s.container}>
+                    <p className='text-4xl font-extrabold font-sans'>Sign Up</p>
                     <input
                         className={`${s.textsize} ${s.inputField}`}
                         placeholder="Username"
@@ -76,7 +77,7 @@ function RegisterPage() {
                         onChange={onChangeHandler}
                     />
                     <div className={s.loginandalreadyuser}>
-                        <Button className={s.register_button} onClick={registerHandler} label='Register' />
+                        <Button className={s.register_button} onClick={registerHandler} label='Sign Up' />
                         <Link className={s.already_a_user_title} to="/user/login">Already have a user?</Link>
                     </div>
                 </div >

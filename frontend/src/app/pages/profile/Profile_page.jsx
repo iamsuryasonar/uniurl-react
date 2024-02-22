@@ -98,7 +98,6 @@ const ProfilePage = () => {
         }
     };
 
-
     return (
         <div className={s.wrapper}>
             <div className={s.card}>
@@ -143,7 +142,7 @@ const ProfilePage = () => {
                     />
                 </div>
                 <select onChange={onChangeHandler} onBlur={onFocusRemoved} name='theme' className='border-[1px] bg-white rounded-2xl h-10 p-2 border-black w-full placeholder:p-2 drop-shadow-sm '>
-                    <option value='' className=''>select theme...</option>
+                    <option value='' className=''>url page theme...</option>
                     {
                         themes?.map((item) => {
                             return <option key={item._id} value={item._id} className=''> {item.name}</option>
