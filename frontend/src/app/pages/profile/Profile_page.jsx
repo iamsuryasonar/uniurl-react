@@ -16,7 +16,7 @@ const ProfilePage = () => {
     const [themes, setThemes] = useState(null);
     const [input, setInput] = useState({
         'bio': '',
-        'theme': profileInfo?.theme?._id || '',
+        'theme': '',
         'location': ''
     });
 
@@ -44,6 +44,8 @@ const ProfilePage = () => {
                 {
                     ...prev,
                     'bio': profileInfo.bio,
+                    'location': profileInfo.location,
+                    'theme': profileInfo.theme._id,
                 }
             ))
 
@@ -130,7 +132,7 @@ const ProfilePage = () => {
                         name="location"
                         onChange={onChangeHandler}
                         onBlur={onFocusRemoved}
-                        value={input.location}
+                        value={input?.location}
                         placeholder="Add location"
                         required
                         className='w-full rounded-xl border border-1 border-black px-3 py-2 bg-transparent text-black'
@@ -145,11 +147,10 @@ const ProfilePage = () => {
                         name="bio"
                         onChange={onChangeHandler}
                         onBlur={onFocusRemoved}
-                        value={input.bio}
+                        value={input?.bio}
                         placeholder="Write something!"
                         required
                         className='w-full rounded-xl border border-1 border-black px-3 py-2 bg-transparent text-black'></textarea>
-
                 </div>
                 <div className='w-full flex flex-col'>
                     <label className='' htmlFor="bio">Url page theme:</label>
