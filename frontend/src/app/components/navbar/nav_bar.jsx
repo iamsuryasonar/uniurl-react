@@ -96,46 +96,44 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         </div>
                     }
 
-                    <nav className={s.nav}>
-                        <div className={s.nav_container}>
-                            <div className={s.title_image}>
-                                <Link to="/user/profile" className={s.image_anchor}>
+                    <nav className='bg-black text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
+                        <div className='max-w-5xl w-full flex justify-center items-center gap-4 px-6 py-4 '>
+                            <div className='w-auto flex items-center'>
+                                <Link to="/user/profile" className='w-10 h-10 flex items-center'>
                                     <img src={imagePreviewUrl} className='object-cover w-10 h-10 aspect-square rounded-full' />
                                 </Link>
                                 <Link to="/" className='font-bold text-xl ml-2' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                             </div>
-                            <div className={s.searchbarandmenu}>
+                            <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
-                                <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
+                                <FontAwesomeIcon icon={faBars} className='flex md:hidden cursor-pointer text-3xl' onClick={() => dispatch(toggleMenu())} />
                             </div>
-                            <div className={s.menuitems_expanded}  >
-                                <Link to="/user/myurls" className={`${s.button} ${activeMenu === '/user/myurls' ? s.active : ''}`} >My urls</Link>
-                                <Link to="/user/create_url" className={`${s.button} ${activeMenu === '/user/create_url' ? s.active : ''}`} >Create url</Link>
-                                <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} >Profile</Link>
-                                <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
+                            <div className='hidden md:flex gap-4 text-nowrap '>
+                                <Link to="/user/myurls" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} >My urls</Link>
+                                <Link to="/user/create_url" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} >Create url</Link>
+                                <Link to="/user/profile" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} >Profile</Link>
+                                <div className={`rounded-full p-2 border border-1 border-black cursor-pointer flex items-center  bg-white text-black font-bold`} onClick={handleLogOut}>Log out</div>
                             </div>
                         </div>
+                        {
+                            searchedByKeywordValues.length > 0 && !isInputHidden && !menu &&
+                            <div className='w-full flex flex-col items-end bg-black'>
+                                <div className='sticky top-10 z-20 w-full p-5 flex flex-col items-center gap-4 rounded-none text-white '>
+                                    {searchedByKeywordValues.map((item) => {
+                                        return <p className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white' key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
+                                    })}
+                                </div>
+                            </div>
+                        }
                     </nav>
                     {menu &&
-                        <div className={s.menuitems_collapse}>
-                            <Link to="/user/myurls" className={`${s.button} ${activeMenu === '/user/myurls' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                            <Link to="/user/create_url" className={`${s.button} ${activeMenu === '/user/create_url' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
-                            <Link to="/user/profile" className={`${s.button} ${activeMenu === '/user/profile' ? s.active : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                            <div className={`${s.button} ${s.bold_button}`} onClick={handleLogOut}>Log out</div>
+                        <div className='fixed z-10 bg-black text-white w-full p-4 flex flex-col items-center justify-center gap-2'>
+                            <Link to="/user/myurls" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
+                            <Link to="/user/create_url" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
+                            <Link to="/user/profile" className={`rounded-full p-2 border border-1 border-black cursor-pointer flex -center ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
+                            <div className={`rounded-full p-2 border border-1 border-black cursor-pointer text-center bg-white text-black font-bold`} onClick={handleLogOut}>Log out</div>
                         </div>
                     }
-                    {
-                        searchedByKeywordValues.length > 0 && !isInputHidden &&
-                        <div className={s.keywords_wrapper}>
-                            <div className={s.keywords_container}>
-                                {searchedByKeywordValues.map((item) => {
-                                    return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
-                                })}
-                            </div>
-                        </div>
-                    }
-
-
                 </>
                 :
                 //! public navbar
@@ -143,32 +141,31 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                     {loading && <div className={s.line_container}>
                         <div className={s.moving_gradient}></div>
                     </div>}
-                    <nav className={s.nav}>
-                        <div className={s.nav_container}>
-                            <Link to="/" className={s.nav_title} onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
-
-                            <div className={s.searchbarandmenu}>
+                    <nav className='bg-black text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
+                        <div className='max-w-5xl  w-full flex justify-center items-center  gap-4 px-6 py-4 '>
+                            <Link to="/" className='font-bold text-xl' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
+                            <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
-                                <FontAwesomeIcon icon={faBars} className={s.menuicon} onClick={() => dispatch(toggleMenu())} />
+                                <FontAwesomeIcon icon={faBars} className='flex md:hidden cursor-pointer text-3xl' onClick={() => dispatch(toggleMenu())} />
                             </div>
-                            <div className={s.menuitems_expanded}>
-                                <Link to="/user/login" className={`${s.button} ${activeMenu === '/user/login' ? s.active : ''}`}>Log In</Link>
-                                <Link to='/user/register' className={`${s.button} ${s.bold_button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`}>Get Started</Link>
+                            <div className='hidden md:flex gap-4 text-nowrap '>
+                                <Link to="/user/login" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center ${activeMenu === '/user/login' ? 'border-white' : ''}`}>Log In</Link>
+                                <Link to='/user/register' className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center  font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`}>Get Started</Link>
                             </div>
                         </div>
                     </nav>
                     {menu &&
-                        <div className={s.menuitems_collapse}>
-                            <Link to="/user/login" className={`${s.button} ${activeMenu === '/user/login' ? s.active : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                            <Link to='/user/register' className={`${s.button} ${s.bold_button} ${activeMenu === '/user/register' ? s.active : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                        <div className='fixed top-15 right-0 left-0 z-10 bg-black text-white p-4 flex-col items-center justify-between gap-4 flex text-nowrap'>
+                            <Link to="/user/login" className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center  ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
+                            <Link to='/user/register' className={`rounded-full p-2 border border-1 border-black cursor-pointer  text-center  font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
                         </div>
                     }
                     {
-                        searchedByKeywordValues.length > 0 && !isInputHidden &&
-                        <div className={s.keywords_wrapper}>
-                            <div className={s.keywords_container}>
+                        searchedByKeywordValues.length > 0 && !isInputHidden && !menu &&
+                        <div className='w-full flex flex-col items-end bg-black'>
+                            <div className='sticky top-10 z-20 w-full p-5 flex flex-col items-center gap-4 rounded-none text-white '>
                                 {searchedByKeywordValues.map((item) => {
-                                    return <p className={s.keyword} key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
+                                    return <p className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white' key={item._id} onClick={() => { keywordClickedHandler(item.name) }}>{item.name}</p>
                                 })}
                             </div>
                         </div>

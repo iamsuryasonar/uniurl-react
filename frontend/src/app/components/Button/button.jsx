@@ -1,9 +1,7 @@
-import s from './button.module.css'
-
 function Button({ className, onClick, label }) {
     return (
         <>
-            <button onClick={onClick} className={`${s.custom_button}  ${className}`}> {label}</button>
+            <button onClick={onClick} className={`px-2 py-1 bg-black text-xl text-white cursor-pointer ${className}`}> {label}</button>
         </>
     )
 

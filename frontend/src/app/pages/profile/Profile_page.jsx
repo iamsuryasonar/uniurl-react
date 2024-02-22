@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import s from './Profile_page.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { upload_profile_picture, get_profile_info, update_bio_or_status } from './../../store/slices/profileSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
@@ -14,11 +13,10 @@ const ProfilePage = () => {
     const profileInfo = useSelector(state => state.profile.profileInfo);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [name, setName] = useState('');
-    const [theme, setTheme] = useState('');
     const [themes, setThemes] = useState(null);
     const [input, setInput] = useState({
         'bio': '',
-        'theme': '',
+        'theme': profileInfo?.theme?.name,
     });
 
     const getAllTheme = async () => {
@@ -99,37 +97,36 @@ const ProfilePage = () => {
     };
 
     return (
-        <div className={s.wrapper}>
-            <div className={s.card}>
-                <label htmlFor="photo-upload" className={`${s['custom-file-upload']} ${s.fas} ${s.label}`}>
-                    <div className={`${s['img-wrap']}`}>
-                        <div className={s.image_overlay}><p>+</p></div>
-                        <img htmlFor="photo-upload" src={imagePreviewUrl} className={s.img} />
+        <div className='w-11/12 h-full max-w-[350px] m-auto pt-10'>
+            <div className='p-10 rounded-2xl flex flex-col justify-center items-center gap-4 bg-slate-200 '>
+                <label htmlFor="photo-upload" className={`border border-1 border-black rounded-full inline-block relative p-1 cursor-pointer text-black `}>
+                    <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
+                        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
+                        <img htmlFor="photo-upload" src={imagePreviewUrl} className='object-cover w-full h-full' />
                     </div>
-                    <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className={`${s.inputFile}`} />
+                    <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
                 </label>
-                <div className={s.field} onClick={copyToClipboard}>
-                    <label className={s.status_bio_label} htmlFor="name">Username:</label>
-                    <div className={s.input_copy}>
+                <div className='w-full flex flex-col' onClick={copyToClipboard}>
+                    <label className='' htmlFor="name">Username:</label>
+                    <div className='relative'>
                         <input
-                            id={s.name}
+                            id='text-center uppercase text-xl text-black'
                             type="text"
                             name="name"
                             value={name}
                             maxLength="30"
                             placeholder="Alexa"
                             required
-                            className={s.inputText}
+                            className='w-full rounded-full border border-1 border-black px-3 py-2 bg-transparent text-black'
                             readOnly
                         />
-                        <FontAwesomeIcon icon={faCopy} className={s.copyicon} />
+                        <FontAwesomeIcon icon={faCopy} className='absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-black' />
                     </div>
                 </div>
 
-                <div className={s.field}>
-                    <label className={s.status_bio_label} htmlFor="bio">Bio:</label>
+                <div className='w-full flex flex-col'>
+                    <label className='' htmlFor="bio">Bio:</label>
                     <input
-                        id={s.bio}
                         type="text"
                         name="bio"
                         onChange={onChangeHandler}
@@ -138,17 +135,20 @@ const ProfilePage = () => {
                         value={input.bio}
                         placeholder="Write something!"
                         required
-                        className={s.inputText}
+                        className='w-full rounded-full border border-1 border-black px-3 py-2 bg-transparent text-black'
                     />
                 </div>
-                <select onChange={onChangeHandler} onBlur={onFocusRemoved} name='theme' className='border-[1px] bg-white rounded-2xl h-10 p-2 border-black w-full placeholder:p-2 drop-shadow-sm '>
-                    <option value='' className=''>url page theme...</option>
-                    {
-                        themes?.map((item) => {
-                            return <option key={item._id} value={item._id} className=''> {item.name}</option>
-                        })
-                    }
-                </select>
+                <div className='w-full flex flex-col'>
+                    <label className='' htmlFor="bio">Url page theme:</label>
+                    <select onChange={onChangeHandler} onBlur={onFocusRemoved} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-black px-3 py-2 bg-transparent text-black'>
+                        <option value='' disabled className=''>url page theme...</option>
+                        {
+                            themes?.map((item) => {
+                                return <option key={item._id} value={item._id} className=''> {item.name}</option>
+                            })
+                        }
+                    </select>
+                </div>
             </div>
         </div >
     );

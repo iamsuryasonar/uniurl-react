@@ -1,6 +1,5 @@
-import s from './Register_page.module.css'
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
@@ -48,11 +47,11 @@ function RegisterPage() {
 
     return (
         <>
-            <div className={s.wrapper}>
-                <div className={s.container}>
+            <div className='w-full flex flex-col p-14 '>
+                <div className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Sign Up</p>
                     <input
-                        className={`${s.textsize} ${s.inputField}`}
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                         placeholder="Username"
                         type="text"
                         name="name"
@@ -60,7 +59,7 @@ function RegisterPage() {
                         onChange={onChangeHandler}
                     />
                     <input
-                        className={`${s.textsize} ${s.inputField}`}
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                         placeholder="Email"
                         type="email"
                         name="email"
@@ -68,7 +67,7 @@ function RegisterPage() {
                         onChange={onChangeHandler}
                     />
                     <input
-                        className={`${s.textsize} ${s.inputField}`}
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                         placeholder="Password"
                         type="password"
                         name="password"
@@ -76,9 +75,9 @@ function RegisterPage() {
                         required
                         onChange={onChangeHandler}
                     />
-                    <div className={s.loginandalreadyuser}>
-                        <Button className={s.register_button} onClick={registerHandler} label='Sign Up' />
-                        <Link className={s.already_a_user_title} to="/user/login">Already have a user?</Link>
+                    <div className='flex  justify-between items-center mt-6'>
+                        <Button className='text-white bg-black px-4 py-2' onClick={registerHandler} label='Sign Up' />
+                        <Link className='cursor-pointer hover:text-green-500' to="/user/login">Already have a user?</Link>
                     </div>
                 </div >
             </div >

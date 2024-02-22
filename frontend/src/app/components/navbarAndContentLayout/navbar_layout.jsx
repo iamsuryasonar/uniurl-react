@@ -1,15 +1,12 @@
 import react, { useState, useEffect } from 'react';
 import { Outlet } from "react-router-dom";
 import NavBar from '../navbar/nav_bar';
-import s from './navbar_layout.module.css'
 import { closeMenu } from "../../store/slices/menuSlice";
 import { useDispatch } from 'react-redux'
 import Footer from '../Footer/Footer'
 
 function NavbarLayout() {
     const dispatch = useDispatch()
-
-    const [currentPageName, setCurrentPageName] = useState(window.location.pathname)
     const [isInputHidden, setIsInputHidden] = useState(false)
 
     function onClickHandler() {
@@ -20,8 +17,8 @@ function NavbarLayout() {
     return (
         <>
             <NavBar isInputHidden={isInputHidden} setIsInputHidden={setIsInputHidden} />
-            <div className={s.main_wrapper} >
-                <div className={s.container} onClick={onClickHandler}>
+            <div className='relative bg-slate-50 max-w-5xl w-full m-auto overflow-hidden'>
+                <div className='min-h-svh max-w-md px-4 w-full m-auto ' onClick={onClickHandler}>
                     <Outlet />
                 </div>
             </div>

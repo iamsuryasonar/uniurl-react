@@ -1,5 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-import s from './searchbar.module.css'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
@@ -79,8 +77,8 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
 
     return (
         <>
-            <div className={s.search}>
-                <input className={s.search_txt}
+            <div className='max-w-[250px] rounded-full border border-1 border-white pl-2 flex justify-center items-center'>
+                <input className='px-2 w-full text-white bg-transparent border-none outline-none'
                     type="text"
                     name=""
                     placeholder="Search..."
@@ -90,8 +88,8 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                     onKeyUp={onSubmitHandler}
                 >
                 </input>
-                <div className={s.search_btn} onClick={onSearchHandler} >
-                    <FontAwesomeIcon icon={faArrowRight} className={s.search_icon} />
+                <div className='w-[28px] h-[28px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white' onClick={onSearchHandler} >
+                    <FontAwesomeIcon icon={faArrowRight} className='text-white hover:text-black' />
                 </div>
             </div>
 

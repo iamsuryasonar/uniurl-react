@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import s from './Login_page.module.css'
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
 import Button from '../../components/Button/button';
@@ -68,11 +67,11 @@ function LogInPage() {
 
     return (
         <>
-            <div className={s.wrapper} >
-                <div className={s.container} >
+            <div className='w-full flex flex-col p-14 relative'>
+                <div className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Log In</p>
                     <input
-                        className={`${s.textsize} ${s.inputField}`}
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                         placeholder="Email"
                         type="email"
                         name="email"
@@ -80,33 +79,33 @@ function LogInPage() {
                         onChange={onChangeHandler}
                     />
                     <input
-                        className={`${s.textsize} ${s.inputField}`}
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                         placeholder="Password"
                         type="password"
                         name="password"
                         required
                         onChange={onChangeHandler}
                     />
-                    <div className={s.loginandforgotpassword}>
-                        {loading ? <Button className={s.log_in_button} label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className={s.log_in_button} onClick={logInHandler} label='Log In' />}
-                        <a className={s.reset_title_anchor} onClick={forgotpassword_handler}>Reset password?</a>
+                    <div className='flex justify-between items-center'>
+                        {loading ? <Button className='text-white bg-black px-4 py-2' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2' onClick={logInHandler} label='Log In' />}
+                        <a className='cursor-pointer hover:text-green-500' onClick={forgotpassword_handler}>Reset password?</a>
                     </div>
                 </div>
                 {forgotpassword && (
-                    <form className={s.forgotpassword_overlay}>
-                        <div className={s.list_items}>
-                            <p className={s.reset_title}>Reset password</p>
+                    <form className='bg-white absolute top-0 left-0 bottom-0 right-0 flex flex-col z-10'>
+                        <div className='w-full p-6'>
+                            <p className='my-5 text-2xl'>Reset password</p>
                             <input
                                 placeholder="Email"
                                 type="email"
                                 name="Email"
                                 autocomplete="off"
                                 required
-                                className={`${s.textsize} ${s.inputField}`}
+                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                             />
-                            <div className={s.overlaybuttons}>
-                                <Button className={s.cancel_button} onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className={s.send_email_button} label='Send Email' onClick={send_email_handler} />
+                            <div className='flex justify-between mt-6'>
+                                <Button className='text-white bg-black px-4 py-2' onClick={forgotpassword_handler} label='Cancel' />
+                                <Button className='text-white bg-black px-4 py-2' label='Send Email' onClick={send_email_handler} />
                             </div>
                         </div >
                     </form >

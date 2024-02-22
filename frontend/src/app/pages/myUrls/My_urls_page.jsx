@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import s from './My_urls_page.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice';
 import { get_my_urls, delete_my_url } from '../../store/slices/myUrlSlice';
@@ -41,12 +40,12 @@ function MyUrlPage() {
     }
 
     return (
-        <div className={s.wrapper}>
+        <div className='w-full flex flex-col items-center gap-4 py-10'>
             {
                 urls && urls?.length === 0 &&
-                <div className={s.no_url_card}>
+                <div className='w-10/12 flex flex-col items-center gap-4'>
                     <p>You don't have urls to share...</p>
-                    <Link to='/user/create_url' className={s.add_url_button}>Add Url</Link>
+                    <Link to='/user/create_url' className='w-full rounded-full border border-1 border-white cursor-pointer bg-black text-white flex justify-center items-center px-2 py-1'>Add Url</Link>
                 </div>
             }
             {
