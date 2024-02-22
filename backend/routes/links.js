@@ -30,7 +30,7 @@ router.post("/", verify, async (req, res) => {
     session.startTransaction();
 
     const link = new Link({
-      url: req?.body?.url,
+      url: url,
       title: req?.body?.title,
       icon: req?.body?.icon,
       color: req?.body?.color,
