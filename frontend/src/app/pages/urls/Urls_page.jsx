@@ -10,7 +10,7 @@ function UrlCard({ urlData, onClick, theme }) {
     const { title, url } = urlData;
 
     return (
-        <div className={`${theme?.urlcardcontainer} `} style={{ color: urlData?.color }} onClick={() => onClick(url)}>
+        <div style={{ ...theme?.urlcardcontainer, color: urlData?.color }} onClick={() => onClick(url)}>
             <p className={`flex items-center gap-2 text-xl `}>
                 {urlData?.icon && <FontAwesomeIcon className='text-2xl hover:scale-150 transition-all duration-300 ease-in-out' icon={urlData?.icon} />}
                 {title}
@@ -35,14 +35,14 @@ function UrlsPage() {
     }
 
     return (
-        <div className={`${urlsinfo?.theme?.pagecontainer}`}>
+        <div style={urlsinfo?.theme?.pagecontainer}>
             {urlsinfo ?
                 <div className='w-full'>
-                    <div className={`${urlsinfo?.theme?.avatarnameciocontainer}`}>
-                        <div className={`${urlsinfo?.theme?.avatarimagecontainer} `}>
+                    <div style={urlsinfo?.theme?.avatarnamebiocontainer}>
+                        <div style={urlsinfo?.theme?.avatarimagecontainer}>
                             <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='object-fit' />
                         </div>
-                        <div className={`${urlsinfo?.theme?.namebiocontainer} `}>
+                        <div style={urlsinfo?.theme?.namebiocontainer}>
                             <p className='text-2xl'>{urlsinfo?.name}</p>
                             <p className='text-lg'>{urlsinfo?.bio}</p>
                         </div>

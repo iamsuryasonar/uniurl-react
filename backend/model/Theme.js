@@ -6,19 +6,19 @@ const themeSchema = new mongoose.Schema({
         required: true,
     },
     pagecontainer: {
-        type: String,
+        type: Object,
     },
     avatarnameciocontainer: {
-        type: String,
+        type: Object,
     },
     avatarimagecontainer: {
-        type: String,
+        type: Object,
     },
     namebiocontainer: {
-        type: String,
+        type: Object,
     },
     urlcardcontainer: {
-        type: String,
+        type: Object,
     },
 });
 
