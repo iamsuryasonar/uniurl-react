@@ -9,10 +9,7 @@ const Theme = require("../model/Theme");
 // retrieve profile info
 router.get("/profile-info", verify, async (req, res) => {
     try {
-        let userdata = await User.findById({ _id: req.user._id }).select('-password');
-
-        return res.status(200).json({ success: true, message: '', data: userdata });
-
+        return res.status(200).json({ success: true, message: '', data: req.user });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
@@ -51,9 +48,8 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         // invalidate cache
         redis.del('userlink:' + req.user.username);
 
-        const userdata = await User.findById({ _id: req.user._id }).select('-password');
+        const userdata = await User.findById({ _id: req.user._id }).select('-password').populate(["links", 'theme']);
         return res.status(200).json({ success: true, message: '', data: userdata });
-
     } catch (err) {
         console.log(err)
         return res.status(500).json({ success: false, message: 'Failed to upload image' });
@@ -74,13 +70,16 @@ router.put("/status_and_bio", verify, async (req, res) => {
         if (req?.body?.theme) {
             user.theme = req.body.theme;
         }
+        if (req?.body?.location) {
+            user.location = req.body.location;
+        }
 
         await user.save();
 
         // invalidate cache
         redis.del('userlink:' + req.user.username);
 
-        const userdata = await User.findById({ _id: req.user._id }).select('-password');
+        const userdata = await User.findById({ _id: req.user._id }).select('-password').populate(["links", 'theme']);
 
         return res.status(200).json({ success: true, message: '', data: userdata });
     } catch (err) {

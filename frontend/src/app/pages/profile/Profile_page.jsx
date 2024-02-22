@@ -16,7 +16,8 @@ const ProfilePage = () => {
     const [themes, setThemes] = useState(null);
     const [input, setInput] = useState({
         'bio': '',
-        'theme': profileInfo?.theme?.name || '',
+        'theme': profileInfo?.theme?._id || '',
+        'location': ''
     });
 
     const getAllTheme = async () => {
@@ -110,7 +111,6 @@ const ProfilePage = () => {
                     <label className='' htmlFor="name">Username:</label>
                     <div className='relative'>
                         <input
-                            id='text-center uppercase text-xl text-black'
                             type="text"
                             name="name"
                             value={name}
@@ -123,20 +123,33 @@ const ProfilePage = () => {
                         <FontAwesomeIcon icon={faCopy} className='absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-black' />
                     </div>
                 </div>
+                <div className='w-full flex flex-col'>
+                    <label className='' htmlFor="location">Location:</label>
+                    <input
+                        type="text"
+                        name="location"
+                        onChange={onChangeHandler}
+                        onBlur={onFocusRemoved}
+                        value={input.location}
+                        placeholder="Add location"
+                        required
+                        className='w-full rounded-xl border border-1 border-black px-3 py-2 bg-transparent text-black'
+                    />
+                </div>
 
                 <div className='w-full flex flex-col'>
                     <label className='' htmlFor="bio">Bio:</label>
-                    <input
-                        type="text"
+                    <textarea
+                        cols="40"
+                        rows="5"
                         name="bio"
                         onChange={onChangeHandler}
                         onBlur={onFocusRemoved}
-                        maxLength="64"
                         value={input.bio}
                         placeholder="Write something!"
                         required
-                        className='w-full rounded-full border border-1 border-black px-3 py-2 bg-transparent text-black'
-                    />
+                        className='w-full rounded-xl border border-1 border-black px-3 py-2 bg-transparent text-black'></textarea>
+
                 </div>
                 <div className='w-full flex flex-col'>
                     <label className='' htmlFor="bio">Url page theme:</label>

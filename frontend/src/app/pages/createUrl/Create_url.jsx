@@ -66,7 +66,7 @@ function CreateUrl() {
 
     return (
         <div className=' w-full h-full flex flex-col px-2 py-14 gap-4 items-end'>
-            <select onChange={onChangeHandler} name='icon' className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '>
+            <select onChange={onChangeHandler} name='icon' value={inputValue?.icon} className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '>
                 <option value='' className=''>select icon...</option>
                 {
                     iconArr?.map((item) => {

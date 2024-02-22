@@ -63,8 +63,7 @@ router.post("/", verify, async (req, res) => {
 // retrieve links
 router.get("/", verify, async (req, res) => {
   try {
-    const userdata = await User.findById({ _id: req.user._id }).select('-password').populate("links");
-    return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: userdata.links });
+    return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: req.user.links });
   } catch (err) {
     console.log(err)
     return res.status(500).json({ success: false, message: 'Internal server error' });

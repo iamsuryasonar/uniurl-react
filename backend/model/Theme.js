@@ -8,7 +8,7 @@ const themeSchema = new mongoose.Schema({
     pagecontainer: {
         type: Object,
     },
-    avatarnameciocontainer: {
+    avatarnamebiocontainer: {
         type: Object,
     },
     avatarimagecontainer: {

@@ -12,6 +12,7 @@ import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
 import Message from '../../components/Message/Message'
 import { clearMessage } from '../../store/slices/messageSlice';
+import { Transition } from 'react-transition-group';
 
 const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
@@ -130,13 +131,16 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                         }
                     </nav>
-                    {menu &&
-                        <div className='fixed z-10 bg-black text-white w-full px-4 py-10 flex flex-col items-center justify-center gap-2'>
-                            <Link to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                            <Link to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
-                            <Link to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex -center hover:border-slate-100  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                            <div className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer text-center bg-white text-black hover:border-red-500  font-bold`} onClick={handleLogOut}>Log out</div>
-                        </div>
+                    {<Transition in={menu} timeout={100}>
+                        {(state) => (
+                            <div className={`fixed top-16 left-0 right-0 z-10 bg-black text-white w-full px-4 py-20 rounded-b-lg flex flex-col items-center justify-center gap-2 transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
+                                <Link to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
+                                <Link to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
+                                <Link to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex -center hover:border-slate-100  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
+                                <div className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer text-center bg-white text-black hover:border-red-500  font-bold`} onClick={handleLogOut}>Log out</div>
+                            </div>
+                        )}
+                    </Transition >
                     }
                 </>
                 :

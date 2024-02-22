@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
         let {
             name,
             pagecontainer,
-            avatarnameciocontainer,
+            avatarnamebiocontainer,
             avatarimagecontainer,
             namebiocontainer,
             urlcardcontainer
@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
         const theme = new Theme({
             name,
             pagecontainer,
-            avatarnameciocontainer,
+            avatarnamebiocontainer,
             avatarimagecontainer,
             namebiocontainer,
             urlcardcontainer,
@@ -43,37 +43,37 @@ router.get("/", async (req, res) => {
     }
 });
 
-// // Update link
-// router.put("/:linkid", verify, async (req, res) => {
-//     if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
-//     if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
-//     try {
-//         const doc = await Link.find({
-//             _id: req.params.linkid,
-//         });
+// Update link
+router.put("/:id", async (req, res) => {
+    try {
 
-//         if (doc[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
+        let {
+            name,
+            pagecontainer,
+            avatarnamebiocontainer,
+            avatarimagecontainer,
+            namebiocontainer,
+            urlcardcontainer
+        } = req.body;
 
+        const theme = await Theme.findById({
+            _id: req.params.id,
+        });
 
-//         if (doc[0].author._id.toString() === req.user._id) {
-//             doc[0].url = req.body.url;
-//             doc[0].title = req.body.title;
+        theme.name = name;
+        theme.pagecontainer = pagecontainer;
+        theme.avatarnamebiocontainer = avatarnamebiocontainer;
+        theme.avatarimagecontainer = avatarimagecontainer;
+        theme.namebiocontainer = namebiocontainer;
+        theme.urlcardcontainer = urlcardcontainer;
 
-//             const data = await doc[0].save();
-
-//             // invalidate cache
-//             redis.del('userlink:' + req.user.username);
-
-//             return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
-//         } else {
-//             return res.status(401).json({ success: false, message: 'Not authorised to update' });
-//         }
-
-//     } catch (err) {
-//         console.log(err)
-//         return res.status(500).json({ success: false, message: 'Internal server error ' });
-//     }
-// });
+        const updatedTheme = await theme.save();
+        res.status(200).json({ success: true, message: 'themes updated successfully', data: updatedTheme });
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
+    }
+});
 
 // // delete link
 // router.delete("/:linkid", verify, async (req, res) => {

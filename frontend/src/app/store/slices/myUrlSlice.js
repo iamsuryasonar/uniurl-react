@@ -3,6 +3,7 @@ import { setMessage, clearMessage } from "./messageSlice";
 import { get_profile_info } from "./profileSlice";
 import myUrlService from "../../services/myurl.services";
 import { setLoading } from "./loadingSlice";
+import { logout } from './authSlice';
 
 export const get_my_urls = createAsyncThunk(
     "url/geturl",
@@ -19,6 +20,7 @@ export const get_my_urls = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            if (error.response.status === 401) thunkAPI.dispatch(logout());
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {

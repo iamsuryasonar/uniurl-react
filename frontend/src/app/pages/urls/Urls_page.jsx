@@ -87,7 +87,6 @@ function UrlsPage() {
         };
     }, [menu]);
 
-
     return (
         <div style={urlsinfo?.theme?.pagecontainer} className={`${!urlsinfo?.theme ? `max-w-xl min-h-svh bg-slate-100 m-auto flex flex-col p-4 gap-4` : ''}`}>
             {urlsinfo ?
@@ -137,7 +136,6 @@ function UrlsPage() {
                         )}
                     </Transition >
                     }
-
                     <div style={urlsinfo?.theme?.avatarnamebiocontainer} className={`${!urlsinfo?.theme ? `flex items-center flex-col gap-4 py-10 ` : ''}`}>
                         <div style={{
                             ...urlsinfo?.theme?.avatarimagecontainer
@@ -145,8 +143,11 @@ function UrlsPage() {
                             <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-fit' />
                         </div>
                         <div style={urlsinfo?.theme?.namebiocontainer}>
-                            <p ref={elementRef} className='text-2xl'>{urlsinfo?.name}</p>
-                            <p className='text-lg'>{urlsinfo?.bio}</p>
+                            <p ref={elementRef} className='text-2xl p-2'>{urlsinfo?.name}</p>
+                            {urlsinfo?.location && <p className='text-lg font-thin'> <FontAwesomeIcon icon='fas fa-location-dot' className='' /> {urlsinfo?.location}</p>}
+                            <p className='text-md text-wrap'>
+                                {urlsinfo?.bio}
+                            </p>
                         </div>
                     </div>
                     <div className='flex flex-col items-center gap-4 pb-10'>
