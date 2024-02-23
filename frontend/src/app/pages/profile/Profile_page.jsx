@@ -104,7 +104,7 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className='w-11/12 h-full max-w-[350px] m-auto pt-10'>
+        <div className='w-11/12 py-10 h-full max-w-[350px] m-auto pt-10'>
             <div className='p-10 rounded-2xl flex flex-col justify-center items-center gap-4 bg-slate-200 relative'>
                 <div className='absolute top-2 right-2 p-2 rounded-full text-black hover:bg-black hover:text-white' onClick={gotoUrlsPage}>
                     <FontAwesomeIcon icon='fas fa-link' className=' text-2xl cursor-pointer ' />

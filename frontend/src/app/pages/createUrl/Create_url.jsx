@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux'
 import { create_my_urls } from '../../store/slices/myUrlSlice';
 import { clearMessage, setMessage } from '../../store/slices/messageSlice';
 import Button from '../../components/Button/button';
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { ICON_ARRAY } from '../../common/constants';
 
 function CreateUrl() {
     const dispatch = useDispatch();
@@ -12,13 +14,32 @@ function CreateUrl() {
         dispatch(clearMessage());
     }, [dispatch]);
 
+    const selectDivRef = useRef(null);
     const [color, setColor] = useColor("#123123");
-
+    const [isSelectMenu, setSelectMenu] = useState(false);
+    const [selectedIcon, setSelectedIcon] = useState({
+        name: '',
+        icon: ''
+    });
     const [inputValue, setInputValue] = useState({
         'title': '',
         'url': '',
-        'icon': '',
     });
+
+
+    useEffect(() => { // this effect handles onClick outside of the custom select option
+        const handleClickOutside = (event) => {
+            if (selectDivRef.current && !selectDivRef.current.contains(event.target)) {
+                setSelectMenu(false)
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [selectDivRef]);
 
     const onChangeHandler = (e) => {
         setInputValue({
@@ -43,37 +64,61 @@ function CreateUrl() {
             return;
         }
 
-        dispatch(create_my_urls({ ...inputValue, color: color?.hex })).unwrap().then(() => {
+        dispatch(create_my_urls({ ...inputValue, icon: selectedIcon?.icon, color: color?.hex })).unwrap().then(() => {
             setInputValue({
                 'title': '',
                 'url': '',
-                'icon': '',
             })
+            setSelectedIcon({
+                name: '',
+                icon: ''
+            });
         }).catch(() => {
         })
     }
 
-    const iconArr = [
-        { name: 'linkedin', icon: 'fab fa-linkedin' },
-        { name: 'facebook', icon: 'fab fa-facebook' },
-        { name: 'instagram', icon: 'fab fa-instagram' },
-        { name: 'youtube', icon: 'fab fa-youtube' },
-        { name: 'discord', icon: 'fab fa-discord' },
-        { name: 'github', icon: 'fab fa-github' },
-        { name: 'url', icon: 'fas fa-link' },
-    ];
-
-
     return (
         <div className=' w-full h-full flex flex-col px-2 py-14 gap-4 items-end'>
-            <select onChange={onChangeHandler} name='icon' value={inputValue?.icon} className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '>
-                <option value='' className=''>select icon...</option>
+            <div ref={selectDivRef} className="relative w-full">
+                <button onClick={() => { setSelectMenu(!isSelectMenu) }} className="border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
+                    <span className="text-sm leading-none">
+                        {selectedIcon?.name ? selectedIcon?.name : 'select icon...'}
+                    </span>
+                    <FontAwesomeIcon className=' text-black' icon='fas fa-chevron-down' />
+                </button>
                 {
-                    iconArr?.map((item) => {
-                        return <option key={item.name} value={item.icon} className=''> {item.name}</option>
-                    })
+                    isSelectMenu &&
+                    <div className="h-80 rounded-sm overflow-auto overscroll-none absolute flex flex-col w-full mt-1 border border-black shadow-lg z-20">
+                        <div onClick={
+                            () => {
+                                setSelectedIcon({
+                                    name: 'select icon...',
+                                    icon: '',
+                                });
+                                setSelectMenu(false)
+                            }
+                        } className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === '' ? 'bg-gray-200' : 'bg-slate-50'}`}>
+                            <p>select icon...</p>
+                        </div>
+                        {
+                            ICON_ARRAY?.map((item) => {
+                                return <div key={item.name} onClick={
+                                    () => {
+                                        setSelectedIcon({
+                                            name: item.name,
+                                            icon: item.icon,
+                                        });
+                                        setSelectMenu(false)
+                                    }
+                                } className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === item.icon ? 'bg-gray-200' : 'bg-slate-50'}`}>
+                                    <FontAwesomeIcon className='w-6 h-6 text-black' icon={item?.icon} />
+                                    <p>{item.name}</p>
+                                </div>
+                            })
+                        }
+                    </div>
                 }
-            </select>
+            </div>
 
             <input
                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
