@@ -83,9 +83,9 @@ const ProfilePage = () => {
         dispatch(update_bio_or_status(input))
     }
 
+    const originname = window.location.origin;
     const copyToClipboard = async () => {
         try {
-            const originname = window.location.origin;
             await navigator.clipboard.writeText(originname + '/' + name);
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
@@ -99,9 +99,16 @@ const ProfilePage = () => {
         }
     };
 
+    const gotoUrlsPage = () => {
+        window.open(originname + '/' + name, '_blank');
+    }
+
     return (
         <div className='w-11/12 h-full max-w-[350px] m-auto pt-10'>
-            <div className='p-10 rounded-2xl flex flex-col justify-center items-center gap-4 bg-slate-200 '>
+            <div className='p-10 rounded-2xl flex flex-col justify-center items-center gap-4 bg-slate-200 relative'>
+                <div className='absolute top-2 right-2 p-2 rounded-full text-black hover:bg-black hover:text-white' onClick={gotoUrlsPage}>
+                    <FontAwesomeIcon icon='fas fa-link' className=' text-2xl cursor-pointer ' />
+                </div>
                 <label htmlFor="photo-upload" className={`border border-1 border-black rounded-full inline-block relative p-1 cursor-pointer text-black `}>
                     <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
                         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
