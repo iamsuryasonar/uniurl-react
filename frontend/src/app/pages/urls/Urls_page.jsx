@@ -90,9 +90,9 @@ function UrlsPage() {
     return (
         <div style={urlsinfo?.theme?.pagecontainer} className={`${!urlsinfo?.theme ? `max-w-xl min-h-svh bg-slate-100 m-auto flex flex-col p-4 gap-4` : ''}`}>
             {urlsinfo ?
-                <div className='w-full relative '>
+                <div className='w-full relative flex flex-col justify-center'>
                     {/* sticky nav */}
-                    <div className={`sticky top-4 left-4 right-4 rounded-full text-black ${isSticky ? 'backdrop-blur-sm bg-white/60 flex flex-row justify-between items-center' : 'grid justify-items-end '}`}>
+                    <div className={`sticky top-4 left-4 right-4 flex flex-row justify-between items-center rounded-full text-black backdrop-blur-sm bg-white/60 drop-shadow-lg  ${isSticky ? '' : 'place-self-end'}`}>
                         {isSticky &&
                             <>
                                 <div className={`w-10 h-10 m-1`}>
@@ -101,7 +101,7 @@ function UrlsPage() {
                                 <p className='text-2xl font-light'>{urlsinfo?.name}</p>
                             </>
                         }
-                        <div onClick={() => setMenu(!menu)} className='bg-gray-200 text-black rounded-full w-10 h-10 m-1 grid place-content-center'><FontAwesomeIcon icon="fas fa-ellipsis" /></div>
+                        <div onClick={() => setMenu(!menu)} className='bg-gray-200 text-black rounded-full w-10 h-10 m-1 grid place-content-center cursor-pointer'><FontAwesomeIcon icon="fas fa-ellipsis" /></div>
                     </div>
                     {<Transition in={menu} timeout={100}>
                         {(state) => (
@@ -109,8 +109,8 @@ function UrlsPage() {
                                 <div className='bg-white max-w-xl w-full sm:w-auto  sm:auto sm:m-20  rounded-t-lg sm:rounded-xl  p-6 flex flex-col gap-4'>
                                     <div className='w-full flex flex-row justify-between items-center'>
                                         <p className='text-md font-bold'>Welcome to my Uni Url</p>
-                                        <div onClick={() => setMenu(false)} className='hover:bg-slate-200 p-2 grid place-content-center'>
-                                            <FontAwesomeIcon className='text-2xl' icon='fas fa-xmark' />
+                                        <div onClick={() => setMenu(false)} className='hover:bg-slate-200 p-2 grid place-content-center cursor-pointer'>
+                                            <FontAwesomeIcon className='text-2xl ' icon='fas fa-xmark' />
                                         </div>
                                     </div>
                                     <div onClick={() => copyToClipboard(urlsinfo?.name)} className='relative'>
