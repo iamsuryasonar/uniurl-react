@@ -43,9 +43,9 @@ const ProfilePage = () => {
             setInput(prev => (
                 {
                     ...prev,
-                    'bio': profileInfo.bio,
-                    'location': profileInfo.location,
-                    'theme': profileInfo.theme._id,
+                    'bio': profileInfo?.bio,
+                    'location': profileInfo?.location,
+                    'theme': profileInfo?.theme?._id,
                 }
             ))
 
