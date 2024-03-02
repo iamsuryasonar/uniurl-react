@@ -24,10 +24,6 @@ function LogInPage() {
 
     const [input, setInput] = useState({});
 
-    useEffect(() => {
-        dispatch(clearMessage());
-    }, [dispatch]);
-
     const onChangeHandler = (e) => {
         setInput({
             ...input,
@@ -36,6 +32,7 @@ function LogInPage() {
     }
 
     const logInHandler = (e) => {
+        e.preventDefault();
         let flag = '';
         if (input?.email?.length < 7) {
             flag = 'Email';
@@ -53,10 +50,6 @@ function LogInPage() {
         }
 
         dispatch(login(input))
-            .unwrap()
-            .then(() => {
-                navigate("/user/myurls");
-            })
     }
 
     const send_email_handler = (e) => {

@@ -7,11 +7,11 @@ import { APP_NAME, LOCAL_STORAGE_NAME } from '../../common/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
+import { logout } from '../../store/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
 import Message from '../../components/Message/Message'
-import { clearMessage } from '../../store/slices/messageSlice';
 import { Transition } from 'react-transition-group';
 
 const NavBar = ({ isInputHidden, setIsInputHidden }) => {
@@ -26,7 +26,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const menu = useSelector(state => state.menu.value);
     const { loading } = useSelector((state) => state.loading);
     const { message } = useSelector((state) => state.message);
-
     const [activeMenu, setActiveMenu] = useState(currentPageName);
 
     const profileInfo = useSelector(state => state.profile.profileInfo)
@@ -35,7 +34,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
 
 
     useEffect(() => {
-        dispatch(clearMessage())
         const token = localStorage.getItem(LOCAL_STORAGE_NAME);
         if (token) {
             dispatch(get_profile_info())
@@ -72,8 +70,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
 
     const handleLogOut = () => {
         dispatch(closeMenu())
-        localStorage.removeItem(LOCAL_STORAGE_NAME)
-        navigate('/user/login');
+        dispatch(logout())
     }
 
     const searchKeywordHandler = (userdata) => {
@@ -86,17 +83,16 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     }
 
     return <>
-
+        {
+            loading &&
+            <div className={s.line_container}>
+                <div className={s.moving_gradient}></div>
+            </div>
+        }
         {
             token ?
                 //! private navbar
                 <>
-                    {
-                        loading && <div className={s.line_container}>
-                            <div className={s.moving_gradient}></div>
-                        </div>
-                    }
-
                     <nav className='bg-black text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
                         <div className='max-w-5xl w-full flex justify-center items-center gap-4 px-6 py-4 '>
                             <div className='w-auto flex items-center'>
@@ -146,9 +142,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                 :
                 //! public navbar
                 <>
-                    {loading && <div className={s.line_container}>
-                        <div className={s.moving_gradient}></div>
-                    </div>}
                     <nav className='bg-black text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
                         <div className='max-w-5xl  w-full flex justify-center items-center  gap-4 px-6 py-4 '>
                             <Link to="/" className='font-bold text-xl' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>

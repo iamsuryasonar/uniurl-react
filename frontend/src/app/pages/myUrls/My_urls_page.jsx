@@ -26,7 +26,6 @@ function MyUrlPage() {
     const urls = useSelector((state) => state.myurl.urls);
 
     useEffect(() => {
-        dispatch(clearMessage());
         dispatch(get_my_urls());
     }, []);
 

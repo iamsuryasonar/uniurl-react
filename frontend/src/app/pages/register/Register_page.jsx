@@ -13,11 +13,7 @@ function RegisterPage() {
     const { loading } = useSelector((state) => state.loading);
     const [input, setInput] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-
-    useEffect(() => {
-        dispatch(clearMessage());
-    }, [dispatch]);
-
+    
     const onChangeHandler = (e) => {
         setInput({
             ...input,
@@ -45,7 +41,6 @@ function RegisterPage() {
             return;
         }
 
-        e.preventDefault();
         dispatch(register(input));
     }
 

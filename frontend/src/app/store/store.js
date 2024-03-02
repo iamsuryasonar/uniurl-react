@@ -17,6 +17,7 @@ const reducer = {
     loading: loadingReducer,
 }
 
+
 export const store = configureStore({
     reducer: reducer,
     devTools: true,

@@ -10,9 +10,6 @@ import { ICON_ARRAY } from '../../common/constants';
 
 function CreateUrl() {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(clearMessage());
-    }, [dispatch]);
 
     const selectDivRef = useRef(null);
     const [color, setColor] = useColor("#123123");

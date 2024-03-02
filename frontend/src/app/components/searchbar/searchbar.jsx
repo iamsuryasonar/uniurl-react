@@ -4,7 +4,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { API_URL_PROFILE } from '../../common/constants'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { clearMessage, setMessage } from '../../store/slices/messageSlice';
+import {  setMessage } from '../../store/slices/messageSlice';
 
 function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const [isFocused, setIsFocused] = useState(false);
@@ -40,7 +40,6 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     }
 
     useEffect(() => {
-        dispatch(clearMessage())
         setDebounced(() => debounce(handleSearch, 300))
     }, [])
 

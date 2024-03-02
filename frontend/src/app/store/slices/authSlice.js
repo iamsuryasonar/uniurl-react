@@ -26,7 +26,7 @@ export const register = createAsyncThunk(
         } finally {
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
-            }, 2000);
+            }, 2300);
             thunkAPI.dispatch(setLoading(false));
         }
     }
@@ -51,18 +51,36 @@ export const login = createAsyncThunk(
         } finally {
             setTimeout(() => {
                 thunkAPI.dispatch(clearMessage());
-            }, 2000);
+            }, 2300);
             thunkAPI.dispatch(setLoading(false));
         }
     }
 );
 
-export const logout = createAsyncThunk("auth/logout", async () => {
-    await AuthService.logout();
+export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setLoading(true));
+        await localStorage.removeItem(LOCAL_STORAGE_NAME);
+        return;
+    } catch (error) {
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        thunkAPI.dispatch(setMessage(message));
+        return thunkAPI.rejectWithValue();
+    } finally {
+        setTimeout(() => {
+            thunkAPI.dispatch(clearMessage());
+        }, 2300);
+        thunkAPI.dispatch(setLoading(false));
+    }
 });
 
 const initialState = user
-    ? { isLoggedIn: true, user }
+    ? { isLoggedIn: true, user: user }
     : { isLoggedIn: false, user: null };
 
 const authSlice = createSlice({
@@ -72,8 +90,10 @@ const authSlice = createSlice({
         builder
             .addCase(register.fulfilled, (state, action) => {
                 state.isLoggedIn = false;
+                state.user = null;
             }).addCase(register.rejected, (state, action) => {
                 state.isLoggedIn = false;
+                state.user = null;
             }).addCase(login.fulfilled, (state, action) => {
                 state.isLoggedIn = true;
                 state.user = action.payload.user;
@@ -81,6 +101,9 @@ const authSlice = createSlice({
                 state.isLoggedIn = false;
                 state.user = null;
             }).addCase(logout.fulfilled, (state, action) => {
+                state.isLoggedIn = false;
+                state.user = null;
+            }).addCase(logout.rejected, (state, action) => {
                 state.isLoggedIn = false;
                 state.user = null;
             })
