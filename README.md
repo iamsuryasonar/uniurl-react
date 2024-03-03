@@ -4,10 +4,13 @@ UNIURL is a URL sharing platform, which enables users to share all of their URL'
 
 
 user adds an url
-![Screenshot from 2023-10-30 01-36-59](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/b2b6a37a-4c0b-4dcb-ad43-5e9b0419de66)
-can view urls
-![Screenshot from 2023-10-30 01-36-53](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/35fc8392-331b-48b3-bd53-e4a05f5abeef)
+![Screenshot from 2024-03-03 13-56-53](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/f349282d-8660-41b3-99cf-1f93a5ae7a46)
+
+can view own urls
+![Screenshot from 2024-03-03 13-56-48](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/9461d8b4-7361-4495-a3ee-f0454e8eef9f)
+
 edit profile
-![Screenshot from 2023-10-30 01-37-03](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/7439897b-e726-4c1a-9064-b7a96330fef1)
+![Screenshot from 2024-03-03 13-56-58](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/fada1967-8727-4964-b7ce-5ececd2d6abe)
+
 shared link can be used to view a users urls
-![Screenshot from 2023-10-30 01-36-44](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/9ed8bc92-5e68-4b8f-9e6e-da2e99c119d3)
+![Screenshot from 2024-03-03 13-57-36](https://github.com/iamsuryasonar/urlshare-react/assets/79869026/29c9bfab-be73-4101-ae48-ba31cda4acf9)
