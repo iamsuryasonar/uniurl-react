@@ -38,6 +38,12 @@ cd urlshare-react
 ```
 2. Install dependencies:
 ```bash
+cd frontend
+npm install
+
+//and
+
+cd backend
 npm install
 ```
 3. Set up environment variables:
