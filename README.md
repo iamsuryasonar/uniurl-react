@@ -41,20 +41,26 @@ cd urlshare-react
 npm install
 ```
 3. Set up environment variables:
-Create a .env file in the root directory with the following variables:
+Create a .env file in the root directory of backend with the following variables:
 ```makefile
-PORT=3000
-MONGO_URI=your_mongodb_uri
-REDIS_URI=your_redis_uri
-AWS_ACCESS_KEY_ID=your_aws_access_key_id
-AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
-AWS_S3_BUCKET_NAME=your_aws_s3_bucket_name
+DB_CONNECT = mongodb+srv://username:password@clustername.xsbtfy9.mongodb.net/?retryWrites=true&w=majority
+TOKEN_SECRET = secret
+AWS_ACCESS_KEY_ID="id"
+AWS_ACCESS_KEY_SECRET="secret"
+AWS_BUCKET_NAME="bucket name"
+REGION_NAME="us-east-1"
+PORT=3005
+REDIS_HOST="redis host"
+REDIS_PORT="port"
+REDIS_USER="default"
+REDIS_PASSWORD="password"
 ```
 4. Start the development server:
 ```bash
-npm start
+npm run dev // backend
+npm start // frontend
 ```
-The application should now be running on http://localhost:3000.
+The frontend should now be running on http://localhost:3000 and backend on port 3005
 
 ### Images
 user adds an url
