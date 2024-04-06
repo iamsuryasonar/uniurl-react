@@ -112,7 +112,7 @@ const ProfilePage = () => {
                 <label htmlFor="photo-upload" className={`border border-1 border-black rounded-full inline-block relative p-1 cursor-pointer text-black `}>
                     <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
                         <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
-                        <img htmlFor="photo-upload" src={imagePreviewUrl} className='object-cover w-full h-full' />
+                        <img htmlFor="photo-upload" src={imagePreviewUrl} alt='user profile placeholder' className='object-cover w-full h-full' />
                     </div>
                     <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
                 </label>

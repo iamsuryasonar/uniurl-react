@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
 import Button from '../../components/Button/button';
@@ -19,8 +18,6 @@ function LogInPage() {
     }
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
 
     const [input, setInput] = useState({});
 
@@ -71,6 +68,7 @@ function LogInPage() {
                         type="email"
                         name="email"
                         required
+                        aria-label="Email"
                         onChange={onChangeHandler}
                     />
                     <div className='relative flex  flex-col justify-center'>
@@ -81,14 +79,23 @@ function LogInPage() {
                             autoComplete="off"
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
+                            aria-label="Password"
                             className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-black w-full '
                         ></input>
-                        <FontAwesomeIcon className='absolute right-2' onClick={() => { setShowPassword(!showPassword) }} icon={showPassword ? faEye : faEyeSlash} />
+                        <FontAwesomeIcon className='absolute right-2'
+                            onClick={() => { setShowPassword(!showPassword) }}
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    setShowPassword(!showPassword)
+                                }
+                            }}
+                            icon={showPassword ? faEye : faEyeSlash} />
                     </div>
 
                     <div className='flex justify-between items-center'>
                         {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Log In' />}
-                        <a className='cursor-pointer hover:text-green-500' onClick={forgotpassword_handler}>Reset password?</a>
+                        <button className='cursor-pointer hover:text-green-500' onClick={forgotpassword_handler}>Reset password?</button>
                     </div>
                 </form>
                 {forgotpassword && (
@@ -101,6 +108,7 @@ function LogInPage() {
                                 name="Email"
                                 autoComplete="off"
                                 required
+                                aria-label="Email"
                                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
                             />
                             <div className='flex justify-between mt-6'>

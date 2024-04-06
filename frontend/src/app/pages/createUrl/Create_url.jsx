@@ -76,8 +76,18 @@ function CreateUrl() {
 
     return (
         <div className=' w-full h-full flex flex-col px-2 py-14 gap-4 items-end'>
-            <div ref={selectDivRef} className="relative w-full">
-                <button onClick={() => { setSelectMenu(!isSelectMenu) }} className="border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
+            <div ref={selectDivRef} className="relative w-full"
+                tabIndex={0}
+                aria-label='Select icon'
+                onKeyDown={
+                    (e) => {
+                        if (e.key === 'Enter') {
+                            setSelectMenu(!isSelectMenu)
+                        }
+                    }}>
+                <button
+                    onClick={() => { setSelectMenu(!isSelectMenu) }}
+                    className="border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
                     <span className="text-sm leading-none">
                         {selectedIcon?.name ? selectedIcon?.name : 'select icon...'}
                     </span>
@@ -93,21 +103,34 @@ function CreateUrl() {
                                     icon: '',
                                 });
                                 setSelectMenu(false)
-                            }
-                        } className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === '' ? 'bg-gray-200' : 'bg-slate-50'}`}>
+                            }}
+                            className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === '' ? 'bg-gray-200' : 'bg-slate-50'}`}>
                             <p>select icon...</p>
                         </div>
                         {
                             ICON_ARRAY?.map((item) => {
-                                return <div key={item.name} onClick={
-                                    () => {
-                                        setSelectedIcon({
-                                            name: item.name,
-                                            icon: item.icon,
-                                        });
-                                        setSelectMenu(false)
-                                    }
-                                } className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === item.icon ? 'bg-gray-200' : 'bg-slate-50'}`}>
+                                return <div key={item.name}
+                                    onClick={
+                                        () => {
+                                            setSelectedIcon({
+                                                name: item.name,
+                                                icon: item.icon,
+                                            });
+                                            setSelectMenu(false)
+                                        }}
+                                    onKeyDown={
+                                        (e) => {
+                                            if (e.key === 'Enter') {
+                                                setSelectedIcon({
+                                                    name: item.name,
+                                                    icon: item.icon,
+                                                });
+                                                setSelectMenu(false);
+                                            }
+                                        }}
+                                    tabIndex={0}
+                                    aria-selected={selectedIcon.icon === item.icon ? 'true' : 'false'}
+                                    className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === item.icon ? 'bg-gray-200' : 'bg-slate-50'}`}>
                                     <FontAwesomeIcon className='w-6 h-6 text-black' icon={item?.icon} />
                                     <p>{item.name}</p>
                                 </div>

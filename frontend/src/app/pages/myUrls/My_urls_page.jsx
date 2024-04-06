@@ -10,12 +10,24 @@ function MyUrlCard({ urlData, onClick, onDelete }) {
     const { _id, title, url } = urlData;
 
     return (
-        <div className={`bg-black text-white hover:bg-slate-200 hover:text-black w-full px-4 py-2 flex flex-row justify-between  items-center`} onClick={() => onClick(url)}>
+        <div className={`bg-black text-white hover:bg-slate-200 hover:text-black w-full px-4 py-2 flex flex-row justify-between  items-center`} tabIndex={0} aria-label='Url'
+            onClick={() => onClick(url)}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    onClick(url)
+                }
+            }}>
             <p className='flex items-center gap-2 text-xl'>
                 {urlData?.icon && <FontAwesomeIcon className='text-2xl hover:scale-150 transition-all duration-300 ease-in-out' icon={urlData?.icon} />}
                 {title}
             </p>
-            <FontAwesomeIcon icon={faTrash} className='p-4 hover:bg-black hover:text-red-500 rounded-full' onClick={(e) => onDelete(e, _id)} />
+            <FontAwesomeIcon aria-label="Delete" tabIndex={0} icon={faTrash} className='p-4 hover:bg-black hover:text-red-500 rounded-full'
+                onClick={(e) => onDelete(e, _id)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        onDelete(e, _id);
+                    }
+                }} />
         </div>
     )
 }

@@ -35,7 +35,7 @@ function UrlsPage() {
 
     useEffect(() => {
         dispatch(get_urls(username));
-    }, []);
+    }, [username]);
 
     const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
     const onCardClicked = (url) => {
@@ -106,7 +106,7 @@ function UrlsPage() {
                             {isSticky &&
                                 <>
                                     <div className={`w-10 h-10 m-1`}>
-                                        <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full object-fit' />
+                                        <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full object-fit' />
                                     </div>
                                     <p className='text-2xl font-light'>{urlsinfo?.name}</p>
                                 </>
@@ -150,7 +150,7 @@ function UrlsPage() {
                             <div style={{
                                 ...urlsinfo?.theme?.avatarimagecontainer
                             }} className={` ${!urlsinfo?.theme ? `w-28 h-28 aspect-square` : ''}`}>
-                                <img src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-fit' />
+                                <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-fit' />
                             </div>
                             <div style={urlsinfo?.theme?.namebiocontainer}>
                                 <p ref={elementRef} className='text-2xl p-2'>{urlsinfo?.name}</p>

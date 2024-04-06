@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
@@ -13,7 +13,7 @@ function RegisterPage() {
     const { loading } = useSelector((state) => state.loading);
     const [input, setInput] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    
+
     const onChangeHandler = (e) => {
         setInput({
             ...input,
@@ -55,6 +55,7 @@ function RegisterPage() {
                         type="text"
                         name="name"
                         required
+                        aria-label="Username"
                         onChange={onChangeHandler}
                     />
                     <input
@@ -63,6 +64,7 @@ function RegisterPage() {
                         type="email"
                         name="email"
                         required
+                        aria-label="Email"
                         onChange={onChangeHandler}
                     />
                     <div className='relative flex  flex-col justify-center'>
@@ -73,9 +75,18 @@ function RegisterPage() {
                             autoComplete="off"
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
+                            aria-label="Password"
                             className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-black w-full '
                         ></input>
-                        <FontAwesomeIcon className='absolute right-2' onClick={() => { setShowPassword(!showPassword) }} icon={showPassword ? faEye : faEyeSlash} />
+                        <FontAwesomeIcon className='absolute right-2'
+                            onClick={() => { setShowPassword(!showPassword) }}
+                            icon={showPassword ? faEye : faEyeSlash}
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    setShowPassword(!showPassword)
+                                }
+                            }} />
                     </div>
                     <div className='flex  justify-between items-center gap-2'>
                         {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}

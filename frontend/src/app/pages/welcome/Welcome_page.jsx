@@ -15,7 +15,7 @@ function WelcomePage() {
                             <Link to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${s.get_started}`}>Get Started</Link>
                         </div>
                     </div>
-                    <img className='w-full' src={image}></img>
+                    <img alt='screenshots of pages merged together' className='w-full' src={image}></img>
                 </div>
                 <div className='h-svh flex justify-center items-center'>
                     <p className='py-4 text-justify'>Share your favorite websites and links with ease using UniUrl. Whether you're a researcher, content creator, or simply want to save and organize your digital discoveries, we've got you covered.</p>

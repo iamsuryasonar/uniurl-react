@@ -4,7 +4,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { API_URL_PROFILE } from '../../common/constants'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {  setMessage } from '../../store/slices/messageSlice';
+import { setMessage } from '../../store/slices/messageSlice';
 
 function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const [isFocused, setIsFocused] = useState(false);
@@ -87,7 +87,14 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                     onKeyUp={onSubmitHandler}
                 >
                 </input>
-                <div className='w-[22px] h-[22px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white' onClick={onSearchHandler} >
+                <div className='w-[22px] h-[22px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white'
+                    onClick={onSearchHandler}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                    if (e.key === 'Enter') {        
+                            onSearchHandler()
+                        }
+                    }}>
                     <FontAwesomeIcon icon={faArrowRight} className='text-white hover:text-black' />
                 </div>
             </div>

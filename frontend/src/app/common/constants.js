@@ -8,8 +8,6 @@ export const API_URL_MY_URL = API_URL + '/api/url/';
 export const API_URL_URL = API_URL + '/api/public_urls/';
 export const API_URL_THEME = API_URL + '/api/theme/'
 
-
-
 export const ICON_ARRAY = [
     { name: 'url', icon: 'fas fa-link' },
     { name: 'facebook', icon: 'fab fa-facebook-f' },
