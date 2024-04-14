@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
 import s from './nav_bar.module.css'
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import Searchbar from '../searchbar/searchbar'
 import { APP_NAME, LOCAL_STORAGE_NAME } from '../../common/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Transition } from 'react-transition-group';
 import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
 import { logout } from '../../store/slices/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
+import Searchbar from '../searchbar/searchbar'
 import Message from '../../components/Message/Message'
-import { Transition } from 'react-transition-group';
 
 const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
-
     const currentPageName = window.location.pathname;
 
     const token = localStorage.getItem(LOCAL_STORAGE_NAME)
@@ -35,7 +34,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
         if (token) {
             dispatch(get_profile_info())
         }
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if (profileInfo?.picture) {
@@ -102,7 +101,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
                                 {menu ?
                                     <FontAwesomeIcon
-                                        className='flex md:hidden cursor-pointer text-2xl'
+                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
@@ -115,7 +114,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                     />
                                     :
                                     <FontAwesomeIcon
-                                        className='flex md:hidden cursor-pointer text-2xl'
+                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
                                         icon={faBars}
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
@@ -195,7 +194,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 {menu ?
                                     <FontAwesomeIcon
                                         icon={faXmark}
-                                        className='flex md:hidden cursor-pointer text-2xl'
+                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
@@ -208,7 +207,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                     :
                                     <FontAwesomeIcon
                                         icon={faBars}
-                                        className='flex md:hidden cursor-pointer text-2xl'
+                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
@@ -225,11 +224,14 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                         </div>
                     </nav>
-                    {menu &&
-                        <div className='md:hidden fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 flex-col items-center justify-between gap-4 flex text-nowrap'>
-                            <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                            <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
-                        </div>
+                    {<Transition in={menu} timeout={100}>
+                        {(state) => (
+                            <div className={`md:hidden fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 rounded-b-lg flex-col items-center justify-between gap-4 flex text-nowrap transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
+                                <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
+                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                            </div>
+                        )}
+                    </Transition >
                     }
                     {
                         searchedByKeywordValues.length > 0 && !isInputHidden && !menu &&

@@ -1,8 +1,8 @@
+import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import './App.css';
 import PrivateRoute from './app/components/private_route';
 import PublicRoute from './app/components/authGuard'
 import NavbarLayout from './app/components/navbarAndContentLayout/navbar_layout';
