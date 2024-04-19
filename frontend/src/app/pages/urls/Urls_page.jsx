@@ -39,7 +39,7 @@ function UrlsPage() {
 
     const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
     const onCardClicked = (url) => {
-        window.open(url, '_blank');
+        window.open(url, '_blank', 'noreferrer');
     }
 
     useEffect(() => {
