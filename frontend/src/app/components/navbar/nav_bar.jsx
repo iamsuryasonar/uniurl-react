@@ -12,22 +12,21 @@ import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
 import Searchbar from '../searchbar/searchbar'
 import Message from '../../components/Message/Message'
+import useLocationPathname from '../../hooks/useLocationPathname';
 
 const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
-    const currentPageName = window.location.pathname;
 
     const token = localStorage.getItem(LOCAL_STORAGE_NAME)
 
     const menu = useSelector(state => state.menu.value);
     const { loading } = useSelector((state) => state.loading);
     const { message } = useSelector((state) => state.message);
-    const [activeMenu, setActiveMenu] = useState(currentPageName);
-
     const profileInfo = useSelector(state => state.profile.profileInfo)
+
+    const [activeMenu] = useLocationPathname();
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
     const [searchedByKeywordValues, setSearchedByKeywordValues] = useState([])
-
 
     useEffect(() => {
         const token = localStorage.getItem(LOCAL_STORAGE_NAME);
@@ -41,28 +40,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
             setImagePreviewUrl(profileInfo.picture.url);
         }
     }, [profileInfo]);
-
-    useEffect(() => {
-        switch (currentPageName) {
-            case '/user/myurls':
-                setActiveMenu('/user/myurls');
-                break;
-            case '/user/create_url':
-                setActiveMenu('/user/create_url');
-                break;
-            case '/user/profile':
-                setActiveMenu('/user/profile');
-                break;
-            case '/user/login':
-                setActiveMenu('/user/login');
-                break;
-            case '/user/register':
-                setActiveMenu('/user/register');
-                break;
-            default:
-                break;
-        }
-    }, [currentPageName]);
 
     const handleLogOut = () => {
         dispatch(closeMenu())
@@ -218,9 +195,9 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                         aria-label='Open Menu' />
                                 }
                             </div>
-                            <div className='hidden md:flex gap-4 text-nowrap '>
-                                <Link to="/user/login" className={`rounded-lg py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`}>Log In</Link>
-                                <Link to='/user/register' className={`bg-[#FF4820] rounded-lg py-1 px-2 border border-1 border-black cursor-pointer  text-center  font-bold hover:border-slate-100 ${activeMenu === '/user/register' ? 'border-white' : ''}`}>Get Started</Link>
+                            <div className='hidden md:flex gap-4 text-nowrap'>
+                                <Link to="/user/login" className={`rounded-lg py-1 px-2 border border-black cursor-pointer  text-center hover:border-white ${activeMenu === 'login' ? 'border-white' : ''}`}>Log In</Link>
+                                <Link to='/user/register' className={`bg-[#FF4820] rounded-lg py-1 px-2 border border-black cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white' : ''}`}>Get Started</Link>
                             </div>
                         </div>
                     </nav>
@@ -228,7 +205,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         {(state) => (
                             <div className={`md:hidden fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 rounded-b-lg flex-col items-center justify-between gap-4 flex text-nowrap transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
                                 <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 bg-[#FF4820] border border-1 border-black cursor-pointer  text-center hover:border-slate-100 font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 bg-[#FF4820] border border-1 border-black cursor-pointer  text-center hover:border-white font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
                             </div>
                         )}
                     </Transition >

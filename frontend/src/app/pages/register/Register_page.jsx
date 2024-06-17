@@ -46,7 +46,7 @@ function RegisterPage() {
 
     return (
         <>
-            <div className='w-full max-w-xl m-auto flex flex-col py-14 my-10 text-white'>
+            <div className='w-full max-w-xl flex flex-col place-self-center m-auto pb-14 relative text-white'>
                 <form className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Sign Up</p>
                     <input
@@ -89,7 +89,7 @@ function RegisterPage() {
                             }} />
                     </div>
                     <div className='flex  justify-between items-center gap-2'>
-                        {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
+                        {loading ? <Button className='text-white bg-black border border-white  px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
                         <Link className='cursor-pointer hover:text-[#FF4820]' to="/user/login">Already have a user?</Link>
                     </div>
                 </form >

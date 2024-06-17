@@ -3,3 +3,8 @@ TOKEN_SECRET = secret token
 AWS_ACCESS_KEY_ID="access_id"
 AWS_ACCESS_KEY_SECRET="secret_id"
 AWS_BUCKET_NAME="bucket_name"
+
+REDIS_HOST="host url"
+REDIS_PORT="port"
+REDIS_USER="default"
+REDIS_PASSWORD="redis password"

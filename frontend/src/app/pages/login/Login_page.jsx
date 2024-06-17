@@ -59,7 +59,7 @@ function LogInPage() {
 
     return (
         <>
-            <div className='w-full max-w-xl flex flex-col m-auto py-14 my-10 relative text-white'>
+            <div className='w-full max-w-xl flex flex-col place-self-center m-auto pb-14 relative text-white'>
                 <form className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Log In</p>
                     <input
@@ -94,7 +94,7 @@ function LogInPage() {
                     </div>
 
                     <div className='flex justify-between items-center'>
-                        {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Log In' />}
+                        {loading ? <Button className='text-white bg-black border border-white px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Log In' />}
                         <button className='cursor-pointer hover:text-[#FF4820]' onClick={forgotpassword_handler}>Reset password?</button>
                     </div>
                 </form>

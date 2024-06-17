@@ -17,8 +17,8 @@ function NavbarLayout() {
     return (
         <>
             <NavBar isInputHidden={isInputHidden} setIsInputHidden={setIsInputHidden} />
-            <div className='relative gradient_bg  w-full m-auto overflow-hidden'>
-                <div className='min-h-svh max-w-[1440px] px-4 w-full m-auto ' onClick={onClickHandler}>
+            <div className='relative gradient_bg w-full m-auto overflow-hidden'>
+                <div className='max-w-[1440px] px-4 w-full m-auto min-h-svh flex' onClick={onClickHandler}>
                     <Outlet />
                 </div>
             </div>
