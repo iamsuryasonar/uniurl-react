@@ -51,7 +51,7 @@ function MyUrlPage() {
     }
 
     return (
-        <div className='w-full flex flex-col items-center gap-4 py-10'>
+        <div className='w-full max-w-2xl m-auto  flex flex-col items-center gap-4 py-14'>
             {
                 urls && urls?.length === 0 &&
                 <div className='w-10/12 flex flex-col items-center gap-4'>

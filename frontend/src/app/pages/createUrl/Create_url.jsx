@@ -75,8 +75,8 @@ function CreateUrl() {
     }
 
     return (
-        <div className=' w-full h-full flex flex-col px-2 py-14 gap-4 items-end'>
-            <div ref={selectDivRef} className="relative w-full"
+        <div className='w-full max-w-2xl m-auto h-full flex flex-col px-2 py-14 gap-4 items-end text-white'>
+            <div ref={selectDivRef} className="relative w-full bg-[#040C18]"
                 tabIndex={0}
                 aria-label='Select icon'
                 onKeyDown={
@@ -87,15 +87,15 @@ function CreateUrl() {
                     }}>
                 <button
                     onClick={() => { setSelectMenu(!isSelectMenu) }}
-                    className="border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
+                    className="border-[1px] bg-[#040C18] rounded-sm h-10 p-2 border-white w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
                     <span className="text-sm leading-none">
                         {selectedIcon?.name ? selectedIcon?.name : 'select icon...'}
                     </span>
-                    <FontAwesomeIcon className=' text-black' icon='fas fa-chevron-down' />
+                    <FontAwesomeIcon className=' text-white' icon='fas fa-chevron-down' />
                 </button>
                 {
                     isSelectMenu &&
-                    <div className="h-80 rounded-sm overflow-auto overscroll-none absolute flex flex-col w-full mt-1 border border-black shadow-lg z-20">
+                    <div className="h-80 rounded-sm overflow-auto overscroll-none absolute flex flex-col w-full mt-1 bg-[#040C18] z-20">
                         <div onClick={
                             () => {
                                 setSelectedIcon({
@@ -104,7 +104,7 @@ function CreateUrl() {
                                 });
                                 setSelectMenu(false)
                             }}
-                            className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === '' ? 'bg-gray-200' : 'bg-slate-50'}`}>
+                            className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-900 cursor-pointer  ${selectedIcon.icon === '' ? 'bg-gray-900' : 'bg-slate-950'}`}>
                             <p>select icon...</p>
                         </div>
                         {
@@ -130,8 +130,8 @@ function CreateUrl() {
                                         }}
                                     tabIndex={0}
                                     aria-selected={selectedIcon.icon === item.icon ? 'true' : 'false'}
-                                    className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-200 cursor-pointer  ${selectedIcon.icon === item.icon ? 'bg-gray-200' : 'bg-slate-50'}`}>
-                                    <FontAwesomeIcon className='w-6 h-6 text-black' icon={item?.icon} />
+                                    className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-900 cursor-pointer  ${selectedIcon.icon === item.icon ? 'bg-gray-900' : 'bg-slate-950'}`}>
+                                    <FontAwesomeIcon className='w-6 h-6 text-white' icon={item?.icon} />
                                     <p>{item.name}</p>
                                 </div>
                             })
@@ -141,7 +141,7 @@ function CreateUrl() {
             </div>
 
             <input
-                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
+                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                 placeholder="Title"
                 type="title"
                 name="title"
@@ -156,7 +156,7 @@ function CreateUrl() {
             </div>
 
             <input
-                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
+                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                 placeholder="Url"
                 type="url"
                 name="url"
@@ -164,7 +164,7 @@ function CreateUrl() {
                 required
                 onChange={onChangeHandler}
             />
-            <Button className='text-white bg-black px-4 py-2' onClick={createUrlHandler} label='Create' />
+            <Button className='text-white border border-white hover:bg-white hover:text-black px-4 py-2 transition-colors duration-300' onClick={createUrlHandler} label='Create' />
         </div >
     )
 }

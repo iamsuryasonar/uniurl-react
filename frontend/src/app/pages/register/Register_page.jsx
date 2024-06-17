@@ -46,11 +46,11 @@ function RegisterPage() {
 
     return (
         <>
-            <div className='w-full flex flex-col py-14 '>
+            <div className='w-full max-w-xl m-auto flex flex-col py-14 my-10 text-white'>
                 <form className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Sign Up</p>
                     <input
-                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                         placeholder="Username"
                         type="text"
                         name="name"
@@ -59,7 +59,7 @@ function RegisterPage() {
                         onChange={onChangeHandler}
                     />
                     <input
-                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                         placeholder="Email"
                         type="email"
                         name="email"
@@ -76,7 +76,7 @@ function RegisterPage() {
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
                             aria-label="Password"
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-black w-full '
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-white w-full '
                         ></input>
                         <FontAwesomeIcon className='absolute right-2'
                             onClick={() => { setShowPassword(!showPassword) }}
@@ -90,7 +90,7 @@ function RegisterPage() {
                     </div>
                     <div className='flex  justify-between items-center gap-2'>
                         {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
-                        <Link className='cursor-pointer hover:text-green-500' to="/user/login">Already have a user?</Link>
+                        <Link className='cursor-pointer hover:text-[#FF4820]' to="/user/login">Already have a user?</Link>
                     </div>
                 </form >
             </div >

@@ -59,11 +59,11 @@ function LogInPage() {
 
     return (
         <>
-            <div className='w-full flex flex-col py-14 relative'>
+            <div className='w-full max-w-xl flex flex-col m-auto py-14 my-10 relative text-white'>
                 <form className='flex flex-col justify-between gap-4' >
                     <p className='text-4xl font-extrabold font-sans'>Log In</p>
                     <input
-                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
+                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                         placeholder="Email"
                         type="email"
                         name="email"
@@ -80,7 +80,7 @@ function LogInPage() {
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Password"
                             aria-label="Password"
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-black w-full '
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-white w-full '
                         ></input>
                         <FontAwesomeIcon className='absolute right-2'
                             onClick={() => { setShowPassword(!showPassword) }}
@@ -95,11 +95,11 @@ function LogInPage() {
 
                     <div className='flex justify-between items-center'>
                         {loading ? <Button className='text-white bg-black px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Log In' />}
-                        <button className='cursor-pointer hover:text-green-500' onClick={forgotpassword_handler}>Reset password?</button>
+                        <button className='cursor-pointer hover:text-[#FF4820]' onClick={forgotpassword_handler}>Reset password?</button>
                     </div>
                 </form>
                 {forgotpassword && (
-                    <form className='bg-white absolute top-0 left-0 bottom-0 right-0 flex flex-col z-10'>
+                    <form className='bg-[#040C18] absolute top-0 left-0 bottom-0 right-0 flex flex-col z-10'>
                         <div className='w-full p-6'>
                             <p className='my-5 text-2xl'>Reset password</p>
                             <input
@@ -109,11 +109,11 @@ function LogInPage() {
                                 autoComplete="off"
                                 required
                                 aria-label="Email"
-                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-black w-full '
+                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                             />
                             <div className='flex justify-between mt-6'>
-                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
+                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-white hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
+                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
                             </div>
                         </div >
                     </form >

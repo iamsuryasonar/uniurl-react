@@ -89,7 +89,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
             token ?
                 //! private navbar
                 <>
-                    <nav className='bg-black text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
+                    <nav className='bg-[#040C18] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
                         <div className='max-w-5xl w-full flex justify-center items-center gap-4 px-6 py-4 '>
                             <div className='w-auto flex items-center'>
                                 <Link to="/user/profile" className='w-10 h-10 flex items-center'>
@@ -169,7 +169,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 <Link tabIndex={menu ? 0 : -1} to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
                                 <Link tabIndex={menu ? 0 : -1} to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
                                 <Link tabIndex={menu ? 0 : -1} to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex -center hover:border-slate-100  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                                <div className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer text-center bg-white text-black hover:border-red-500  font-bold`}
+                                <div className={`rounded-full py-1 px-2 border border-1 border-black bg-[#FF4820] cursor-pointer text-center text-white hover:border-red-500  font-bold`}
                                     tabIndex={menu ? 0 : -1}
                                     aria-label='log out button'
                                     onKeyDown={(e) => {
@@ -186,7 +186,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                 :
                 //! public navbar
                 <>
-                    <nav className='bg-black text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
+                    <nav className='bg-[#040C18] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
                         <div className='max-w-5xl  w-full flex justify-center items-center  gap-4 px-6 py-4 '>
                             <Link to="/" className='font-bold text-xl' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
@@ -219,8 +219,8 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
-                                <Link to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`}>Log In</Link>
-                                <Link to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center  font-bold hover:border-slate-100 ${activeMenu === '/user/register' ? 'border-white' : ''}`}>Get Started</Link>
+                                <Link to="/user/login" className={`rounded-lg py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`}>Log In</Link>
+                                <Link to='/user/register' className={`bg-[#FF4820] rounded-lg py-1 px-2 border border-1 border-black cursor-pointer  text-center  font-bold hover:border-slate-100 ${activeMenu === '/user/register' ? 'border-white' : ''}`}>Get Started</Link>
                             </div>
                         </div>
                     </nav>
@@ -228,7 +228,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         {(state) => (
                             <div className={`md:hidden fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 rounded-b-lg flex-col items-center justify-between gap-4 flex text-nowrap transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
                                 <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 bg-[#FF4820] border border-1 border-black cursor-pointer  text-center hover:border-slate-100 font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
                             </div>
                         )}
                     </Transition >
