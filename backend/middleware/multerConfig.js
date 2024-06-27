@@ -28,6 +28,7 @@ let uploadTos3 = (fileData) => {
         const request = s3.putObject(params);
 
         request.on('httpHeaders', (statusCode, headers) => {
+            // console.log(headers)
             resolve({
                 url: `https://ipfs.filebase.io/ipfs/${headers['x-amz-meta-cid']}`,
                 fileName: fileName
