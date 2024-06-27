@@ -77,3 +77,5 @@ app.listen(process.env.PORT, function () {
     //     })
     // }, 14 * 60 * 1000)
 });
+
+module.exports = app;
