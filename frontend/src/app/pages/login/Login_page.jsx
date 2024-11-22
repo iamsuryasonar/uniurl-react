@@ -19,7 +19,10 @@ function LogInPage() {
 
     const dispatch = useDispatch();
 
-    const [input, setInput] = useState({});
+    const [input, setInput] = useState({
+        email: '',
+        password: '',
+    });
 
     const onChangeHandler = (e) => {
         setInput({
@@ -57,16 +60,25 @@ function LogInPage() {
         }, 2000)
     }
 
+    function handleAutoFillGuestCreds() {
+        setInput({
+            email: 'johndoe@gmail.com',
+            password: 'sadfasfhjt65fsd',
+        })
+    }
+
+
     return (
         <>
             <div className='w-full max-w-xl flex flex-col place-self-center m-auto pb-14 relative text-white'>
-                <form className='flex flex-col justify-between gap-4' >
+                <form className='flex flex-col justify-between gap-4' onClick={(e) => e.preventDefault()}>
                     <p className='text-4xl font-extrabold font-sans'>Log In</p>
                     <input
                         className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                         placeholder="Email"
                         type="email"
                         name="email"
+                        value={input.email}
                         required
                         aria-label="Email"
                         onChange={onChangeHandler}
@@ -78,6 +90,7 @@ function LogInPage() {
                             required
                             autoComplete="off"
                             type={showPassword ? 'text' : 'password'}
+                            value={input.password}
                             placeholder="Password"
                             aria-label="Password"
                             className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-white w-full '
@@ -97,6 +110,10 @@ function LogInPage() {
                         {loading ? <Button className='text-white bg-black border border-white px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Log In' />}
                         <button className='cursor-pointer hover:text-[#FF4820]' onClick={forgotpassword_handler}>Reset password?</button>
                     </div>
+                    <button
+                        className="cursor-pointer hover:text-[#67ff20] hover:border-[#67ff20] place-self-end border-2 px-2 py-1 border-white"
+                        onClick={handleAutoFillGuestCreds}>Auto fill guest credentials
+                    </button>
                 </form>
                 {forgotpassword && (
                     <form className='bg-[#040C18] absolute top-0 left-0 bottom-0 right-0 flex flex-col z-10'>

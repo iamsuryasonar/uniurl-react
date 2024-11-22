@@ -97,7 +97,7 @@ function UrlsPage() {
                     <div className={s.moving_gradient}></div>
                 </div>
             }
-            
+
             <div style={{
                 background: urlsinfo?.theme?.pagecontainer?.background || urlsinfo?.theme?.pagecontainer?.backgroundColor || 'white'
             }}>
@@ -109,7 +109,7 @@ function UrlsPage() {
                                 {isSticky &&
                                     <>
                                         <div className={`w-10 h-10 m-1`}>
-                                            <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full object-fit' />
+                                            <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='rounded-full object-cover w-full h-full' />
                                         </div>
                                         <p className='text-2xl font-light'>{urlsinfo?.name}</p>
                                     </>
