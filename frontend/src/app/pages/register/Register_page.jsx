@@ -6,7 +6,7 @@ import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
-
+import loginRegisterImage from '../../assets/login_register_image.png'
 
 function RegisterPage() {
     const dispatch = useDispatch();
@@ -46,9 +46,12 @@ function RegisterPage() {
 
     return (
         <>
-            <div className='w-full max-w-xl flex flex-col place-self-center m-auto pb-14 relative text-white'>
-                <form className='flex flex-col justify-between gap-4' >
-                    <p className='text-4xl font-extrabold font-sans'>Sign Up</p>
+            <div className='w-full max-w-[450px] md:max-w-5xl rounded-md bg-slate-800 grid grid-cols-1 md:grid-cols-2 justify-center items-center place-self-center m-auto relative text-white'>
+                <div className="w-full">
+                    <img className="w-full" src={loginRegisterImage} />
+                </div>
+                <form className='w-full p-6 flex flex-col gap-4' >
+                    <p className='text-3xl font-extrabold font-sans'>Sign Up</p>
                     <input
                         className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                         placeholder="Username"
@@ -88,9 +91,9 @@ function RegisterPage() {
                                 }
                             }} />
                     </div>
-                    <div className='flex  justify-between items-center gap-2'>
-                        {loading ? <Button className='text-white bg-black border border-white  px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
-                        <Link className='cursor-pointer hover:text-[#FF4820]' to="/user/login">Already have a user?</Link>
+                    <div className='flex justify-between items-center gap-2'>
+                        {loading ? <Button className='text-white bg-black border border-white px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
+                        <Link className='cursor-pointer text-slate-400 hover:text-white' to="/user/login">Already have a user?</Link>
                     </div>
                 </form >
             </div >
