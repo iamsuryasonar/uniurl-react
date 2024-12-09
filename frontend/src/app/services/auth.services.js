@@ -1,13 +1,6 @@
 import axios from "axios";
 import { LOCAL_STORAGE_NAME, API_URL_AUTH } from '../common/constants'
 
-
-
-let headersList = {
-    "Accept": "*/*",
-    "Content-Type": "application/json"
-}
-
 const register = (creds) => {
     return axios.post(API_URL_AUTH + "register", creds);
 }
@@ -17,6 +10,18 @@ const login = async (creds) => {
         .post(API_URL_AUTH + "login", creds)
         .then((response) => {
             if (response.data.data.name) {
+                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
+            }
+            return response.data.data;
+        });
+}
+
+const googleLogin = async (code) => {
+    return axios
+        .post(API_URL_AUTH + "google_login", code)
+        .then((response) => {
+            if (response.data.data.name) {
+                console.log(response.data)
                 localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
             }
             return response.data.data;
@@ -34,6 +39,7 @@ const getCurrentUser = () => {
 const AuthService = {
     register,
     login,
+    googleLogin,
     logout,
     getCurrentUser,
 }

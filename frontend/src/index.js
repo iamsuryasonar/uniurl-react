@@ -4,18 +4,21 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import { store } from './app/store/store'
-import React from 'react'
+import { store } from './app/store/store';
+import React from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-library.add(fab,fas);
+library.add(fab, fas);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <GoogleOAuthProvider clientId="317062420793-jf4ntalfn6cucob5klt42npdsmjijsm0.apps.googleusercontent.com">
+        <App />
+      </GoogleOAuthProvider>
     </Provider>
   </BrowserRouter>
   // </React.StrictMode>

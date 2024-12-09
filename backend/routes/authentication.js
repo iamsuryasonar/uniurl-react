@@ -1,11 +1,11 @@
-const router = require('express').Router()
-const User = require('../model/User')
-const Joi = require('joi')
+const router = require('express').Router();
+const User = require('../model/User');
+const Joi = require('joi');
 const { registerValidation, loginValidation } = require('../middleware/authValidation')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const utils = require('../utility')
-
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const utils = require('../utility');
+const axios = require('axios');
 router.post('/register', async (req, res) => {
     if (!req.body.name) return res.status(400).json({ success: false, message: 'name required!!!' });
     if (!req.body.email) return res.status(400).json({ success: false, message: 'email required!!!' });
@@ -66,6 +66,50 @@ router.post('/login', async (req, res) => {
         const response = { ...userinfo, token }
         return res.status(200).json({ success: true, message: 'User logged in successfully', data: response });
     } catch (error) {
+        return res.status(500).json({ success: false, message: 'Interal server error', data: null });
+    }
+})
+
+router.post('/google_login', async (req, res) => {
+    if (!req.body.code) return res.status(400).json({ success: false, message: 'access token required!!!' });
+
+    try {
+        const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
+            code: req.body.code,
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
+            redirect_uri: process.env.REDIRECT_URI,
+            grant_type: 'authorization_code',
+        });
+
+        const { id_token } = tokenResponse.data;
+
+        const decodedToken = jwt.decode(id_token);
+
+        // check if email exists in the database and get the user's password(data) so that we can compare hashes
+        let user = await User.findOne({ email: decodedToken.email });
+
+        if (!user) {
+            // create a user
+            user = new User({
+                name: decodedToken.name,
+                email: decodedToken.email,
+                googleId: decodedToken.sub
+            })
+            user = await user.save();
+        }
+
+        // create token using jsonwebtoken library
+        const token = jwt.sign({ _id: user._id, username: user.name }, process.env.TOKEN_SECRET)
+
+        const userinfo = {
+            'name': user.name,
+            'email': user.email,
+        }
+        const response = { ...userinfo, token }
+        return res.status(200).json({ success: true, message: 'User logged in successfully', data: response });
+    } catch (error) {
+        console.log(error)
         return res.status(500).json({ success: false, message: 'Interal server error', data: null });
     }
 })

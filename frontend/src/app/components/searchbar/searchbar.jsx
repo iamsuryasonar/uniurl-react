@@ -76,7 +76,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
 
     return (
         <>
-            <div className='max-w-[250px] rounded-full border border-1 border-white pl-2 flex justify-center items-center'>
+            <div className='max-w-[250px] rounded-full border border-1 border-slate-500 pl-2 flex justify-center items-center'>
                 <input className='py-1 px-2 w-full text-white bg-transparent border-none outline-none'
                     type="text"
                     name=""
@@ -91,7 +91,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                     onClick={onSearchHandler}
                     tabIndex={0}
                     onKeyDown={(e) => {
-                    if (e.key === 'Enter') {        
+                        if (e.key === 'Enter') {
                             onSearchHandler()
                         }
                     }}>

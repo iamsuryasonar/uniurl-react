@@ -7,6 +7,7 @@ import Button from '../../components/Button/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import loginRegisterImage from '../../assets/login_register_image.png'
+import GoogleLogInButton from "../../components/GoogleLogInButton";
 
 function RegisterPage() {
     const dispatch = useDispatch();
@@ -48,53 +49,71 @@ function RegisterPage() {
         <>
             <div className='w-full max-w-[450px] md:max-w-5xl rounded-md bg-slate-800 grid grid-cols-1 md:grid-cols-2 justify-center items-center place-self-center m-auto relative text-white'>
                 <div className="w-full">
-                    <img className="w-full" src={loginRegisterImage} />
+                    <img className="w-full" src={loginRegisterImage} alt='log in banner' />
                 </div>
-                <form className='w-full p-6 flex flex-col gap-4' >
-                    <p className='text-3xl font-extrabold font-sans'>Sign Up</p>
-                    <input
-                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
-                        placeholder="Username"
-                        type="text"
-                        name="name"
-                        required
-                        aria-label="Username"
-                        onChange={onChangeHandler}
-                    />
-                    <input
-                        className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
-                        placeholder="Email"
-                        type="email"
-                        name="email"
-                        required
-                        aria-label="Email"
-                        onChange={onChangeHandler}
-                    />
-                    <div className='relative flex  flex-col justify-center'>
+                <form className='w-full p-4 flex flex-col gap-2' >
+                    <p className='text-2xl font-extrabold font-sans'>Sign Up</p>
+                    <div>
+                        <label htmlFor="name" className="text-sm text-slate-300">Name</label>
                         <input
-                            onChange={onChangeHandler}
-                            name="password"
+                            id='name'
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full'
+                            placeholder="Username"
+                            type="text"
+                            name="name"
                             required
-                            autoComplete="off"
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="Password"
-                            aria-label="Password"
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-white w-full '
-                        ></input>
-                        <FontAwesomeIcon className='absolute right-2'
-                            onClick={() => { setShowPassword(!showPassword) }}
-                            icon={showPassword ? faEye : faEyeSlash}
-                            tabIndex={0}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    setShowPassword(!showPassword)
-                                }
-                            }} />
+                            aria-label="Username"
+                            onChange={onChangeHandler}
+                        />
                     </div>
-                    <div className='flex justify-between items-center gap-2'>
-                        {loading ? <Button className='text-white bg-black border border-white px-4 py-2 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-4 py-2 border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
-                        <Link className='cursor-pointer text-slate-400 hover:text-white' to="/user/login">Already have a user?</Link>
+                    <div>
+                        <label htmlFor="email" className="text-sm text-slate-300">Email</label>
+                        <input
+                            id="email"
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full '
+                            placeholder="Email"
+                            type="email"
+                            name="email"
+                            required
+                            aria-label="Email"
+                            onChange={onChangeHandler}
+                        />
                     </div>
+                    <div>
+                        <label htmlFor="password" className="text-sm text-slate-300">Password</label>
+                        <div className='relative flex  flex-col justify-center'>
+                            <input
+                                id='password'
+                                onChange={onChangeHandler}
+                                name="password"
+                                required
+                                autoComplete="off"
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder="Password"
+                                aria-label="Password"
+                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-slate-400 w-full '
+                            ></input>
+                            <FontAwesomeIcon className='absolute right-2'
+                                onClick={() => { setShowPassword(!showPassword) }}
+                                icon={showPassword ? faEye : faEyeSlash}
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        setShowPassword(!showPassword)
+                                    }
+                                }} />
+                        </div>
+                    </div>
+                    {loading ? <Button className='text-white bg-black border border-white rounded-full px-3 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
+                    <div className='w-full h-[1px] my-2 bg-slate-600'>  </div>
+                    <p className='place-self-center'>Already have a user?</p>
+                    <Link to="/user/login" className='text-white text-nowrap flex items-center justify-center gap-2 bg-transparent px-5 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black cursor-pointer'>Sign in</Link>
+                    <div className='flex items-center'>
+                        <div className='w-full h-[1px] bg-slate-600'>  </div>
+                        <p className='px-[10px]'>or</p>
+                        <div className='w-full h-[1px] bg-slate-600'>  </div>
+                    </div>
+                    <GoogleLogInButton />
                 </form >
             </div >
         </>

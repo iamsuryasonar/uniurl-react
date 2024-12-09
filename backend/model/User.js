@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    minlength: 6,
+    minlength: 1,
     maxlength: 255,
   },
   email: {
@@ -14,9 +14,14 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 255,
   },
+  googleId: {
+    type: String,
+    required: false,
+    unique: true
+  },
   password: {
     type: String,
-    required: true,
+    required: false,
     minlength: 6,
     maxlength: 500,
   },
