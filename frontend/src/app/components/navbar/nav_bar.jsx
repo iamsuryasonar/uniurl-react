@@ -105,11 +105,11 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
-                                <Link to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center hover:border-slate-100 ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} >My urls</Link>
-                                <Link to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center  hover:border-slate-100 ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} >Create url</Link>
-                                <Link to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center hover:border-slate-100 ${activeMenu === '/user/profile' ? 'border-white' : ''}`} >Profile</Link>
+                                <Link to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} >My urls</Link>
+                                <Link to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} >Create url</Link>
+                                <Link to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} >Profile</Link>
                                 <div
-                                    className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex items-center bg-white text-black hover:border-red-500 font-bold`}
+                                    className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
                                     tabIndex={0}
                                     aria-label='log out button'
                                     onKeyDown={(e) => {
@@ -143,10 +143,10 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                     {<Transition in={menu} timeout={100}>
                         {(state) => (
                             <div className={`md:hidden fixed top-16 left-0 right-0 z-10 bg-black text-white w-full px-4 py-20 rounded-b-lg flex flex-col items-center justify-center gap-2 transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/myurls" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/myurls' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/create_url" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100  ${activeMenu === '/user/create_url' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/profile" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer flex -center hover:border-slate-100  ${activeMenu === '/user/profile' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                                <div className={`rounded-full py-1 px-2 border border-1 border-black bg-[#FF4820] cursor-pointer text-center text-white hover:border-red-500  font-bold`}
+                                <Link tabIndex={menu ? 0 : -1} to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
+                                <Link tabIndex={menu ? 0 : -1} to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
+                                <Link tabIndex={menu ? 0 : -1} to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
+                                <div className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
                                     tabIndex={menu ? 0 : -1}
                                     aria-label='log out button'
                                     onKeyDown={(e) => {
@@ -196,16 +196,16 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap'>
-                                <Link to="/user/login" className={`rounded-lg py-1 px-2 border border-black cursor-pointer  text-center hover:border-white ${activeMenu === 'login' ? 'border-white' : ''}`}>Log In</Link>
-                                <Link to='/user/register' className={`bg-[#FF4820] rounded-lg py-1 px-2 border border-black cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white' : ''}`}>Get Started</Link>
+                                <Link to="/user/login" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer  text-center hover:bg-white hover:text-black ${activeMenu === 'login' ? 'border-white bg-white text-black' : ''}`}>Log In</Link>
+                                <Link to='/user/register' className={`bg-[#FF4820] rounded-full py-1 px-4 border border-slate-400 cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white bg-white text-black' : ''}`}>Get Started</Link>
                             </div>
                         </div>
                     </nav>
                     {<Transition in={menu} timeout={100}>
                         {(state) => (
                             <div className={`md:hidden fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 rounded-b-lg flex-col items-center justify-between gap-4 flex text-nowrap transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-2 border border-1 border-black cursor-pointer  text-center hover:border-slate-100 ${activeMenu === '/user/login' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`rounded-full py-1 px-2 bg-[#FF4820] border border-1 border-black cursor-pointer  text-center hover:border-white font-bold ${activeMenu === '/user/register' ? 'border-white' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                                <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer  text-center hover:bg-white hover:text-black ${activeMenu === 'login' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
+                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`bg-[#FF4820] rounded-full py-1 px-4 border border-slate-400 cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
                             </div>
                         )}
                     </Transition >

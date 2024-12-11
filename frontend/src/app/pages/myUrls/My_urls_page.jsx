@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { clearMessage } from '../../store/slices/messageSlice';
 import { get_my_urls, delete_my_url } from '../../store/slices/myUrlSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +9,7 @@ function MyUrlCard({ urlData, onClick, onDelete }) {
     const { _id, title, url } = urlData;
 
     return (
-        <div className={`bg-black text-white hover:bg-slate-200 hover:text-black w-full px-4 py-2 flex flex-row justify-between  items-center`} tabIndex={0} aria-label='Url'
+        <div className={`bg-black text-white hover:bg-slate-200 hover:text-black w-full px-4 py-2 flex flex-row justify-between items-center cursor-pointer`} tabIndex={0} aria-label='Url'
             onClick={() => onClick(url)}
             onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -39,7 +38,7 @@ function MyUrlPage() {
 
     useEffect(() => {
         dispatch(get_my_urls());
-    }, []);
+    }, [dispatch]);
 
     const onDeleteHandler = (e, id) => {
         e.stopPropagation();

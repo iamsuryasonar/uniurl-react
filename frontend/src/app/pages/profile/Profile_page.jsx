@@ -33,7 +33,7 @@ const ProfilePage = () => {
         if (!profileInfo) {
             dispatch(get_profile_info())
         }
-    }, []);
+    }, [profileInfo, dispatch]);
 
     useEffect(() => {
         if (profileInfo?.picture) {
@@ -104,74 +104,76 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className='w-11/12 h-full max-w-[350px] m-auto py-14 text-white'>
-            <div className='p-10 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
-                <div className='absolute top-2 right-2 p-2 rounded-full text-white hover:bg-black hover:text-white' onClick={gotoUrlsPage}>
-                    <FontAwesomeIcon icon='fas fa-link' className=' text-2xl cursor-pointer ' />
-                </div>
-                <label htmlFor="photo-upload" className={`border border-1 border-white rounded-full inline-block relative p-1 cursor-pointer text-black `}>
-                    <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
-                        <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
-                        <img htmlFor="photo-upload" src={imagePreviewUrl} alt='user profile placeholder' className='object-cover w-full h-full' />
+        <div className="w-full flex justify-center items-center m-auto ">
+            <div className='h-full max-w-[350px] py-14 text-white'>
+                <div className='p-6 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
+                    <div className='absolute top-2 right-2 p-2 rounded-full text-white hover:bg-black hover:text-white' onClick={gotoUrlsPage}>
+                        <FontAwesomeIcon icon='fas fa-link' className=' text-2xl cursor-pointer ' />
                     </div>
-                    <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
-                </label>
-                <div className='w-full flex flex-col' onClick={copyToClipboard}>
-                    <label className='' htmlFor="name">Username:</label>
-                    <div className='relative'>
+                    <label htmlFor="photo-upload" className={`border border-1 border-white rounded-full inline-block relative p-1 cursor-pointer text-black `}>
+                        <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
+                            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
+                            <img htmlFor="photo-upload" src={imagePreviewUrl} alt='user profile placeholder' className='object-cover w-full h-full' />
+                        </div>
+                        <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
+                    </label>
+                    <div className='w-full flex flex-col' onClick={copyToClipboard}>
+                        <label className='' htmlFor="name">Username:</label>
+                        <div className='relative'>
+                            <input
+                                type="text"
+                                name="name"
+                                value={name}
+                                maxLength="30"
+                                placeholder="Alexa"
+                                required
+                                className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
+                                readOnly
+                            />
+                            <FontAwesomeIcon icon={faCopy} className='absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-white' />
+                        </div>
+                    </div>
+                    <div className='w-full flex flex-col'>
+                        <label className='' htmlFor="location">Location:</label>
                         <input
                             type="text"
-                            name="name"
-                            value={name}
-                            maxLength="30"
-                            placeholder="Alexa"
+                            name="location"
+                            onChange={onChangeHandler}
+                            onBlur={onFocusRemoved}
+                            value={input?.location}
+                            placeholder="Add location"
                             required
-                            className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
-                            readOnly
+                            className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-transparent text-white'
                         />
-                        <FontAwesomeIcon icon={faCopy} className='absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-white' />
+                    </div>
+
+                    <div className='w-full flex flex-col'>
+                        <label className='' htmlFor="bio">Bio:</label>
+                        <textarea
+                            cols="40"
+                            rows="5"
+                            name="bio"
+                            onChange={onChangeHandler}
+                            onBlur={onFocusRemoved}
+                            value={input?.bio}
+                            placeholder="Write something!"
+                            required
+                            className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-[#040C18] text-white'></textarea>
+                    </div>
+                    <div className='w-full flex flex-col'>
+                        <label className='' htmlFor="bio">Url page theme:</label>
+                        <select onChange={onChangeHandler} onBlur={onFocusRemoved} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-white px-3 py-2 bg-[#040C18] text-white'>
+                            <option value='' disabled className=''>select theme...</option>
+                            {
+                                themes?.map((item) => {
+                                    return <option key={item._id} value={item._id} className=''> {item.name}</option>
+                                })
+                            }
+                        </select>
                     </div>
                 </div>
-                <div className='w-full flex flex-col'>
-                    <label className='' htmlFor="location">Location:</label>
-                    <input
-                        type="text"
-                        name="location"
-                        onChange={onChangeHandler}
-                        onBlur={onFocusRemoved}
-                        value={input?.location}
-                        placeholder="Add location"
-                        required
-                        className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-transparent text-white'
-                    />
-                </div>
-
-                <div className='w-full flex flex-col'>
-                    <label className='' htmlFor="bio">Bio:</label>
-                    <textarea
-                        cols="40"
-                        rows="5"
-                        name="bio"
-                        onChange={onChangeHandler}
-                        onBlur={onFocusRemoved}
-                        value={input?.bio}
-                        placeholder="Write something!"
-                        required
-                        className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-[#040C18] text-white'></textarea>
-                </div>
-                <div className='w-full flex flex-col'>
-                    <label className='' htmlFor="bio">Url page theme:</label>
-                    <select onChange={onChangeHandler} onBlur={onFocusRemoved} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-white px-3 py-2 bg-[#040C18] text-white'>
-                        <option value='' disabled className=''>select theme...</option>
-                        {
-                            themes?.map((item) => {
-                                return <option key={item._id} value={item._id} className=''> {item.name}</option>
-                            })
-                        }
-                    </select>
-                </div>
-            </div>
-        </div >
+            </div >
+        </div>
     );
 }
 

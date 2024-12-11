@@ -8,11 +8,11 @@ function Header() {
                 <h1 className="gradient_text text-5xl  font-bold">Simplify URL Sharing with Uniurl</h1>
                 <p>Our intuitive interface makes sharing URLs effortless. Simply select a theme, input the URL, add your username, and share instantly. It's that simple!</p>
                 <div className="w-full text-white flex flex-row no-wrap">
-                    <Link to='/user/register' className={`bg-[#FF4820] hover:bg-white hover:text-black font-bold px-[1rem] py-2 rounded-md transition-colors duration-300`}>Get Started</Link>
+                    <Link to='/user/register' className={`bg-[#FF4820] hover:bg-white hover:text-black font-bold px-4 py-1 rounded-full transition-colors duration-300`}>Get Started</Link>
                 </div>
             </div>
             <div className="flex-1 flex justify-center items-center">
-                <img src={image} />
+                <img src={image} alt='banner' />
             </div>
         </div>
     )

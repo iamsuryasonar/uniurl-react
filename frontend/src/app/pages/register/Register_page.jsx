@@ -6,7 +6,6 @@ import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import Button from '../../components/Button/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
-import loginRegisterImage from '../../assets/login_register_image.png'
 import GoogleLogInButton from "../../components/GoogleLogInButton";
 
 function RegisterPage() {
@@ -47,11 +46,8 @@ function RegisterPage() {
 
     return (
         <>
-            <div className='w-full max-w-[450px] md:max-w-5xl rounded-md bg-slate-800 grid grid-cols-1 md:grid-cols-2 justify-center items-center place-self-center m-auto relative text-white'>
-                <div className="w-full">
-                    <img className="w-full" src={loginRegisterImage} alt='log in banner' />
-                </div>
-                <form className='w-full p-4 flex flex-col gap-2' >
+            <div className='w-full max-w-[450px] flex justify-center items-center place-self-center py-14 m-auto relative text-white'>
+                <form className='w-full flex flex-col gap-2' >
                     <p className='text-2xl font-extrabold font-sans'>Sign Up</p>
                     <div>
                         <label htmlFor="name" className="text-sm text-slate-300">Name</label>
@@ -93,7 +89,7 @@ function RegisterPage() {
                                 aria-label="Password"
                                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-slate-400 w-full '
                             ></input>
-                            <FontAwesomeIcon className='absolute right-2'
+                            <FontAwesomeIcon className='absolute cursor-pointer right-2'
                                 onClick={() => { setShowPassword(!showPassword) }}
                                 icon={showPassword ? faEye : faEyeSlash}
                                 tabIndex={0}

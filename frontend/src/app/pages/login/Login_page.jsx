@@ -6,7 +6,6 @@ import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
 import Button from '../../components/Button/button';
 import { setMessage } from '../../store/slices/messageSlice';
-import loginRegisterImage from '../../assets/login_register_image.png'
 import GoogleLogInButton from '../../components/GoogleLogInButton';
 import { Link } from 'react-router-dom';
 function LogInPage() {
@@ -70,11 +69,8 @@ function LogInPage() {
 
     return (
         <>
-            <div className='w-full max-w-[450px] md:max-w-5xl rounded-md  grid grid-cols-1 md:grid-cols-2 justify-center items-center place-self-center m-auto relative text-white'>
-                <div className="w-full">
-                    <img className="w-[450px]" src={loginRegisterImage} alt='log in banner' />
-                </div>
-                <form className='w-full p-4 flex flex-col justify-between gap-2' onClick={(e) => e.preventDefault()}>
+            <div className='w-full max-w-[450px] flex justify-center items-center place-self-center m-auto py-14 relative text-white'>
+                <form className='w-full flex flex-col justify-between gap-2' onClick={(e) => e.preventDefault()}>
                     <p className='text-2xl font-extrabold font-sans'>Sign In</p>
                     <div>
                         <label htmlFor="email" className="text-sm text-slate-300">Email</label>
@@ -105,7 +101,7 @@ function LogInPage() {
                                 aria-label="Password"
                                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-white w-full '
                             ></input>
-                            <FontAwesomeIcon className='absolute right-2'
+                            <FontAwesomeIcon className='absolute cursor-pointer right-2'
                                 onClick={() => { setShowPassword(!showPassword) }}
                                 tabIndex={0}
                                 onKeyDown={(e) => {
@@ -148,8 +144,8 @@ function LogInPage() {
                                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
                             />
                             <div className='flex justify-between mt-6'>
-                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-white hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className='text-white bg-black px-4 py-2 border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
+                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
+                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
                             </div>
                         </div >
                     </form >

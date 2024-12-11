@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Outlet } from "react-router-dom";
 import NavBar from '../navbar/nav_bar';
 import { closeMenu } from "../../store/slices/menuSlice";

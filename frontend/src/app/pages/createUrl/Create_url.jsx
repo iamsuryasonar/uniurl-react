@@ -91,7 +91,12 @@ function CreateUrl() {
                     <span className="text-sm leading-none">
                         {selectedIcon?.name ? selectedIcon?.name : 'select icon...'}
                     </span>
-                    <FontAwesomeIcon className=' text-white' icon='fas fa-chevron-down' />
+                    {
+                        isSelectMenu ?
+                            <FontAwesomeIcon className=' text-white' icon='fas fa-chevron-up' />
+                            :
+                            <FontAwesomeIcon className=' text-white' icon='fas fa-chevron-down' />
+                    }
                 </button>
                 {
                     isSelectMenu &&
@@ -164,7 +169,7 @@ function CreateUrl() {
                 required
                 onChange={onChangeHandler}
             />
-            <Button className='text-white border border-white hover:bg-white hover:text-black px-4 py-2 transition-colors duration-300' onClick={createUrlHandler} label='Create' />
+            <Button className='text-white border border-white hover:bg-white hover:text-black px-4 py-1 rounded-full transition-colors duration-300' onClick={createUrlHandler} label='Create' />
         </div >
     )
 }
