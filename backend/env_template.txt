@@ -1,16 +1,17 @@
 DB_CONNECT = mongodb+srv://username:password@clustername.xsbtfy9.mongodb.net/?retryWrites=true&w=majority
 TOKEN_SECRET = secret token
+
 AWS_ACCESS_KEY_ID="access_id"
 AWS_ACCESS_KEY_SECRET="secret_id"
 AWS_BUCKET_NAME="bucket_name"
+REGION_NAME="us-east-1"
+PORT=3005
 
 REDIS_HOST="host url"
 REDIS_PORT="port"
 REDIS_USER="default"
 REDIS_PASSWORD="redis password"
 
-
-
-GOOGLE_OAUTH_CLIENT_ID="google oauth client id"
-GOOGLE_OAUTH_CLIENT_SECRET="google oauth client secret"
-GOOGLE_OAUTH_REDIRECT_URI="google oauth redirect"
+CLIENT_ID="google oauth client id"
+CLIENT_SECRET="google oauth client secret"
+REDIRECT_URI="google oauth redirect"

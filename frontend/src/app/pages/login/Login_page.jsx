@@ -70,9 +70,9 @@ function LogInPage() {
 
     return (
         <>
-            <div className='w-full max-w-[450px] md:max-w-5xl rounded-md bg-slate-800 grid grid-cols-1 md:grid-cols-2 justify-center items-center place-self-center m-auto relative text-white'>
+            <div className='w-full max-w-[450px] md:max-w-5xl rounded-md  grid grid-cols-1 md:grid-cols-2 justify-center items-center place-self-center m-auto relative text-white'>
                 <div className="w-full">
-                    <img className="w-full" src={loginRegisterImage} alt='log in banner' />
+                    <img className="w-[450px]" src={loginRegisterImage} alt='log in banner' />
                 </div>
                 <form className='w-full p-4 flex flex-col justify-between gap-2' onClick={(e) => e.preventDefault()}>
                     <p className='text-2xl font-extrabold font-sans'>Sign In</p>

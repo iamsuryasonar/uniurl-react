@@ -2,9 +2,8 @@ import React from 'react'
 
 function GoogleLogInButton() {
     const googleLoginHandler = () => {
-        console.log(window.location.origin)
         const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-        const redirectUri = 'https://uniurl.netlify.app';
+        const redirectUri = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
         const scope = 'profile email';
         const responseType = 'code';
 

@@ -6,6 +6,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import PrivateRoute from './app/components/private_route';
 import PublicRoute from './app/components/authGuard'
 import NavbarLayout from './app/components/navbarAndContentLayout/navbar_layout';
+import GoogleLogInPage from './app/pages/GoogleLogInPage';
 const HeroPage = lazy(() => import('./app/pages/hero/HeroPage'));
 const ProfilePage = lazy(() => import('./app/pages/profile/Profile_page'));
 const LogInPage = lazy(() => import('./app/pages/login/Login_page'));
@@ -44,6 +45,16 @@ function App() {
               <PublicRoute>
                 <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>
                   <LogInPage />
+                </Suspense>
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/user/google_login"
+            element={
+              <PublicRoute>
+                <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>
+                  <GoogleLogInPage />
                 </Suspense>
               </PublicRoute>
             }

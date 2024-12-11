@@ -1,2 +1,4 @@
 REACT_APP_BASE_URL=add your backend url here
+
 REACT_APP_GOOGLE_CLIENT_ID=add your google client id here
+REACT_APP_GOOGLE_REDIRECT_URI=http://localhost:3000/user/google_login
