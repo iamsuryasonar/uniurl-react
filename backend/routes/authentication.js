@@ -58,10 +58,10 @@ router.post('/login', async (req, res) => {
 
         // create token using jsonwebtoken library
         const token = jwt.sign({ _id: user._id, username: user.name }, process.env.TOKEN_SECRET)
-        const userData = await User.findOne({ email: req.body.email })
+        
         const userinfo = {
-            'name': userData.name,
-            'email': userData.email,
+            'name': user.name,
+            'email': user.email,
         }
         const response = { ...userinfo, token }
         return res.status(200).json({ success: true, message: 'User logged in successfully', data: response });
