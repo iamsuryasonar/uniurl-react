@@ -6,14 +6,14 @@ const verify = async (req, res, next) => {
     if (!token) return res.status(401).json({ success: false, message: "Access denied" });
 
     try {
-        const verified = await jwt.verify(token, process.env.TOKEN_SECRET)
+        const verified = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
         let user;
         try {
-            user = await User.findById({ _id: verified._id }).select('-password').populate(["links", 'theme'])
+            user = await User.findById({ _id: verified._id });
         } catch (err) {
             return res.status(401).json({ success: false, message: "Access denied" });
         }
-        req.user = user;
+        req.user = verified;
         next()
     } catch (error) {
         res.status(400).json({ success: false, message: "Invalid token" });

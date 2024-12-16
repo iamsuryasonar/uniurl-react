@@ -24,8 +24,8 @@ function RegisterPage() {
     const registerHandler = (e) => {
         e.preventDefault();
         let flag = '';
-        if (input?.name?.length < 7) {
-            flag = 'Name';
+        if (input?.username?.length < 7) {
+            flag = 'Username';
         }
         if (input?.email?.length < 7) {
             flag = 'Email';
@@ -50,13 +50,13 @@ function RegisterPage() {
                 <form className='w-full flex flex-col gap-2' >
                     <p className='text-2xl font-extrabold font-sans'>Sign Up</p>
                     <div>
-                        <label htmlFor="name" className="text-sm text-slate-300">Name</label>
+                        <label htmlFor="username" className="text-sm text-slate-300">Username</label>
                         <input
-                            id='name'
+                            id='username'
                             className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full'
                             placeholder="Username"
                             type="text"
-                            name="name"
+                            name="username"
                             required
                             aria-label="Username"
                             onChange={onChangeHandler}

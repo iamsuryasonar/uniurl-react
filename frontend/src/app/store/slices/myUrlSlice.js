@@ -20,7 +20,7 @@ export const get_my_urls = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
-            if (error.response.status === 401) thunkAPI.dispatch(logout());
+            if (error.response.status === 400) thunkAPI.dispatch(logout());
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -38,6 +38,7 @@ export const create_my_urls = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.createNewUrl(url);
+            thunkAPI.dispatch(get_my_urls());
             thunkAPI.dispatch(setMessage(response.message));
             return response.data;
         } catch (error) {
@@ -84,7 +85,6 @@ export const delete_my_url = createAsyncThunk(
     }
 );
 
-
 const initialState = { myurls: null };
 
 const myUrlSlice = createSlice({
@@ -97,7 +97,6 @@ const myUrlSlice = createSlice({
                     state.urls = action.payload;
                 }).addCase(get_my_urls.rejected, (state, action) => {
                 }).addCase(create_my_urls.fulfilled, (state, action) => {
-                    state.urls = action.payload;
                 }).addCase(create_my_urls.rejected, (state, action) => {
                 }).addCase(delete_my_url.fulfilled, (state, action) => {
                     state.urls = action.payload;

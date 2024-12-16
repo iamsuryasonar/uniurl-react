@@ -44,7 +44,7 @@ export const get_profile_info = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
-            if (error.response.status === 401) thunkAPI.dispatch(logout());
+            if (error.response.status === 400) thunkAPI.dispatch(logout());
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {

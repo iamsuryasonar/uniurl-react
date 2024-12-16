@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
-    minlength: 1,
+    unique: true,
+    minlength: 6,
     maxlength: 255,
+  },
+  usernameUpdated: {
+    type: Boolean,
+    default: false,
   },
   email: {
     type: String,
@@ -17,13 +22,15 @@ const userSchema = new mongoose.Schema({
   googleId: {
     type: String,
     required: false,
-    unique: true
+    unique: true,
+    select: false
   },
   password: {
     type: String,
     required: false,
     minlength: 6,
     maxlength: 500,
+    select: false
   },
   date: {
     type: Date,
@@ -43,8 +50,10 @@ const userSchema = new mongoose.Schema({
       type: String,
     }
   },
-  theme: { type: mongoose.Schema.Types.ObjectId, ref: 'Theme' },
-  links: [{ type: mongoose.Schema.Types.ObjectId, ref: "Link" }],
+  theme: {
+    type: String,
+    default: 'Lawrencium',
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

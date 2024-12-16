@@ -4,12 +4,12 @@ const { verify } = require("../middleware/verifyToken");
 const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
 const { redis } = require('../services/redis');
 const User = require("../model/User");
-const Theme = require("../model/Theme");
 
 // retrieve profile info
 router.get("/profile-info", verify, async (req, res) => {
     try {
-        return res.status(200).json({ success: true, message: '', data: req.user });
+        let user = await User.findById({ _id: req.user._id });
+        return res.status(200).json({ success: true, message: '', data: user });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
@@ -32,8 +32,8 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
             uploadedImageInfo = result;
         })
 
-        const user = await User.findById({ _id: req.user._id })
-        console.log(user?.picture?.fileName)
+        const user = await User.findById({ _id: req.user._id });
+
         if (user?.picture && user?.picture?.fileName) {
             await deleteS3Object(user?.picture?.fileName)
         }
@@ -43,13 +43,11 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
             fileName: uploadedImageInfo.fileName,
         }
 
-        await user.save();
+        let updatedUser = await user.save();
 
         // invalidate cache
         redis.del('userlink:' + req.user.username);
-
-        const userdata = await User.findById({ _id: req.user._id }).select('-password').populate(["links", 'theme']);
-        return res.status(200).json({ success: true, message: '', data: userdata });
+        return res.status(200).json({ success: true, message: '', data: updatedUser });
     } catch (err) {
         console.log(err)
         return res.status(500).json({ success: false, message: 'Failed to upload image' });
@@ -74,14 +72,12 @@ router.put("/status_and_bio", verify, async (req, res) => {
             user.location = req.body.location;
         }
 
-        await user.save();
+        let updatedUser = await user.save();
 
         // invalidate cache
         redis.del('userlink:' + req.user.username);
 
-        const userdata = await User.findById({ _id: req.user._id }).select('-password').populate(["links", 'theme']);
-
-        return res.status(200).json({ success: true, message: '', data: userdata });
+        return res.status(200).json({ success: true, message: '', data: updatedUser });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }
@@ -92,7 +88,7 @@ router.get("/keyword/:keyword", async (req, res) => {
     try {
 
         const similarUsers = await User.find({
-            name: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
+            username: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
         }).select('-password').limit(5);
 
         return res.status(200).json({ success: true, message: '', data: similarUsers });

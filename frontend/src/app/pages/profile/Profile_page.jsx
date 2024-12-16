@@ -11,8 +11,9 @@ const ProfilePage = () => {
 
     const dispatch = useDispatch();
     const profileInfo = useSelector(state => state.profile.profileInfo);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
-    const [name, setName] = useState('');
+
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar);
+    const [username, setUsername] = useState('');
     const [themes, setThemes] = useState(null);
     const [input, setInput] = useState({
         'bio': '',
@@ -50,8 +51,8 @@ const ProfilePage = () => {
             ))
 
         }
-        if (profileInfo?.name) {
-            setName(profileInfo.name);
+        if (profileInfo?.username) {
+            setUsername(profileInfo.username);
         }
 
     }, [profileInfo]);
@@ -86,7 +87,7 @@ const ProfilePage = () => {
     const originname = window.location.origin;
     const copyToClipboard = async () => {
         try {
-            await navigator.clipboard.writeText(originname + '/' + name);
+            await navigator.clipboard.writeText(originname + '/' + username);
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
                 dispatch(clearMessage());
@@ -100,7 +101,7 @@ const ProfilePage = () => {
     };
 
     const gotoUrlsPage = () => {
-        window.open(originname + '/' + name, '_blank');
+        window.open(originname + '/' + username, '_blank');
     }
 
     return (
@@ -123,7 +124,7 @@ const ProfilePage = () => {
                             <input
                                 type="text"
                                 name="name"
-                                value={name}
+                                value={username}
                                 maxLength="30"
                                 placeholder="Alexa"
                                 required
@@ -166,7 +167,7 @@ const ProfilePage = () => {
                             <option value='' disabled className=''>select theme...</option>
                             {
                                 themes?.map((item) => {
-                                    return <option key={item._id} value={item._id} className=''> {item.name}</option>
+                                    return <option key={item._id} value={item._id} className={`${profileInfo?.theme === item?.name ? 'bg-white text-black' : ''}`}> {item.name}</option>
                                 })
                             }
                         </select>

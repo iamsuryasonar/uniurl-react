@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { store } from './app/store/store';
 import React from 'react';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -16,9 +15,7 @@ root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <Provider store={store}>
-      <GoogleOAuthProvider clientId="317062420793-jf4ntalfn6cucob5klt42npdsmjijsm0.apps.googleusercontent.com">
-        <App />
-      </GoogleOAuthProvider>
+      <App />
     </Provider>
   </BrowserRouter>
   // </React.StrictMode>

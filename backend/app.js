@@ -1,12 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
-let cors = require('cors');
-var responseTime = require('response-time');
+const cors = require('cors');
+const responseTime = require('response-time');
+const cookieParser = require('cookie-parser');
 
-let app = express()
+const app = express()
+
 require('dotenv').config();
-app.use(cors())
-app.use(responseTime())
+app.use(cors());
+app.use(responseTime());
+app.use(cookieParser());
 
 // import routes
 const authRoute = require('./routes/authentication')
@@ -52,7 +55,8 @@ db.on('disconnected', (error) => {
 // request object after the middleware (i.e. req.body), or an empty object
 // ({}) if there was no body to parse, the Content-Type was not matched, 
 // or an error occurred.
-app.use(express.json())
+app.use(express.json());
+
 
 // route middleware
 // basically it prefix adds /api/user to the route

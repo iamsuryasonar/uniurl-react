@@ -9,7 +9,18 @@ const login = async (creds) => {
     return axios
         .post(API_URL_AUTH + "login", creds)
         .then((response) => {
-            if (response.data.data.name) {
+            if (response.data.data.token) {
+                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
+            }
+            return response.data.data;
+        });
+}
+
+const refresh_token = async () => {
+    return axios
+        .get(API_URL_AUTH + "refresh_token")
+        .then((response) => {
+            if (response.data.data.token) {
                 localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
             }
             return response.data.data;
@@ -21,7 +32,7 @@ const googleLogin = async (code) => {
         let response = await axios
             .post(API_URL_AUTH + "google_login", code)
             .then((response) => {
-                if (response.data.data.name) {
+                if (response.data.data.token) {
                     localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
                     return response;
                 }
@@ -47,6 +58,7 @@ const getCurrentUser = () => {
 const AuthService = {
     register,
     login,
+    refresh_token,
     googleLogin,
     logout,
     getCurrentUser,

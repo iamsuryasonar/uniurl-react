@@ -1,0 +1,495 @@
+{
+    "Ibiza sunset": {
+        "page_container": {
+            "backgroundImage": "linear-gradient(45deg, hsl(240deg 100% 20%) 0%, hsl(281deg 100% 21%) 8%, hsl(304deg 100% 23%) 17%, hsl(319deg 100% 30%) 25%, hsl(329deg 100% 36%) 33%, hsl(336deg 100% 41%) 42%, hsl(346deg 83% 51%) 50%, hsl(3deg 95% 61%) 58%, hsl(17deg 100% 59%) 67%, hsl(30deg 100% 55%) 75%, hsl(40deg 100% 50%) 83%, hsl(48deg 100% 50%) 92%, hsl(55deg 100% 50%) 100%)",
+            "color": "white",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "white",
+            "color": "black",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        }
+    },
+    "White & blue": {
+        "page_container": {
+            "backgroundColor": "white",
+            "color": "black",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#1F509A",
+            "color": "white",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "white"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Cyan & white": {
+        "page_container": {
+            "backgroundColor": "#81BFDA",
+            "color": "white",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "white",
+            "color": "#81BFDA",
+            "borderRadius": "30px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {},
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Moon purple": {
+        "page_container": {
+            "backgroundColor": "#F5EFFF",
+            "color": "black",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#CDC1FF"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "white",
+            "color": "black",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "#A294F9"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Gradient blue": {
+        "page_container": {
+            "backgroundImage": "linear-gradient(to top, #0050c7, #2f69d7, #4d83e5, #6a9cf3, #87b6ff)",
+            "color": "white",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#87B6FF"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "white",
+            "color": "black",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "#87B6FF"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Pastel green": {
+        "page_container": {
+            "backgroundColor": "#66986F",
+            "color": "#B2C9AD",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#91AC8F"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#B2C9AD",
+            "color": "#4B7945",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "#66885F"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Pastel blue": {
+        "page_container": {
+            "backgroundColor": "#D4F6FF",
+            "color": "#024CAA",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#D4F6FF"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#024CAA",
+            "color": "#D4F6FF",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "#D4F6FF"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Retro cyan": {
+        "page_container": {
+            "backgroundColor": "#48CFCB",
+            "color": "#424242",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#48CFCB"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#F5F5F5",
+            "color": "#424242",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "#424242"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Neon red": {
+        "page_container": {
+            "backgroundColor": "#00224D",
+            "color": "white",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "2px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#FF204E"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#00224D",
+            "color": "white",
+            "border": "1px solid #FF204E",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "#FF204E"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Blue & white": {
+        "page_container": {
+            "backgroundColor": "#00224D",
+            "color": "white",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "white"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#00224D",
+            "color": "white",
+            "border": "1px solid white",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "white"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Lawrencium": {
+        "page_container": {
+            "backgroundImage": "linear-gradient(to bottom, #0f0c29, #302b63, #24243e)",
+            "color": "white",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "white"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#24243e",
+            "color": "white",
+            "border": "1px solid white",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "white"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Black": {
+        "page_container": {
+            "backgroundColor": "#5c5c5c",
+            "color": "#ffffff",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "white"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#333",
+            "color": "white",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "white"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Green": {
+        "page_container": {
+            "backgroundColor": "#c3e3c1",
+            "color": "#5faf3b",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#e2f6e1"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#e2f6e1",
+            "color": "#5faf3b",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "5faf3b"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Purple": {
+        "page_container": {
+            "backgroundColor": "#d0b7f4",
+            "color": "#333",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#e2f6e1"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#ecdfff",
+            "color": "#7852ae",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "#7852ae"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Orange": {
+        "page_container": {
+            "backgroundColor": "#f4c9b7",
+            "color": "#333",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "8px 8px 15px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#f4dfd6"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#f4dfd6",
+            "color": "#b64b1e",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {
+            "color": "#b64b1e"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "Slate": {
+        "page_container": {
+            "backgroundColor": "#fff",
+            "color": "#333",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "6px 6px 10px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "#eee"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "#eee",
+            "color": "#222",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "boxShadow": "6px 6px 10px -10px rgba(0, 0, 0, 0.8)"
+        },
+        "cardIcon": {
+            "color": "#222"
+        },
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    },
+    "B&W": {
+        "page_container": {
+            "backgroundColor": "white",
+            "color": "black",
+            "padding": "4px"
+        },
+        "profile_picture_wrapper": {
+            "padding": "4px",
+            "boxShadow": "6px 6px 10px -10px rgba(0, 0, 0, 0.8)",
+            "backgroundColor": "white"
+        },
+        "cardContainer": {
+            "width": "100%",
+            "padding": "12px",
+            "backgroundColor": "white",
+            "color": "black",
+            "border": "1px solid black",
+            "borderRadius": "10px",
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "alignItems": "center"
+        },
+        "cardIcon": {},
+        "cardArrowIcon": {
+            "display": "none"
+        }
+    }
+}
