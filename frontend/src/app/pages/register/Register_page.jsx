@@ -7,18 +7,27 @@ import Button from '../../components/Button/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import GoogleLogInButton from "../../components/GoogleLogInButton";
+import ProfileService from '../../services/profile.services';
 
 function RegisterPage() {
     const dispatch = useDispatch();
     const { loading } = useSelector((state) => state.loading);
     const [input, setInput] = useState({});
     const [showPassword, setShowPassword] = useState(false);
+    const [usernameAvailable, setUsernameAvailable] = useState(null);
 
-    const onChangeHandler = (e) => {
+    const onChangeHandler = async (e) => {
         setInput({
             ...input,
             [e.target.name]: e.target.value,
-        })
+        });
+
+        if (e.target.name === 'username' && e.target.value.length > 5) {
+            const res = await ProfileService.isUsernameExists(e.target.value);
+            setUsernameAvailable(!res?.data?.isExist);
+        } else {
+            setUsernameAvailable(null);
+        }
     }
 
     const registerHandler = (e) => {
@@ -50,17 +59,31 @@ function RegisterPage() {
                 <form className='w-full flex flex-col gap-2' >
                     <p className='text-2xl font-extrabold font-sans'>Sign Up</p>
                     <div>
-                        <label htmlFor="username" className="text-sm text-slate-300">Username</label>
-                        <input
-                            id='username'
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full'
-                            placeholder="Username"
-                            type="text"
-                            name="username"
-                            required
-                            aria-label="Username"
-                            onChange={onChangeHandler}
-                        />
+                        <div>
+                            <label htmlFor="username" className="text-sm text-slate-300">Username</label>
+                            <input
+                                id='username'
+                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full'
+                                placeholder="Username"
+                                type="text"
+                                name="username"
+                                required
+                                aria-label="Username"
+                                onChange={onChangeHandler}
+                            />
+                        </div>
+                        <div className=''>
+                            {
+                                input?.username && input?.username?.length > 5 && <>
+                                    {
+                                        usernameAvailable ?
+                                            <p className='text-sm text-green-500'>Username available</p>
+                                            :
+                                            <p className='text-sm text-red-500'>Username not available</p>
+                                    }
+                                </>
+                            }
+                        </div>
                     </div>
                     <div>
                         <label htmlFor="email" className="text-sm text-slate-300">Email</label>

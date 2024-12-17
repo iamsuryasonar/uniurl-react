@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { upload_profile_picture, get_profile_info, update_bio_or_status } from './../../store/slices/profileSlice'
+import { upload_profile_picture, get_profile_info, update_profile_info } from './../../store/slices/profileSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
 import avatar from '../../assets/avatar.jpg';
 import ThemeServices from '../../services/theme.services';
+import ProfileService from '../../services/profile.services';
 
 const ProfilePage = () => {
 
@@ -15,7 +16,10 @@ const ProfilePage = () => {
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar);
     const [username, setUsername] = useState('');
     const [themes, setThemes] = useState(null);
+    const [usernameAvailable, setUsernameAvailable] = useState(null);
+
     const [input, setInput] = useState({
+        'username': '',
         'bio': '',
         'theme': '',
         'location': ''
@@ -53,6 +57,12 @@ const ProfilePage = () => {
         }
         if (profileInfo?.username) {
             setUsername(profileInfo.username);
+            setInput(prev => (
+                {
+                    ...prev,
+                    ['username']: profileInfo.username,
+                }
+            ))
         }
 
     }, [profileInfo]);
@@ -71,17 +81,25 @@ const ProfilePage = () => {
 
     };
 
-    const onChangeHandler = (e) => {
+    const onChangeHandler = async (e) => {
         setInput(prev => (
             {
                 ...prev,
                 [e.target.name]: e.target.value,
             }
         ))
+
+        if (e.target.name === 'username' && profileInfo?.usernameUpdated === false && profileInfo?.username !== e.target.value) {
+            const res = await ProfileService.isUsernameExists(e.target.value);
+            setUsernameAvailable(!res?.data?.isExist);
+        } else {
+            setUsernameAvailable(null);
+        }
     }
 
-    const onFocusRemoved = () => {
-        dispatch(update_bio_or_status(input))
+    const submitHandler = () => {
+        dispatch(update_profile_info(input));
+        setUsernameAvailable(null);
     }
 
     const originname = window.location.origin;
@@ -118,21 +136,35 @@ const ProfilePage = () => {
                         </div>
                         <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
                     </label>
-                    <div className='w-full flex flex-col' onClick={copyToClipboard}>
-                        <label className='' htmlFor="name">Username:</label>
-                        <div className='relative'>
+                    <div className='w-full flex flex-col'>
+                        <label className='' htmlFor="username">Username:</label>
+                        <div className='flex items-center gap-1'>
                             <input
                                 type="text"
-                                name="name"
-                                value={username}
+                                name="username"
+                                value={input?.username}
+                                onChange={onChangeHandler}
                                 maxLength="30"
-                                placeholder="Alexa"
+                                placeholder="eg. alexa"
                                 required
                                 className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
-                                readOnly
+                                disabled={profileInfo?.usernameUpdated}
                             />
-                            <FontAwesomeIcon icon={faCopy} className='absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-white' />
+                            <div className='group w-14 aspect-square rounded-full flex items-center justify-center border border-1 border-white hover:border-slate-400 cursor-pointer' onClick={copyToClipboard}>
+                                <FontAwesomeIcon icon={faCopy} className='cursor-pointer text-white group-hover:text-slate-400' />
+                            </div>
                         </div>
+                        <div className='h-[10px]'>
+                            {
+                                usernameAvailable !== null && <>
+                                    {usernameAvailable ?
+                                        <p className='pl-3 text-sm text-green-500'>Username available</p>
+                                        :
+                                        <p className='pl-3 text-sm text-red-500'>Username not available</p>}
+                                </>
+                            }
+                        </div>
+
                     </div>
                     <div className='w-full flex flex-col'>
                         <label className='' htmlFor="location">Location:</label>
@@ -140,7 +172,6 @@ const ProfilePage = () => {
                             type="text"
                             name="location"
                             onChange={onChangeHandler}
-                            onBlur={onFocusRemoved}
                             value={input?.location}
                             placeholder="Add location"
                             required
@@ -155,7 +186,6 @@ const ProfilePage = () => {
                             rows="5"
                             name="bio"
                             onChange={onChangeHandler}
-                            onBlur={onFocusRemoved}
                             value={input?.bio}
                             placeholder="Write something!"
                             required
@@ -163,7 +193,7 @@ const ProfilePage = () => {
                     </div>
                     <div className='w-full flex flex-col'>
                         <label className='' htmlFor="bio">Url page theme:</label>
-                        <select onChange={onChangeHandler} onBlur={onFocusRemoved} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-white px-3 py-2 bg-[#040C18] text-white'>
+                        <select onChange={onChangeHandler} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-white px-3 py-2 bg-[#040C18] text-white'>
                             <option value='' disabled className=''>select theme...</option>
                             {
                                 themes?.map((item) => {
@@ -172,6 +202,7 @@ const ProfilePage = () => {
                             }
                         </select>
                     </div>
+                    <button onClick={submitHandler} className='animate w-full py-1 font-bold text-xl border-[1px] border-white rounded-full bg-white text-black hover:bg-black hover:text-white'> save</button>
                 </div>
             </div >
         </div>

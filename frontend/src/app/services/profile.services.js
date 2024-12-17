@@ -33,10 +33,18 @@ const uploadProfilePicture = async (file) => {
 };
 
 
-const updateBioOrStatus = async (body) => {
+const updateProfileInfo = async (body) => {
     const response = await axios
         .put(
-            API_URL_PROFILE + 'status_and_bio', body, getheaders()
+            API_URL_PROFILE + 'profile-info', body, getheaders()
+        );
+    return response.data;
+}
+
+const isUsernameExists = async (username) => {
+    const response = await axios
+        .get(
+            API_URL_PROFILE + 'is_username_exist/' + username
         );
     return response.data;
 }
@@ -45,7 +53,8 @@ const updateBioOrStatus = async (body) => {
 const ProfileService = {
     getProfileInfo,
     uploadProfilePicture,
-    updateBioOrStatus
+    updateProfileInfo,
+    isUsernameExists,
 }
 
 export default ProfileService;

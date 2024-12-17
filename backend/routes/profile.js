@@ -55,15 +55,18 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 })
 
 // add status and bio
-router.put("/status_and_bio", verify, async (req, res) => {
+router.put("/profile-info", verify, async (req, res) => {
     try {
         if (!req?.body?.bio) return res.status(400).json({ success: false, message: 'Bio is required' });
 
-        const user = await User.findById({ _id: req.user._id })
+        const user = await User.findById({ _id: req.user._id });
 
+        if (req?.body?.username) {
+            user.username = req.body.username;
+            user.usernameUpdated = true;
+        }
         if (req?.body?.bio) {
             user.bio = req.body.bio;
-
         }
         if (req?.body?.theme) {
             user.theme = req.body.theme;
@@ -78,6 +81,29 @@ router.put("/status_and_bio", verify, async (req, res) => {
         redis.del('userlink:' + req.user.username);
 
         return res.status(200).json({ success: true, message: '', data: updatedUser });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Internal server error ' });
+    }
+});
+
+router.get("/is_username_exist/:username", async (req, res) => {
+    try {
+
+        if (!req?.params?.username) return res.status(400).json({ success: false, message: 'Username is required' });
+
+        const user = await User.find({ username: req?.params?.username });
+
+        if (user.length !== 0) return res.status(200).json({
+            success: true, message: 'Username exist', data: {
+                isExist: true,
+            }
+        });
+
+        return res.status(200).json({
+            success: true, message: 'Username doesnot exist', data: {
+                isExist: false,
+            }
+        });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
     }

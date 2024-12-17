@@ -57,12 +57,12 @@ export const get_profile_info = createAsyncThunk(
 );
 
 
-export const update_bio_or_status = createAsyncThunk(
+export const update_profile_info = createAsyncThunk(
     "profile/update",
     async (body, thunkAPI) => {
         try {
             thunkAPI.dispatch(setLoading(true));
-            const response = await ProfileService.updateBioOrStatus(body);
+            const response = await ProfileService.updateProfileInfo(body);
             return response.data;
         } catch (error) {
             const message =
@@ -94,9 +94,9 @@ const ProfileSlice = createSlice({
         }).addCase(upload_profile_picture.fulfilled, (state, action) => {
             state.profileInfo = action.payload;
         }).addCase(upload_profile_picture.rejected, (state, action) => {
-        }).addCase(update_bio_or_status.fulfilled, (state, action) => {
+        }).addCase(update_profile_info.fulfilled, (state, action) => {
             state.profileInfo = action.payload;
-        }).addCase(update_bio_or_status.rejected, (state, action) => {
+        }).addCase(update_profile_info.rejected, (state, action) => {
         })
     }
 });
