@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { clearMessage, setMessage } from '../../store/slices/messageSlice';
 import { get_urls } from '../../store/slices/urlSlice';
 import avatar from '../../assets/avatar.jpg'
-import Message from '../../components/Message/Message'
 import { Transition } from 'react-transition-group';
 import s from './urls.module.css'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +26,6 @@ function UrlsPage() {
     const { username } = useParams();
     const dispatch = useDispatch();
     const elementRef = useRef(null);
-    const { message } = useSelector((state) => state.message);
     const { loading } = useSelector((state) => state.loading);
 
     useEffect(() => {
@@ -39,6 +37,17 @@ function UrlsPage() {
     const onCardClicked = (url) => {
         window.open(url, '_blank', 'noreferrer');
     }
+
+    if (urlsinfo === null) return (
+        <div className={`bg-[#e3f5f4] text-[#333] `}>
+            <div className='w-full min-h-svh max-w-lg m-auto flex flex-col items-center justify-center p-4 gap-4 '>
+                <div className='border-[1px] border-slate-500 rounded-lg p-4 flex flex-col gap-4'>
+                    <p className='font-bold text-xl sm:text-2xl text-center'>User does not exist</p>
+                    <Link to={-1} className='px-3 py-2 rounded-full text-center border-[1px] border-slate-500 text-black hover:bg-black hover:text-white'>go back</Link>
+                </div>
+            </div>
+        </div>
+    )
 
     return (
         <>
@@ -77,10 +86,6 @@ function UrlsPage() {
                         </div>
                         :
                         <></>
-                    }
-                    {
-                        message &&
-                        <Message message={message} />
                     }
                 </div>
             </div>

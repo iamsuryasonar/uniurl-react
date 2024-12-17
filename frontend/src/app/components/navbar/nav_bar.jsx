@@ -11,7 +11,6 @@ import { logout } from '../../store/slices/authSlice';
 import { get_profile_info } from './../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
 import Searchbar from '../searchbar/searchbar'
-import Message from '../../components/Message/Message'
 import useLocationPathname from '../../hooks/useLocationPathname';
 
 const NavBar = ({ isInputHidden, setIsInputHidden }) => {
@@ -21,7 +20,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
 
     const menu = useSelector(state => state.menu.value);
     const { loading } = useSelector((state) => state.loading);
-    const { message } = useSelector((state) => state.message);
     const profileInfo = useSelector(state => state.profile.profileInfo)
 
     const [activeMenu] = useLocationPathname();
@@ -230,10 +228,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         </div>
                     }
                 </>
-        }
-        {
-            message &&
-            <Message message={message} />
         }
     </>;
 };

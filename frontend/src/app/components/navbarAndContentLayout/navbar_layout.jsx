@@ -3,11 +3,15 @@ import { Outlet } from "react-router-dom";
 import NavBar from '../navbar/nav_bar';
 import { closeMenu } from "../../store/slices/menuSlice";
 import { useDispatch } from 'react-redux'
-import Footer from '../Footer/Footer'
+import Footer from '../Footer/Footer';
+import Message from '../Message/Message';
+import { useSelector } from 'react-redux';
 
 function NavbarLayout() {
     const dispatch = useDispatch()
     const [isInputHidden, setIsInputHidden] = useState(false)
+    const { message } = useSelector((state) => state.message);
+
 
     function onClickHandler() {
         dispatch(closeMenu());
@@ -22,6 +26,7 @@ function NavbarLayout() {
                     <Outlet />
                 </div>
             </div>
+            <Message message={message} />
             <Footer />
         </>
     )

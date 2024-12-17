@@ -65,6 +65,7 @@ export const delete_my_url = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.deleteUrl(url);
+            thunkAPI.dispatch(get_my_urls());
             thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
         } catch (error) {
@@ -99,7 +100,6 @@ const myUrlSlice = createSlice({
                 }).addCase(create_my_urls.fulfilled, (state, action) => {
                 }).addCase(create_my_urls.rejected, (state, action) => {
                 }).addCase(delete_my_url.fulfilled, (state, action) => {
-                    state.urls = action.payload;
                 }).addCase(delete_my_url.rejected, (state, action) => {
                 })
         },
