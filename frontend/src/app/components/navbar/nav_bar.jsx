@@ -48,11 +48,6 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
         setSearchedByKeywordValues(userdata)
     }
 
-    const keywordClickedHandler = (username) => {
-        const originname = window.location.origin;
-        window.location.replace(originname + '/' + username);
-    }
-
     return <>
         {
             loading &&
@@ -118,26 +113,13 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                     onClick={handleLogOut}>Log out</div>
                             </div>
                         </div>
-                        {
-                            searchedByKeywordValues.length > 0 && !isInputHidden && !menu &&
-                            <div className='w-full flex flex-col items-end bg-black'>
-                                <div className='sticky top-10 z-20 w-full p-5 flex flex-col items-center gap-4 rounded-none text-white '>
-                                    {searchedByKeywordValues.map((item) => {
-                                        return <p
-                                            className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white'
-                                            key={item._id}
-                                            onClick={() => { keywordClickedHandler(item.name) }}
-                                            tabIndex={0}
-                                            onKeyDown={(e) => {
-                                                if (e.key === 'Enter') {
-                                                    keywordClickedHandler(item.name)
-                                                }
-                                            }}>{item.name}</p>
-                                    })}
-                                </div>
-                            </div>
-                        }
+
                     </nav>
+                    <SearchedValuesContainer
+                        searchedByKeywordValues={searchedByKeywordValues}
+                        isInputHidden={isInputHidden}
+                        menu={menu}
+                    />
                     {<Transition in={menu} timeout={100}>
                         {(state) => (
                             <div className={`md:hidden fixed top-16 left-0 right-0 z-10 bg-black text-white w-full px-4 py-20 rounded-b-lg flex flex-col items-center justify-center gap-2 transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
@@ -208,28 +190,43 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                         )}
                     </Transition >
                     }
-                    {
-                        searchedByKeywordValues.length > 0 && !isInputHidden && !menu &&
-                        <div className='w-full flex flex-col items-end bg-black'>
-                            <div className='sticky top-10 z-20 w-full p-5 flex flex-col items-center gap-4 rounded-none text-white '>
-                                {searchedByKeywordValues.map((item) => {
-                                    return <p
-                                        className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white'
-                                        key={item._id}
-                                        onClick={() => { keywordClickedHandler(item.name) }}
-                                        tabIndex={0}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                                keywordClickedHandler(item.name)
-                                            }
-                                        }}>{item.name}</p>
-                                })}
-                            </div>
-                        </div>
-                    }
+                    <SearchedValuesContainer
+                        searchedByKeywordValues={searchedByKeywordValues}
+                        isInputHidden={isInputHidden}
+                        menu={menu}
+                    />
                 </>
         }
     </>;
 };
 
 export default NavBar;
+
+function SearchedValuesContainer({ searchedByKeywordValues, isInputHidden, menu }) {
+    const keywordClickedHandler = (username) => {
+        const originname = window.location.origin;
+        window.location.replace(originname + '/' + username);
+    }
+
+    return <>
+        {
+            searchedByKeywordValues.length > 0 && !isInputHidden && !menu &&
+            <div className='fixed top-[65px] z-20 w-full  flex flex-col items-center bg-black'>
+                <div className='w-full max-w-[400px] p-5 flex flex-col items-center gap-4 text-white'>
+                    {searchedByKeywordValues.map((item) => {
+                        return <p
+                            className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white'
+                            key={item._id}
+                            onClick={() => { keywordClickedHandler(item.username) }}
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    keywordClickedHandler(item.username)
+                                }
+                            }}>{item.username}</p>
+                    })}
+                </div>
+            </div>
+        }
+    </>
+}

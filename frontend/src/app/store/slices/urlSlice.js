@@ -38,7 +38,11 @@ const urlSlice = createSlice({
     initialState,
     extraReducers: {
         [get_urls.fulfilled]: (state, action) => {
-            state.urlsinfo = action.payload;
+            if (action.payload === null) {
+                state.urlsinfo = [];
+            } else {
+                state.urlsinfo = action.payload;
+            }
         },
         [get_urls.rejected]: (state, action) => {
         },
