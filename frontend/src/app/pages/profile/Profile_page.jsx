@@ -118,17 +118,13 @@ const ProfilePage = () => {
         }
     };
 
-    const gotoUrlsPage = () => {
-        window.open(originname + '/' + username, '_blank');
-    }
-
     return (
         <div className="w-full flex justify-center items-center m-auto ">
             <div className='h-full max-w-[350px] py-14 text-white'>
                 <div className='p-6 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
-                    <div className='absolute top-2 right-2 p-2 rounded-full text-white hover:bg-black hover:text-white' onClick={gotoUrlsPage}>
+                    <a href={originname + '/' + username} target='_blank' rel='noopener' className='absolute top-2 right-2 p-2 rounded-full text-white hover:bg-black hover:text-white'>
                         <FontAwesomeIcon icon='fas fa-link' className=' text-2xl cursor-pointer ' />
-                    </div>
+                    </a>
                     <label htmlFor="photo-upload" className={`border border-1 border-white rounded-full inline-block relative p-1 cursor-pointer text-black `}>
                         <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
                             <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
@@ -150,9 +146,9 @@ const ProfilePage = () => {
                                 className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
                                 disabled={profileInfo?.usernameUpdated}
                             />
-                            <div className='group w-14 aspect-square rounded-full flex items-center justify-center border border-1 border-white hover:border-slate-400 cursor-pointer' onClick={copyToClipboard}>
+                            <button className='group w-14 aspect-square rounded-full flex items-center justify-center border border-1 border-white hover:border-slate-400 cursor-pointer' onClick={copyToClipboard}>
                                 <FontAwesomeIcon icon={faCopy} className='cursor-pointer text-white group-hover:text-slate-400' />
-                            </div>
+                            </button>
                         </div>
                         <div className='h-[10px]'>
                             {
@@ -175,7 +171,7 @@ const ProfilePage = () => {
                             value={input?.location}
                             placeholder="Add location"
                             required
-                            className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-transparent text-white'
+                            className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
                         />
                     </div>
 

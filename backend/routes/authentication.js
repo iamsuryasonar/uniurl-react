@@ -62,7 +62,7 @@ router.post('/login', async (req, res) => {
 
         const accessToken = jwt.sign({ _id: user._id, username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRY })
 
-        const response = { token: accessToken }
+        const response = { token: accessToken };
 
         return res.status(200).json({ success: true, message: 'User logged in successfully', data: response });
     } catch (error) {

@@ -15,8 +15,7 @@ import useLocationPathname from '../../hooks/useLocationPathname';
 
 const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
-
-    const token = localStorage.getItem(LOCAL_STORAGE_NAME)
+    const { isLoggedIn } = useSelector((state) => state.auth);
 
     const menu = useSelector(state => state.menu.value);
     const { loading } = useSelector((state) => state.loading);
@@ -27,8 +26,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     const [searchedByKeywordValues, setSearchedByKeywordValues] = useState([])
 
     useEffect(() => {
-        const token = localStorage.getItem(LOCAL_STORAGE_NAME);
-        if (token) {
+        if (isLoggedIn) {
             dispatch(get_profile_info())
         }
     }, [dispatch])
@@ -55,12 +53,12 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                 <div className={s.moving_gradient}></div>
             </div>
         }
-        {
-            token ?
-                //! private navbar
-                <>
-                    <nav className='bg-[#040C18] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
-                        <div className='max-w-5xl w-full flex justify-center items-center gap-4 px-6 py-4 '>
+        <nav className='bg-[#040C18] h-[65px] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
+            {
+                isLoggedIn ?
+                    //! private navbar
+                    <>
+                        <div className='max-w-5xl w-full flex justify-center items-center gap-4 px-6 py-0'>
                             <div className='w-auto flex items-center'>
                                 <Link to="/user/profile" className='w-10 h-10 flex items-center'>
                                     <img src={imagePreviewUrl} alt='user avatar' className='object-cover w-10 h-10 aspect-square rounded-full' />
@@ -69,9 +67,9 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
-                                {menu ?
-                                    <FontAwesomeIcon
-                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
+                                {!menu &&
+                                    <botton
+                                        className=''
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
@@ -79,29 +77,20 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                             }
                                         }}
                                         tabIndex={0}
-                                        aria-label='Close Menu'
-                                        icon={faXmark}
-                                    />
-                                    :
-                                    <FontAwesomeIcon
-                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
-                                        icon={faBars}
-                                        onClick={() => dispatch(toggleMenu())}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                                toggleMenu()
-                                            }
-                                        }}
-                                        tabIndex={0}
-                                        aria-label='Open Menu'
-                                    />
+                                        aria-label='Open Menu'>
+                                        <FontAwesomeIcon
+                                            className='outline-none flex md:hidden cursor-pointer text-2xl'
+                                            icon={faBars}
+
+                                        />
+                                    </botton>
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
                                 <Link to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} >My urls</Link>
                                 <Link to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} >Create url</Link>
                                 <Link to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} >Profile</Link>
-                                <div
+                                <button
                                     className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
                                     tabIndex={0}
                                     aria-label='log out button'
@@ -110,48 +99,20 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                             handleLogOut()
                                         }
                                     }}
-                                    onClick={handleLogOut}>Log out</div>
+                                    onClick={handleLogOut}
+                                >Log out</button>
                             </div>
                         </div>
-
-                    </nav>
-                    <SearchedValuesContainer
-                        searchedByKeywordValues={searchedByKeywordValues}
-                        isInputHidden={isInputHidden}
-                        menu={menu}
-                    />
-                    {<Transition in={menu} timeout={100}>
-                        {(state) => (
-                            <div className={`md:hidden fixed top-16 left-0 right-0 z-10 bg-black text-white w-full px-4 py-20 rounded-b-lg flex flex-col items-center justify-center gap-2 transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                                <div className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
-                                    tabIndex={menu ? 0 : -1}
-                                    aria-label='log out button'
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            handleLogOut()
-                                        }
-                                    }}
-                                    onClick={handleLogOut}>Log out</div>
-                            </div>
-                        )}
-                    </Transition >
-                    }
-                </>
-                :
-                //! public navbar
-                <>
-                    <nav className='bg-[#040C18] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
-                        <div className='max-w-5xl  w-full flex justify-center items-center  gap-4 px-6 py-4 '>
-                            <Link to="/" className='font-bold text-xl' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
-                            <div className='w-full flex flex-row justify-end items-center gap-4'>
-                                {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
-                                {menu ?
-                                    <FontAwesomeIcon
-                                        icon={faXmark}
-                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
+                        <SearchedValuesContainer
+                            searchedByKeywordValues={searchedByKeywordValues}
+                            isInputHidden={isInputHidden}
+                            menu={menu}
+                        />
+                        {<Transition in={menu} timeout={100}>
+                            {(state) => (
+                                <div className={`md:hidden fixed top-0 left-0 right-0 z-10 bg-black text-white w-full px-4 py-20 rounded-b-lg flex flex-col items-center justify-center gap-2 transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
+                                    <button
+                                        className='absolute top-6 right-6'
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
@@ -160,19 +121,50 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                         }}
                                         tabIndex={0}
                                         aria-label='Close Menu'
-                                    />
-                                    :
-                                    <FontAwesomeIcon
-                                        icon={faBars}
-                                        className='outline-none flex md:hidden cursor-pointer text-2xl'
-                                        onClick={() => dispatch(toggleMenu())}
+                                    >
+                                        <FontAwesomeIcon
+                                            className='outline-none flex md:hidden cursor-pointer text-2xl'
+                                            icon={faXmark}
+                                        />
+                                    </button>
+                                    <Link tabIndex={menu ? 0 : -1} to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
+                                    <Link tabIndex={menu ? 0 : -1} to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
+                                    <Link tabIndex={menu ? 0 : -1} to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
+                                    <button className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
+                                        tabIndex={menu ? 0 : -1}
+                                        aria-label='log out button'
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                handleLogOut()
+                                            }
+                                        }}
+                                        onClick={handleLogOut}>Log out</button>
+                                </div>
+                            )}
+                        </Transition >
+                        }
+                    </>
+                    :
+                    //! public navbar
+                    <>
+                        <div className='max-w-5xl  w-full flex justify-center items-center  gap-4 px-6'>
+                            <Link to="/" className='font-bold text-xl' onClick={() => dispatch(closeMenu())}>{APP_NAME}</Link>
+                            <div className='w-full flex flex-row justify-end items-center gap-4'>
+                                {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
+                                {!menu &&
+                                    <button onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
                                                 toggleMenu()
                                             }
                                         }}
                                         tabIndex={0}
-                                        aria-label='Open Menu' />
+                                        aria-label='Open Menu'>
+                                        <FontAwesomeIcon
+                                            icon={faBars}
+                                            className='outline-none flex md:hidden cursor-pointer text-2xl'
+                                        />
+                                    </button>
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap'>
@@ -180,33 +172,45 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                 <Link to='/user/register' className={`bg-[#FF4820] rounded-full py-1 px-4 border border-slate-400 cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white bg-white text-black' : ''}`}>Get Started</Link>
                             </div>
                         </div>
-                    </nav>
-                    {<Transition in={menu} timeout={100}>
-                        {(state) => (
-                            <div className={`md:hidden fixed top-15 right-0 left-0 z-10 bg-black text-white px-4 py-10 rounded-b-lg flex-col items-center justify-between gap-4 flex text-nowrap transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
-                                <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer  text-center hover:bg-white hover:text-black ${activeMenu === 'login' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
-                                <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`bg-[#FF4820] rounded-full py-1 px-4 border border-slate-400 cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
-                            </div>
-                        )}
-                    </Transition >
-                    }
-                    <SearchedValuesContainer
-                        searchedByKeywordValues={searchedByKeywordValues}
-                        isInputHidden={isInputHidden}
-                        menu={menu}
-                    />
-                </>
-        }
+                        {<Transition in={menu} timeout={100}>
+                            {(state) => (
+                                <div className={`md:hidden fixed top-0 left-0 right-0 z-10 bg-black text-white w-full px-4 py-20 rounded-b-lg flex flex-col items-center justify-center gap-2 transition-transform transform ease-in-out duration-700 ${state === 'entered' ? '-translate-y-0 ' : '-translate-y-full '}`}>
+                                    <button
+                                        className='absolute top-6 right-6'
+                                        onClick={() => dispatch(toggleMenu())}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                toggleMenu()
+                                            }
+                                        }}
+                                        tabIndex={0}
+                                        aria-label='Close Menu'>
+                                        <FontAwesomeIcon
+                                            icon={faXmark}
+                                            className='outline-none flex md:hidden cursor-pointer text-2xl'
+                                        />
+                                    </button>
+                                    <Link tabIndex={menu ? 0 : -1} to="/user/login" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer  text-center hover:bg-white hover:text-black ${activeMenu === 'login' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())} >Log In</Link>
+                                    <Link tabIndex={menu ? 0 : -1} to='/user/register' className={`bg-[#FF4820] rounded-full py-1 px-4 border border-slate-400 cursor-pointer text-center font-bold hover:border-white ${activeMenu === 'register' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())} >Get Started</Link>
+                                </div>
+                            )}
+                        </Transition >
+                        }
+                        <SearchedValuesContainer
+                            searchedByKeywordValues={searchedByKeywordValues}
+                            isInputHidden={isInputHidden}
+                            menu={menu}
+                        />
+                    </>
+            }
+        </nav>
     </>;
 };
 
 export default NavBar;
 
 function SearchedValuesContainer({ searchedByKeywordValues, isInputHidden, menu }) {
-    const keywordClickedHandler = (username) => {
-        const originname = window.location.origin;
-        window.location.replace(originname + '/' + username);
-    }
+    const originname = window.location.origin;
 
     return <>
         {
@@ -214,16 +218,14 @@ function SearchedValuesContainer({ searchedByKeywordValues, isInputHidden, menu 
             <div className='fixed top-[65px] z-20 w-full  flex flex-col items-center bg-black'>
                 <div className='w-full max-w-[400px] p-5 flex flex-col items-center gap-4 text-white'>
                     {searchedByKeywordValues.map((item) => {
-                        return <p
-                            className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white'
+                        return <a
                             key={item._id}
-                            onClick={() => { keywordClickedHandler(item.username) }}
+                            href={originname + '/' + item.username}
+                            target='_blank'
+                            rel='noopener'
+                            className='rounded-full px-4 py-1 flex items-center cursor-pointer border border-1 border-transparent hover:border hover:border-white'
                             tabIndex={0}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    keywordClickedHandler(item.username)
-                                }
-                            }}>{item.username}</p>
+                        >{item.username}</a>
                     })}
                 </div>
             </div>

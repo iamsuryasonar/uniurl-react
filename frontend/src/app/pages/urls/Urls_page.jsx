@@ -8,21 +8,20 @@ import avatar from '../../assets/avatar.jpg'
 import { Transition } from 'react-transition-group';
 import s from './urls.module.css'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import Message from '../../components/Message/Message';
 
 function UrlCard({ urlData, onClick, theme }) {
     const { title, url, color } = urlData;
 
     return (
-        <div style={theme?.cardContainer} className={`w-full flex justify-between items-center gap-2 text-xl cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out`} onClick={() => onClick(url)}>
+        <a href={url} target='_blank' rel='noopener' style={theme?.cardContainer} className={`w-full flex justify-between items-center gap-2 text-xl cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out`}>
             {urlData?.icon && <FontAwesomeIcon className='w-8 h-8 aspect-square' style={{ ...theme?.cardIcon, ...{ color: theme?.cardIcon?.color ? theme?.cardIcon?.color : color } }} icon={urlData?.icon} />}
             <p className='text-center px-2'>{title}</p>
             <FontAwesomeIcon style={theme?.cardArrowIcon} icon={faArrowRight} className='w-5 h-5' />
             {(theme?.cardArrowIcon?.display === 'none') ? <div></div> : <></>}
-        </div>
+        </a>
     )
 }
-
-
 
 function StickyNav({ elementRef, urlsinfo }) {
 
@@ -87,7 +86,7 @@ function StickyNav({ elementRef, urlsinfo }) {
                                 <FontAwesomeIcon className='text-2xl ' icon='fas fa-xmark' />
                             </div>
                         </div>
-                        <div onClick={() => copyToClipboard(urlsinfo?.username)} className='relative'>
+                        <button onClick={() => copyToClipboard(urlsinfo?.username)} className='relative'>
                             <input
                                 type="text"
                                 name="name"
@@ -95,10 +94,10 @@ function StickyNav({ elementRef, urlsinfo }) {
                                 maxLength="30"
                                 placeholder="Alexa"
                                 className='bg-transparent w-full py-1 px-2 text-xl border border-1 rounded-md border-black'
-                                readOnly
+                                disabled
                             />
                             <FontAwesomeIcon icon='fas fa-copy' className='absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer text-black' />
-                        </div>
+                        </button>
                         <div className='h-[1px] bg-slate-600 w-full'></div>
                         <p className='text-xl font-bold'>Create your own Uniurl</p>
                         <div className='w-full flex justify-between gap-5 md:gap-2'>
@@ -120,6 +119,7 @@ function UrlsPage() {
     const dispatch = useDispatch();
     const elementRef = useRef(null);
     const { loading } = useSelector((state) => state.loading);
+    const { message } = useSelector((state) => state.message);
 
     useEffect(() => {
         dispatch(get_urls(username));
@@ -182,6 +182,7 @@ function UrlsPage() {
                     }
                 </div>
             </div>
+            <Message message={message} />
         </>
     );
 }

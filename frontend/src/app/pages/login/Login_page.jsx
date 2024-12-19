@@ -8,6 +8,7 @@ import Button from '../../components/Button/button';
 import { setMessage } from '../../store/slices/messageSlice';
 import GoogleLogInButton from '../../components/GoogleLogInButton';
 import { Link } from 'react-router-dom';
+
 function LogInPage() {
     const [forgotpassword, setforgotpassword] = useState(false);
     const { loading } = useSelector((state) => state.loading);

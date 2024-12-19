@@ -3,7 +3,6 @@ import Header from './components/Header'
 import HowItWorksAndFeatures from './components/HowItWorksAndFeatures';
 import CTA from './components/Cta';
 
-
 function HeroPage() {
 
     return (

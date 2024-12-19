@@ -63,7 +63,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
         }
         if (value) {
             const originname = window.location.origin;
-            window.location.replace(originname + '/' + value);
+            window.open(originname + '/' + value, '_blank');
         }
     }
 
@@ -87,7 +87,7 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                     onKeyUp={onSubmitHandler}
                 >
                 </input>
-                <div className='w-[22px] h-[22px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white'
+                <button className='w-[20px] h-[20px] aspect-square rounded-full m-1 flex justify-center items-center cursor-pointer hover:bg-white'
                     onClick={onSearchHandler}
                     tabIndex={0}
                     onKeyDown={(e) => {
@@ -96,9 +96,8 @@ function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
                         }
                     }}>
                     <FontAwesomeIcon icon={faArrowRight} className='text-white hover:text-black' />
-                </div>
+                </button>
             </div>
-
         </>
     )
 }
