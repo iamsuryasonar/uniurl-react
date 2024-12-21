@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import { APP_NAME } from '../../constants'
+import { authState } from '../../store/slices/authSlice';
 
 function Footer() {
-    const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isLoggedIn } = useSelector(authState);
 
     return (
         <>

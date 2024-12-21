@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { get_my_urls, delete_my_url } from '../../store/slices/myUrlSlice';
+import { get_my_urls, delete_my_url, myUrlsState } from '../../store/slices/myUrlSlice';
 import { Link } from "react-router-dom";
 import MyUrlCard from './components/MyUrlCard';
 
 function MyUrlPage() {
     const dispatch = useDispatch();
-    const urls = useSelector((state) => state.myurl.urls);
+    const urls = useSelector(myUrlsState);
 
     useEffect(() => {
         dispatch(get_my_urls());

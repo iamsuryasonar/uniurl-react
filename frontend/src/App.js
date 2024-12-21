@@ -3,17 +3,17 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import PrivateRoute from './app/components/guards/private_route';
-import PublicRoute from './app/components/guards/authGuard'
-import NavbarLayout from './app/components/navbarAndContentLayout/navbar_layout';
-import GoogleLogInPage from './app/pages/GoogleLogInPage';
+import PrivateRoute from './app/components/guards/PrivateRoute';
+import PublicRoute from './app/components/guards/PublicRoute'
+import NavbarLayout from './app/components/navbarAndContentLayout/NavbarLayout';
+import GoogleLogInPage from './app/pages/googleLogin/GoogleLogInPage';
 const HeroPage = lazy(() => import('./app/pages/hero/HeroPage'));
-const ProfilePage = lazy(() => import('./app/pages/profile/Profile_page'));
-const LogInPage = lazy(() => import('./app/pages/login/Login_page'));
-const RegisterPage = lazy(() => import('./app/pages/register/Register_page'));
-const CreateUrl = lazy(() => import('./app/pages/createUrl/Create_url'));
-const MyUrlPage = lazy(() => import('./app/pages/myUrls/My_urls_page'));
-const UrlsPage = lazy(() => import('./app/pages/urls/Urls_page'));
+const ProfilePage = lazy(() => import('./app/pages/profile/ProfilePage'));
+const LogInPage = lazy(() => import('./app/pages/login/LoginPage'));
+const RegisterPage = lazy(() => import('./app/pages/register/RegisterPage'));
+const CreateUrl = lazy(() => import('./app/pages/createUrl/CreateUrlPage'));
+const MyUrlPage = lazy(() => import('./app/pages/myUrls/MyUrlsPage'));
+const UrlsPage = lazy(() => import('./app/pages/urls/UrlsPage'));
 
 function App() {
   const centerStyle = {

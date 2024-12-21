@@ -1,5 +1,6 @@
 import axios from "axios";
-import { LOCAL_STORAGE_NAME, API_URL_AUTH } from '../constants';
+import { API_URL_AUTH } from '../constants';
+import { removeFromLocalStorage } from "../utils";
 
 const register = (creds) => {
     return axios.post(API_URL_AUTH + "register", creds);
@@ -30,7 +31,7 @@ const refresh_token = async () => {
 };
 
 const logout = () => {
-    localStorage.removeItem(LOCAL_STORAGE_NAME);
+    removeFromLocalStorage();
 };
 
 const AuthService = {

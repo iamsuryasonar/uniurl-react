@@ -2,25 +2,27 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { get_urls } from '../../store/slices/urlSlice';
+import { get_urls, urlsState } from '../../store/slices/urlSlice';
 import avatar from '../../assets/avatar.jpg';
 import s from './urls.module.css';
 import Message from '../../components/message/Message';
 import UrlCard from './components/UrlCard';
 import StickyNav from './components/StickyNav';
+import { loadingState } from '../../store/slices/loadingSlice';
+import { messageState } from '../../store/slices/messageSlice';
 
 function UrlsPage() {
     const { username } = useParams();
     const dispatch = useDispatch();
     const elementRef = useRef(null);
-    const { loading } = useSelector((state) => state.loading);
-    const { message } = useSelector((state) => state.message);
+    const { loading } = useSelector(loadingState);
+    const { message } = useSelector(messageState);
 
     useEffect(() => {
         dispatch(get_urls(username));
     }, [username, dispatch]);
 
-    const urlsinfo = useSelector((state) => state.urlsinfo.urlsinfo);
+    const urlsinfo = useSelector(urlsState);
 
     const onCardClicked = (url) => {
         window.open(url, '_blank', 'noreferrer');

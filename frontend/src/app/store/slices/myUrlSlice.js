@@ -101,5 +101,7 @@ const myUrlSlice = createSlice({
         },
 });
 
+export const myUrlsState = (state) => state.myurl.urls;
+
 const { reducer } = myUrlSlice;
 export default reducer;

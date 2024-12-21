@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { upload_profile_picture, get_profile_info, update_profile_info } from '../../store/slices/profileSlice'
+import { upload_profile_picture, get_profile_info, update_profile_info, profileState } from '../../store/slices/profileSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +11,7 @@ import ProfileService from '../../services/profile.services';
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
-    const profileInfo = useSelector(state => state.profile.profileInfo);
+    const profileInfo = useSelector(profileState);
 
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar);
     const [username, setUsername] = useState('');

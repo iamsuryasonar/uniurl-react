@@ -6,20 +6,21 @@ import { APP_NAME } from '../../constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Transition } from 'react-transition-group';
-import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
-import { logout } from '../../store/slices/authSlice';
-import { get_profile_info } from './../../store/slices/profileSlice'
+import { toggleMenu, closeMenu, menuState } from '../../store/slices/menuSlice'
+import { authState, logout } from '../../store/slices/authSlice';
+import { get_profile_info, profileState } from '../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
-import Searchbar from '../searchbar/searchbar'
+import Searchbar from '../searchbar/Searchbar'
 import useLocationPathname from '../../hooks/useLocationPathname';
+import { loadingState } from '../../store/slices/loadingSlice';
 
-const NavBar = ({ isInputHidden, setIsInputHidden }) => {
+const Navbar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isLoggedIn } = useSelector(authState);
 
-    const menu = useSelector(state => state.menu.value);
-    const { loading } = useSelector((state) => state.loading);
-    const profileInfo = useSelector(state => state.profile.profileInfo)
+    const menu = useSelector(menuState).value;
+    const { loading } = useSelector(loadingState);
+    const profileInfo = useSelector(profileState)
 
     const [activeMenu] = useLocationPathname();
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
@@ -207,7 +208,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     </>;
 };
 
-export default NavBar;
+export default Navbar;
 
 function SearchedValuesContainer({ searchedByKeywordValues, isInputHidden, menu }) {
     const originname = window.location.origin;

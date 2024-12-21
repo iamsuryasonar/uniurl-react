@@ -4,17 +4,18 @@ import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
-import Button from '../../components/button/button';
+import Button from '../../components/button/Button';
 import { setMessage } from '../../store/slices/messageSlice';
 import GoogleLogInButton from '../../components/GoogleLogInButton';
 import { Link, useNavigate } from 'react-router-dom';
+import { loadingState } from '../../store/slices/loadingSlice';
 
 function LogInPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [forgotpassword, setforgotpassword] = useState(false);
-    const { loading } = useSelector((state) => state.loading);
+    const { loading } = useSelector(loadingState);
     const [showPassword, setShowPassword] = useState(false);
 
     let forgotpassword_handler = (e) => {

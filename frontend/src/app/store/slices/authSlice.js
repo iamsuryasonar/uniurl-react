@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
-import { LOCAL_STORAGE_NAME } from '../../constants'
 import AuthService from "../../services/auth.services";
 import { setLoading } from "./loadingSlice";
+import { getDataFromLocalStorage, removeFromLocalStorage, setDataToLocalStorage } from "../../utils";
 
-let storedData = localStorage.getItem(LOCAL_STORAGE_NAME);
-const user = (storedData && storedData !== 'undefined') ? JSON.parse(storedData) : null;
+const user = getDataFromLocalStorage();
 
 export const register = createAsyncThunk(
     "auth/register",
@@ -113,7 +112,7 @@ export const refresh_token = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     try {
         thunkAPI.dispatch(setLoading(true));
-        localStorage.removeItem(LOCAL_STORAGE_NAME);
+        removeFromLocalStorage();
         return;
     } catch (error) {
         const message =
@@ -155,7 +154,7 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;
                 state.user = action.payload;
 
-                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(action.payload));
+                setDataToLocalStorage(action.payload);
             }).addCase(login.rejected, (state, action) => {
                 state.isLoggedIn = false;
                 state.user = null;
@@ -163,7 +162,7 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;
                 state.user = action.payload;
 
-                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(action.payload));
+                setDataToLocalStorage(action.payload);
             }).addCase(google_login.rejected, (state, action) => {
                 state.isLoggedIn = false;
                 state.user = null;
@@ -171,7 +170,7 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;
                 state.user = action.payload;
 
-                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(action.payload));
+                setDataToLocalStorage(action.payload);
             }).addCase(refresh_token.rejected, (state, action) => {
                 state.isLoggedIn = false;
                 state.user = null;
@@ -184,6 +183,8 @@ const authSlice = createSlice({
             })
     }
 });
+
+export const authState = (state) => state.auth;
 
 const { reducer } = authSlice;
 export default reducer;

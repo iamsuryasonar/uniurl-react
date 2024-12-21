@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { clearMessage, setMessage } from '../../store/slices/messageSlice';
-import avatar from '../../assets/avatar.jpg';
+import { clearMessage, setMessage } from '../../../store/slices/messageSlice';
+import avatar from '../../../assets/avatar.jpg';
 import { Transition } from 'react-transition-group';
-import s from './urls.module.css';
+import s from './../urls.module.css';
 
 function StickyNav({ elementRef, urlsinfo }) {
 

@@ -28,7 +28,6 @@ export const get_urls = createAsyncThunk(
     }
 );
 
-
 const initialState = { urlsinfo: null };
 
 const urlSlice = createSlice({
@@ -43,6 +42,8 @@ const urlSlice = createSlice({
         },
     },
 });
+
+export const urlsState = (state) => state.urlsinfo.urlsinfo;
 
 const { reducer } = urlSlice;
 export default reducer;

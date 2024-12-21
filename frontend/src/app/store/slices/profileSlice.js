@@ -99,5 +99,7 @@ const ProfileSlice = createSlice({
     }
 });
 
+export const profileState = (state) => state.profile.profileInfo;
+
 const { reducer } = ProfileSlice;
 export default reducer;

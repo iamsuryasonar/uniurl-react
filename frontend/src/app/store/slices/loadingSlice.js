@@ -14,6 +14,8 @@ const loadingSlice = createSlice({
     },
 });
 
+export const loadingState = (state) => state.loading;
+
 const { reducer, actions } = loadingSlice;
 
 export const { setLoading } = actions

@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { create_my_urls } from '../../store/slices/myUrlSlice';
 import { clearMessage, setMessage } from '../../store/slices/messageSlice';
-import Button from '../../components/button/button';
+import Button from '../../components/button/Button';
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
