@@ -6,6 +6,7 @@ import profileInfoReducer from "./slices/profileSlice";
 import urlsReducer from "./slices/urlSlice";
 import menuReducer from './slices/menuSlice'
 import loadingReducer from "./slices/loadingSlice";
+import { refreshTokenMiddleware } from '../middleware/refreshTokenMiddleware';
 
 const reducer = {
     auth: authReducer,
@@ -17,8 +18,8 @@ const reducer = {
     loading: loadingReducer,
 }
 
-
 export const store = configureStore({
     reducer: reducer,
     devTools: true,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(refreshTokenMiddleware),
 });

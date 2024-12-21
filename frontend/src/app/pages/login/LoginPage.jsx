@@ -4,12 +4,15 @@ import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
-import Button from '../../components/Button/button';
+import Button from '../../components/button/button';
 import { setMessage } from '../../store/slices/messageSlice';
 import GoogleLogInButton from '../../components/GoogleLogInButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LogInPage() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [forgotpassword, setforgotpassword] = useState(false);
     const { loading } = useSelector((state) => state.loading);
     const [showPassword, setShowPassword] = useState(false);
@@ -17,8 +20,6 @@ function LogInPage() {
     let forgotpassword_handler = (e) => {
         setforgotpassword(!forgotpassword);
     }
-
-    const dispatch = useDispatch();
 
     const [input, setInput] = useState({
         email: '',
@@ -55,17 +56,17 @@ function LogInPage() {
 
     const send_email_handler = (e) => {
         e.preventDefault();
-        dispatch(setMessage('Not implemented!!!'))
+        dispatch(setMessage('Not implemented'))
         setTimeout(() => {
             dispatch(clearMessage());
         }, 2000)
     }
 
-    function handleAutoFillGuestCreds() {
-        setInput({
+    function handleDemoUserLogIn() {
+        dispatch(login({
             email: 'johndoe@gmail.com',
             password: 'sadfasfhjt65fsd',
-        })
+        })).finally(() => navigate('/user/myurls'))
     }
 
     return (
@@ -118,7 +119,7 @@ function LogInPage() {
                         <button className='cursor-pointer text-slate-400 hover:text-white place-self-end' onClick={forgotpassword_handler}>Reset password?</button>
                         <button
                             className="cursor-pointer text-slate-400 hover:text-white place-self-end"
-                            onClick={handleAutoFillGuestCreds}>Auto fill guest credentials
+                            onClick={handleDemoUserLogIn}>Sign in as demo user
                         </button>
                     </div>
                     <div className='w-full h-[1px] bg-slate-600'>  </div>

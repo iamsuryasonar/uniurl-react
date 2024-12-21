@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 import NavBar from '../navbar/nav_bar';
 import { closeMenu } from "../../store/slices/menuSlice";
 import { useDispatch } from 'react-redux';
-import Message from '../Message/Message';
+import Message from '../message/Message';
 import { useSelector } from 'react-redux';
-import Footer from '../Footer/Footer'
+import Footer from '../footer/Footer'
 
 function NavbarLayout() {
     const dispatch = useDispatch()

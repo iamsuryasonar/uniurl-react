@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { APP_NAME } from '../../common/constants'
+import { APP_NAME } from '../../constants'
 
 function Footer() {
     const { isLoggedIn } = useSelector((state) => state.auth);

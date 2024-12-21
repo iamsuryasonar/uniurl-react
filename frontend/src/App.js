@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import PrivateRoute from './app/components/private_route';
-import PublicRoute from './app/components/authGuard'
+import PrivateRoute from './app/components/guards/private_route';
+import PublicRoute from './app/components/guards/authGuard'
 import NavbarLayout from './app/components/navbarAndContentLayout/navbar_layout';
 import GoogleLogInPage from './app/pages/GoogleLogInPage';
 const HeroPage = lazy(() => import('./app/pages/hero/HeroPage'));

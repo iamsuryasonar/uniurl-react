@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const { verify } = require("../middleware/verifyToken");
-const User = require("../model/User");
-const { linkValidation } = require("../middleware/authValidation");
 const Link = require("../model/Link");
 const mongoose = require("mongoose");
 const { redis } = require('../services/redis');
@@ -10,8 +8,8 @@ const { redis } = require('../services/redis');
 router.post("/", verify, async (req, res) => {
   try {
 
-    if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
-    if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
+    if (!req.body.url) return res.status(400).json({ success: false, message: 'url required' });
+    if (!req.body.title) return res.status(400).json({ success: false, message: 'title required' });
 
     let url = req.body.url;
 
@@ -43,7 +41,7 @@ router.post("/", verify, async (req, res) => {
 
     // invalidate cache
     redis.del('userlink:' + req.user.username);
-    return res.status(200).json({ success: true, message: "Url saved successfully!!!", data: savedlink });
+    return res.status(200).json({ success: true, message: "Url saved successfully", data: savedlink });
   } catch (err) {
     console.log(err)
     await session.abortTransaction();
@@ -65,8 +63,8 @@ router.get("/", verify, async (req, res) => {
 
 // Update link
 router.put("/:linkid", verify, async (req, res) => {
-  if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
-  if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
+  if (!req.body.url) return res.status(400).json({ success: false, message: 'url required' });
+  if (!req.body.title) return res.status(400).json({ success: false, message: 'title required' });
 
   try {
     const links = await Link.find({
@@ -97,7 +95,7 @@ router.put("/:linkid", verify, async (req, res) => {
 
 // delete link
 router.delete("/:linkid", verify, async (req, res) => {
-  if (!req.params.linkid) return res.status(400).json({ success: false, message: 'url id required!!!' });
+  if (!req.params.linkid) return res.status(400).json({ success: false, message: 'url id required' });
   try {
     const links = await Link.find({
       _id: req.params.linkid,
@@ -111,7 +109,7 @@ router.delete("/:linkid", verify, async (req, res) => {
       // invalidate cache
       redis.del('userlink:' + req.user.username);
 
-      return res.status(200).json({ success: true, message: "Url deleted successfully!!!", data: deletedLink });
+      return res.status(200).json({ success: true, message: "Url deleted successfully", data: deletedLink });
     } else {
       return res.status(401).json({ success: false, message: 'Not authorised to delete' });
     }

@@ -1,16 +1,15 @@
-import axios from 'axios'
-import { LOCAL_STORAGE_NAME, API_URL_THEME } from '../common/constants';
+import privateFetch from '../axios';
+import { API_URL_THEME } from '../constants';
 
 const getheaders = () => {
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)).token}`,
     }
     return { headers }
 }
 const getTheme = async () => {
-    const response = await axios
-        .get(API_URL_THEME ,getheaders());
+    const response = await privateFetch
+        .get(API_URL_THEME, getheaders());
     return response.data;
 }
 

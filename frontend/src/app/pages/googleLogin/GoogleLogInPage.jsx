@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthService from '../services/auth.services';
+import AuthService from '../../services/auth.services';
 import { useDispatch } from 'react-redux';
-import { setMessage } from '../store/slices/messageSlice';
+import { setMessage } from '../../store/slices/messageSlice';
+import { google_login } from '../../store/slices/authSlice';
 
 function GoogleLogInPage() {
 
@@ -13,13 +14,15 @@ function GoogleLogInPage() {
 
   if (code) {
     (async () => {
-      const res = await AuthService.googleLogin({ code: code });
-      if (res.status === 200) {
-        navigate(0);
-      } else {
-        dispatch(setMessage('Login failed, please try again!'))
-        navigate('/user/login');
-      }
+
+      dispatch(google_login(code));
+      // const res = await AuthService.googleLogin({ code: code });
+      // if (res.status === 200) {
+      //   navigate(0);
+      // } else {
+      //   dispatch(setMessage('Login failed, please try again!'))
+      //   navigate('/user/login');
+      // }
     })();
   }
 

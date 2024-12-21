@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
-import Button from '../../components/Button/button';
+import Button from '../../components/button/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import GoogleLogInButton from "../../components/GoogleLogInButton";

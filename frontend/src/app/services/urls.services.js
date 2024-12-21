@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { API_URL_URL } from '../common/constants';
-
+import { API_URL_URL } from '../constants';
 
 const getUrls = async (username) => {
     const response = await axios

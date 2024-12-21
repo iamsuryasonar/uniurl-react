@@ -2,7 +2,7 @@ import s from './nav_bar.module.css'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import { APP_NAME, LOCAL_STORAGE_NAME } from '../../common/constants'
+import { APP_NAME } from '../../constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Transition } from 'react-transition-group';
@@ -68,7 +68,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
                                 {!menu &&
-                                    <botton
+                                    <button
                                         className=''
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
@@ -83,7 +83,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                             icon={faBars}
 
                                         />
-                                    </botton>
+                                    </button>
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>

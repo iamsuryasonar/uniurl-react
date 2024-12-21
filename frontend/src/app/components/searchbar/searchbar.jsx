@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { API_URL_PROFILE } from '../../common/constants'
+import { API_URL_PROFILE } from '../../constants'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/slices/messageSlice';
