@@ -9,6 +9,7 @@ import ThemeServices from '../../services/theme.services';
 import ProfileService from '../../services/profile.services';
 
 const ProfilePage = () => {
+    const originname = window.location.origin;
 
     const dispatch = useDispatch();
     const profileInfo = useSelector(profileState);
@@ -78,7 +79,6 @@ const ProfilePage = () => {
             };
             reader.readAsDataURL(file);
         }
-
     };
 
     const onChangeHandler = async (e) => {
@@ -102,10 +102,9 @@ const ProfilePage = () => {
         setUsernameAvailable(null);
     }
 
-    const originname = window.location.origin;
     const copyToClipboard = async () => {
         try {
-            await navigator.clipboard.writeText(originname + '/' + username);
+            await navigator.clipboard.writeText(username);
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
                 dispatch(clearMessage());

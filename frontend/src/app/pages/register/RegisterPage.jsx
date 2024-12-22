@@ -50,7 +50,6 @@ function RegisterPage() {
             }, 2000)
             return;
         }
-
         dispatch(register(input));
     }
 

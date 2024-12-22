@@ -8,11 +8,11 @@ import { setMessage } from '../../store/slices/messageSlice';
 
 function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const [isFocused, setIsFocused] = useState(false);
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     const [debounced, setDebounced] = useState();
     const dispatch = useDispatch();
 
-    const handleInputFocus = (e) => {
+    const handleInputFocus = () => {
         setIsFocused(true);
     };
 

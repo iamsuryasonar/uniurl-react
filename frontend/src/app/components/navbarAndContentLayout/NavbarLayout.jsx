@@ -15,7 +15,7 @@ function NavbarLayout() {
 
     function onClickHandler() {
         dispatch(closeMenu());
-        setIsInputHidden(true)
+        setIsInputHidden(true);
     }
 
     return (

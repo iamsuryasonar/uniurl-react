@@ -14,10 +14,12 @@ function CreateUrlPage() {
     const selectDivRef = useRef(null);
     const [color, setColor] = useColor("#123123");
     const [isSelectMenu, setSelectMenu] = useState(false);
+    
     const [selectedIcon, setSelectedIcon] = useState({
         name: '',
         icon: ''
     });
+
     const [inputValue, setInputValue] = useState({
         'title': '',
         'url': '',

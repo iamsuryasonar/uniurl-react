@@ -18,7 +18,7 @@ const Navbar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
     const { isLoggedIn } = useSelector(authState);
 
-    const menu = useSelector(menuState).value;
+    const menu = useSelector(menuState);
     const { loading } = useSelector(loadingState);
     const profileInfo = useSelector(profileState)
 
@@ -30,7 +30,7 @@ const Navbar = ({ isInputHidden, setIsInputHidden }) => {
         if (isLoggedIn) {
             dispatch(get_profile_info())
         }
-    }, [dispatch])
+    }, [isLoggedIn])
 
     useEffect(() => {
         if (profileInfo?.picture) {

@@ -9,20 +9,11 @@ function GoogleLogInPage() {
 
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   if (code) {
     (async () => {
-
-      dispatch(google_login(code));
-      // const res = await AuthService.googleLogin({ code: code });
-      // if (res.status === 200) {
-      //   navigate(0);
-      // } else {
-      //   dispatch(setMessage('Login failed, please try again!'))
-      //   navigate('/user/login');
-      // }
+      dispatch(google_login({ code: code }));
     })();
   }
 

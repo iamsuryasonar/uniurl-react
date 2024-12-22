@@ -17,7 +17,7 @@ const menuSlice = createSlice({
     }
 });
 
-export const menuState = (state) => state.menu;
+export const menuState = (state) => state.menu.value;
 
 const { reducer, actions } = menuSlice;
 

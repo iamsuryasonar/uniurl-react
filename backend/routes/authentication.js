@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const utils = require('../utility');
 const axios = require('axios');
-const { ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = require('../constants/token');
+const { ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, REFRESH_TOKEN_MAX_AGE } = require('../constants/token');
 
 router.post('/register', async (req, res) => {
 
@@ -89,9 +89,10 @@ router.post('/login', async (req, res) => {
             'refreshToken',
             refreshToken,
             {
+                maxAge: REFRESH_TOKEN_MAX_AGE,
                 httpOnly: true,
+                sameSite: 'Strict',
                 // secure: false,
-                // sameSite: 'strict',
             }
         );
 
@@ -152,7 +153,7 @@ router.post('/google_login', async (req, res) => {
             _id: user._id,
             email: user.email,
             username: user.username
-        }
+        };
 
         const accessToken = jwt.sign(
             payload,
@@ -170,18 +171,21 @@ router.post('/google_login', async (req, res) => {
             }
         );
 
+
         res.cookie(
             'refreshToken',
             refreshToken,
             {
+                maxAge: REFRESH_TOKEN_MAX_AGE,
                 httpOnly: true,
-                sameSite: 'strict',
+                sameSite: 'Strict',
+                // secure: false,
             }
         );
 
         const response = {
             token: accessToken,
-        }
+        };
 
         return res.status(200).json({
             success: true,

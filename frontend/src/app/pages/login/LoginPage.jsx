@@ -55,7 +55,7 @@ function LogInPage() {
         dispatch(login(input))
     }
 
-    const send_email_handler = (e) => {
+    const sendEmailHandler = (e) => {
         e.preventDefault();
         dispatch(setMessage('Not implemented'))
         setTimeout(() => {
@@ -148,7 +148,7 @@ function LogInPage() {
                             />
                             <div className='flex justify-between mt-6'>
                                 <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
+                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={sendEmailHandler} />
                             </div>
                         </div >
                     </form >
