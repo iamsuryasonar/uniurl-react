@@ -2,22 +2,24 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { create_my_urls } from '../../store/slices/myUrlSlice';
 import { clearMessage, setMessage } from '../../store/slices/messageSlice';
-import Button from '../../components/Button/button';
+import Button from '../../components/button/Button';
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ICON_ARRAY } from '../../common/constants';
+import { ICON_ARRAY } from '../../constants';
 
-function CreateUrl() {
+function CreateUrlPage() {
     const dispatch = useDispatch();
 
     const selectDivRef = useRef(null);
     const [color, setColor] = useColor("#123123");
     const [isSelectMenu, setSelectMenu] = useState(false);
+    
     const [selectedIcon, setSelectedIcon] = useState({
         name: '',
         icon: ''
     });
+
     const [inputValue, setInputValue] = useState({
         'title': '',
         'url': '',
@@ -183,4 +185,4 @@ function CreateUrl() {
         </div >
     )
 }
-export default CreateUrl;
+export default CreateUrlPage;

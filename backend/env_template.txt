@@ -1,5 +1,9 @@
 DB_CONNECT = mongodb+srv://username:password@clustername.xsbtfy9.mongodb.net/?retryWrites=true&w=majority
-TOKEN_SECRET = secret token
+ACCESS_TOKEN_SECRET = secret token
+REFRESH_TOKEN_SECRET = secret refresh token
+ACCESS_TOKEN_EXPIRY="10d"
+REFRESH_TOKEN_EXPIRY="60d"
+CORS_ORIGIN = "http://localhost:3000"
 
 AWS_ACCESS_KEY_ID="access_id"
 AWS_ACCESS_KEY_SECRET="secret_id"

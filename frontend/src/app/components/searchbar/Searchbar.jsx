@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { API_URL_PROFILE } from '../../common/constants'
+import { API_URL_PROFILE } from '../../constants'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/slices/messageSlice';
 
 function Searchbar({ searchKeywordHandler, setIsInputHidden }) {
     const [isFocused, setIsFocused] = useState(false);
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     const [debounced, setDebounced] = useState();
     const dispatch = useDispatch();
 
-    const handleInputFocus = (e) => {
+    const handleInputFocus = () => {
         setIsFocused(true);
     };
 

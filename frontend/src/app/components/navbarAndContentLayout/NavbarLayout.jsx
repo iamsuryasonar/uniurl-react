@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { Outlet } from "react-router-dom";
-import NavBar from '../navbar/nav_bar';
+import NavBar from '../navbar/Navbar';
 import { closeMenu } from "../../store/slices/menuSlice";
 import { useDispatch } from 'react-redux';
-import Message from '../Message/Message';
+import Message from '../message/Message';
 import { useSelector } from 'react-redux';
-import Footer from '../Footer/Footer'
+import Footer from '../footer/Footer'
+import { messageState } from '../../store/slices/messageSlice';
 
 function NavbarLayout() {
     const dispatch = useDispatch()
     const [isInputHidden, setIsInputHidden] = useState(false)
-    const { message } = useSelector((state) => state.message);
+    const { message } = useSelector(messageState);
 
     function onClickHandler() {
         dispatch(closeMenu());
-        setIsInputHidden(true)
+        setIsInputHidden(true);
     }
 
     return (

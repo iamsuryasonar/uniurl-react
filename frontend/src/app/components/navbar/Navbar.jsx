@@ -2,24 +2,25 @@ import s from './nav_bar.module.css'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import { APP_NAME, LOCAL_STORAGE_NAME } from '../../common/constants'
+import { APP_NAME } from '../../constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Transition } from 'react-transition-group';
-import { toggleMenu, closeMenu } from '../../store/slices/menuSlice'
-import { logout } from '../../store/slices/authSlice';
-import { get_profile_info } from './../../store/slices/profileSlice'
+import { toggleMenu, closeMenu, menuState } from '../../store/slices/menuSlice'
+import { authState, logout } from '../../store/slices/authSlice';
+import { get_profile_info, profileState } from '../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
-import Searchbar from '../searchbar/searchbar'
+import Searchbar from '../searchbar/Searchbar'
 import useLocationPathname from '../../hooks/useLocationPathname';
+import { loadingState } from '../../store/slices/loadingSlice';
 
-const NavBar = ({ isInputHidden, setIsInputHidden }) => {
+const Navbar = ({ isInputHidden, setIsInputHidden }) => {
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((state) => state.auth);
+    const { isLoggedIn } = useSelector(authState);
 
-    const menu = useSelector(state => state.menu.value);
-    const { loading } = useSelector((state) => state.loading);
-    const profileInfo = useSelector(state => state.profile.profileInfo)
+    const menu = useSelector(menuState);
+    const { loading } = useSelector(loadingState);
+    const profileInfo = useSelector(profileState)
 
     const [activeMenu] = useLocationPathname();
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar)
@@ -29,7 +30,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
         if (isLoggedIn) {
             dispatch(get_profile_info())
         }
-    }, [dispatch])
+    }, [isLoggedIn])
 
     useEffect(() => {
         if (profileInfo?.picture) {
@@ -68,7 +69,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
                                 {!menu &&
-                                    <botton
+                                    <button
                                         className=''
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
@@ -83,7 +84,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                             icon={faBars}
 
                                         />
-                                    </botton>
+                                    </button>
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
@@ -207,7 +208,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
     </>;
 };
 
-export default NavBar;
+export default Navbar;
 
 function SearchedValuesContainer({ searchedByKeywordValues, isInputHidden, menu }) {
     const originname = window.location.origin;

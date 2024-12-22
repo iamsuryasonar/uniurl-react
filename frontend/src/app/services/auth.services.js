@@ -1,5 +1,6 @@
 import axios from "axios";
-import { LOCAL_STORAGE_NAME, API_URL_AUTH } from '../common/constants'
+import { API_URL_AUTH } from '../constants';
+import { removeFromLocalStorage } from "../utils";
 
 const register = (creds) => {
     return axios.post(API_URL_AUTH + "register", creds);
@@ -7,52 +8,30 @@ const register = (creds) => {
 
 const login = async (creds) => {
     return axios
-        .post(API_URL_AUTH + "login", creds)
+        .post(API_URL_AUTH + "login", creds, { withCredentials: true })
         .then((response) => {
-            if (response.data.data.token) {
-                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
-            }
-            return response.data.data;
-        });
-}
-
-const refresh_token = async () => {
-    return axios
-        .get(API_URL_AUTH + "refresh_token")
-        .then((response) => {
-            if (response.data.data.token) {
-                localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
-            }
             return response.data.data;
         });
 }
 
 const googleLogin = async (code) => {
-    try {
-        let response = await axios
-            .post(API_URL_AUTH + "google_login", code)
-            .then((response) => {
-                if (response.data.data.token) {
-                    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(response.data.data));
-                    return response;
-                }
-            });
-        return response;
-    } catch (error) {
-        const statusCode = error.response ? error.response.status : 500;
-        return {
-            code: statusCode,
-            message: error.response ? error.response.data : 'An unexpected error occurred'
-        };
-    }
+    return axios
+        .post(API_URL_AUTH + "google_login", code, { withCredentials: true })
+        .then((response) => {
+            return response.data.data
+        });
 }
 
-const logout = () => {
-    localStorage.removeItem(LOCAL_STORAGE_NAME);
+const refresh_token = async () => {
+    return axios.get(API_URL_AUTH + "refresh_token",
+        { withCredentials: true }
+    ).then((response) => {
+        return response.data.data;
+    })
 };
 
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME));
+const logout = () => {
+    removeFromLocalStorage();
 };
 
 const AuthService = {
@@ -61,7 +40,6 @@ const AuthService = {
     refresh_token,
     googleLogin,
     logout,
-    getCurrentUser,
 }
 
 export default AuthService;

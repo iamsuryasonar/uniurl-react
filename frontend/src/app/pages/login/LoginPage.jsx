@@ -4,21 +4,23 @@ import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearMessage } from '../../store/slices/messageSlice'
 import { login } from '../../store/slices/authSlice'
-import Button from '../../components/Button/button';
+import Button from '../../components/button/Button';
 import { setMessage } from '../../store/slices/messageSlice';
 import GoogleLogInButton from '../../components/GoogleLogInButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loadingState } from '../../store/slices/loadingSlice';
 
 function LogInPage() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [forgotpassword, setforgotpassword] = useState(false);
-    const { loading } = useSelector((state) => state.loading);
+    const { loading } = useSelector(loadingState);
     const [showPassword, setShowPassword] = useState(false);
 
     let forgotpassword_handler = (e) => {
         setforgotpassword(!forgotpassword);
     }
-
-    const dispatch = useDispatch();
 
     const [input, setInput] = useState({
         email: '',
@@ -53,19 +55,19 @@ function LogInPage() {
         dispatch(login(input))
     }
 
-    const send_email_handler = (e) => {
+    const sendEmailHandler = (e) => {
         e.preventDefault();
-        dispatch(setMessage('Not implemented!!!'))
+        dispatch(setMessage('Not implemented'))
         setTimeout(() => {
             dispatch(clearMessage());
         }, 2000)
     }
 
-    function handleAutoFillGuestCreds() {
-        setInput({
+    function handleDemoUserLogIn() {
+        dispatch(login({
             email: 'johndoe@gmail.com',
             password: 'sadfasfhjt65fsd',
-        })
+        })).finally(() => navigate('/user/myurls'))
     }
 
     return (
@@ -118,7 +120,7 @@ function LogInPage() {
                         <button className='cursor-pointer text-slate-400 hover:text-white place-self-end' onClick={forgotpassword_handler}>Reset password?</button>
                         <button
                             className="cursor-pointer text-slate-400 hover:text-white place-self-end"
-                            onClick={handleAutoFillGuestCreds}>Auto fill guest credentials
+                            onClick={handleDemoUserLogIn}>Sign in as demo user
                         </button>
                     </div>
                     <div className='w-full h-[1px] bg-slate-600'>  </div>
@@ -146,7 +148,7 @@ function LogInPage() {
                             />
                             <div className='flex justify-between mt-6'>
                                 <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={send_email_handler} />
+                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={sendEmailHandler} />
                             </div>
                         </div >
                     </form >

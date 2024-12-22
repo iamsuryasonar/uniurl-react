@@ -26,7 +26,7 @@ router.get("/:username", async (req, res) => {
         }
 
         // const cachedData = await redis.get('userlink:'+req.params.username);
-        // if (cachedData) return res.status(200).json({ success: true, message: 'Urls retrieved successfully!!!', data: JSON.parse(cachedData) });
+        // if (cachedData) return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: JSON.parse(cachedData) });
 
         // expires in 30 seconds 
         redis.set('userlink:' + req.params.username, JSON.stringify(data), "EX", 12 * 60 * 60);

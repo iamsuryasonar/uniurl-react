@@ -1,17 +1,15 @@
-import axios from 'axios'
-import { LOCAL_STORAGE_NAME, API_URL_MY_URL } from '../common/constants'
-
+import { API_URL_MY_URL } from '../constants'
+import privateFetch from '../axios'
 
 const getheaders = () => {
     const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)).token}`,
+        'Content-Type': 'application/json'
     }
     return { headers }
 }
 
 const getAllUrl = () => {
-    return axios
+    return privateFetch
         .get(API_URL_MY_URL, getheaders())
         .then((response) => {
             return response.data;
@@ -19,7 +17,7 @@ const getAllUrl = () => {
 }
 
 const createNewUrl = (body) => {
-    return axios
+    return privateFetch
         .post(
             API_URL_MY_URL, body, getheaders()
         )
@@ -29,14 +27,12 @@ const createNewUrl = (body) => {
 }
 
 const deleteUrl = (id) => {
-    return axios
+    return privateFetch
         .delete(API_URL_MY_URL + id, getheaders())
         .then((response) => {
             return response.data;
         });
 }
-
-
 
 const myUrlService = {
     getAllUrl,

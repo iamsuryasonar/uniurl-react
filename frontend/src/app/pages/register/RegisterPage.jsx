@@ -3,15 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { register } from '../../store/slices/authSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
-import Button from '../../components/Button/button';
+import Button from '../../components/button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import GoogleLogInButton from "../../components/GoogleLogInButton";
 import ProfileService from '../../services/profile.services';
+import { loadingState } from "../../store/slices/loadingSlice";
 
 function RegisterPage() {
     const dispatch = useDispatch();
-    const { loading } = useSelector((state) => state.loading);
+    const { loading } = useSelector(loadingState);
     const [input, setInput] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [usernameAvailable, setUsernameAvailable] = useState(null);
@@ -49,7 +50,6 @@ function RegisterPage() {
             }, 2000)
             return;
         }
-
         dispatch(register(input));
     }
 
