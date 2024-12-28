@@ -16,6 +16,7 @@ function RegisterPage() {
     const [input, setInput] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [usernameAvailable, setUsernameAvailable] = useState(null);
+    const [errors, setErrors] = useState({});
 
     const onChangeHandler = async (e) => {
         setInput({
@@ -23,33 +24,44 @@ function RegisterPage() {
             [e.target.name]: e.target.value,
         });
 
-        if (e.target.name === 'username' && e.target.value.length > 5) {
+        setErrors({});
+
+        if (e.target.name === 'username' && e.target.value.length >= 6) {
             const res = await ProfileService.isUsernameExists(e.target.value);
             setUsernameAvailable(!res?.data?.isExist);
-        } else {
-            setUsernameAvailable(null);
         }
     }
 
     const registerHandler = (e) => {
         e.preventDefault();
-        let flag = '';
-        if (input?.username?.length < 7) {
-            flag = 'Username';
+
+        let newErrors = {};
+
+        if (!input?.username) {
+            newErrors.username = 'required';
+        } else if (input.username.length < 6) {
+            newErrors.username = 'min 6 characters';
         }
-        if (input?.email?.length < 7) {
-            flag = 'Email';
+
+        if (!input?.email) {
+            newErrors.email = 'required';
+        } else {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(input.email)) {
+                newErrors.email = 'invalid';
+            }
         }
-        if (input?.password?.length < 7) {
-            flag = 'Password';
+
+        if (!input?.password) {
+            newErrors.password = 'required';
+        } else if (input.password.length < 6) {
+            newErrors.password = 'min 6 characters';
         }
-        if (flag !== '') {
-            dispatch(setMessage(flag + ' must be 6 characters long!'))
-            setTimeout(() => {
-                dispatch(clearMessage());
-            }, 2000)
-            return;
-        }
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) return;
+
         dispatch(register(input));
     }
 
@@ -60,7 +72,10 @@ function RegisterPage() {
                     <p className='text-2xl font-extrabold font-sans'>Sign Up</p>
                     <div>
                         <div>
-                            <label htmlFor="username" className="text-sm text-slate-300">Username</label>
+                            <div className='flex items-center justify-between text-sm'>
+                                <label htmlFor="username" className="text-sm text-slate-300">Username</label>
+                                {errors.username && <p className='text-red-500'>{errors.username}</p>}
+                            </div>
                             <input
                                 id='username'
                                 className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full'
@@ -86,7 +101,10 @@ function RegisterPage() {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="email" className="text-sm text-slate-300">Email</label>
+                        <div className='flex items-center justify-between text-sm'>
+                            <label htmlFor="email" className="text-slate-300">Email</label>
+                            {errors.email && <p className='text-red-500'>{errors.email}</p>}
+                        </div>
                         <input
                             id="email"
                             className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-400 w-full '
@@ -99,7 +117,10 @@ function RegisterPage() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="text-sm text-slate-300">Password</label>
+                        <div className='flex items-center justify-between text-sm'>
+                            <label htmlFor="password" className="text-sm text-slate-300">Password</label>
+                            {errors.password && <p className='text-red-500'>{errors.password}</p>}
+                        </div>
                         <div className='relative flex  flex-col justify-center'>
                             <input
                                 id='password'

@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authReducer from "./slices/authSlice";
 import messageReducer from "./slices/messageSlice";
 import myUrlsReducer from "./slices/myUrlSlice";
@@ -8,7 +8,7 @@ import menuReducer from './slices/menuSlice'
 import loadingReducer from "./slices/loadingSlice";
 import { refreshTokenMiddleware } from '../middleware/refreshTokenMiddleware';
 
-const reducer = {
+const reducer = combineReducers({
     auth: authReducer,
     message: messageReducer,
     myurl: myUrlsReducer,
@@ -16,10 +16,18 @@ const reducer = {
     urlsinfo: urlsReducer,
     menu: menuReducer,
     loading: loadingReducer,
-}
+})
+
+const rootReducer = (state, action) => {
+    if (action.type === 'auth/logout/fulfilled') {
+        state = undefined;
+    }
+
+    return reducer(state, action);
+};
 
 export const store = configureStore({
-    reducer: reducer,
+    reducer: rootReducer,
     devTools: true,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(refreshTokenMiddleware),
 });

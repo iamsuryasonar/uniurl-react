@@ -17,6 +17,7 @@ function LogInPage() {
     const [forgotpassword, setforgotpassword] = useState(false);
     const { loading } = useSelector(loadingState);
     const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState({});
 
     let forgotpassword_handler = (e) => {
         setforgotpassword(!forgotpassword);
@@ -31,33 +32,40 @@ function LogInPage() {
         setInput({
             ...input,
             [e.target.name]: e.target.value,
-        })
+        });
+
+        setErrors({});
     }
 
     const logInHandler = (e) => {
         e.preventDefault();
-        let flag = '';
-        if (input?.email?.length < 7) {
-            flag = 'Email';
-        }
-        if (input?.password?.length < 7) {
-            flag = 'Password';
-        }
-        if (flag !== '') {
-            dispatch(setMessage(flag + ' must be 6 characters long!'))
-            setTimeout(() => {
-                dispatch(clearMessage());
-            }, 2000)
-            flag = '';
-            return;
+        let newErrors = {};
+
+        if (!input?.email) {
+            newErrors.email = 'required';
+        } else {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(input.email)) {
+                newErrors.email = 'invalid';
+            }
         }
 
-        dispatch(login(input))
+        if (!input?.password) {
+            newErrors.password = 'required';
+        } else if (input.password.length < 6) {
+            newErrors.password = 'min 6 characters';
+        }
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) return;
+
+        dispatch(login(input));
     }
 
     const sendEmailHandler = (e) => {
         e.preventDefault();
-        dispatch(setMessage('Not implemented'))
+        dispatch(setMessage('Feature coming soon.'));
         setTimeout(() => {
             dispatch(clearMessage());
         }, 2000)
@@ -76,7 +84,10 @@ function LogInPage() {
                 <form className='w-full flex flex-col justify-between gap-2' onClick={(e) => e.preventDefault()}>
                     <p className='text-2xl font-extrabold font-sans'>Sign In</p>
                     <div>
-                        <label htmlFor="email" className="text-sm text-slate-300">Email</label>
+                        <div className='flex items-center justify-between text-sm'>
+                            <label htmlFor="email" className="text-slate-300">Email</label>
+                            {errors.email && <p className='text-red-500'>{errors.email}</p>}
+                        </div>
                         <input
                             id='email'
                             className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
@@ -90,7 +101,10 @@ function LogInPage() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="text-sm text-slate-300">Password</label>
+                        <div className='flex items-center justify-between text-sm'>
+                            <label htmlFor="password" className="text-sm text-slate-300">Password</label>
+                            {errors.password && <p className='text-red-500'>{errors.password}</p>}
+                        </div>
                         <div className='relative flex  flex-col justify-center'>
                             <input
                                 id='password'

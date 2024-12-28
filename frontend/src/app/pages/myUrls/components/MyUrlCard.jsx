@@ -11,11 +11,13 @@ function MyUrlCard({ urlData, onClick, onDelete }) {
             <p className='flex items-center gap-2 text-xl px-2 text-center'>
                 {title}
             </p>
-            <button onClick={(e) => {
-                e.preventDefault()
-                onDelete(e, _id)
-                e.stopPropagation();
-            }}
+            <button
+                className='flex items-center'
+                onClick={(e) => {
+                    e.preventDefault()
+                    onDelete(e, _id)
+                    e.stopPropagation();
+                }}
                 onKeyDown={(e) => {
                     e.preventDefault()
                     if (e.key === 'Enter') {

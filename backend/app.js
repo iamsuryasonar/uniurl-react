@@ -85,8 +85,23 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.listen(process.env.PORT, function () {
-    console.log("Started application on port %d", process.env.PORT);
-});
+const cluster = require('node:cluster');
+const numOfCPU = require('node:os').availableParallelism();
+
+if (cluster.isPrimary) {
+    console.log(`Primary ${process.pid} is running`)
+
+    for (let i = 0; i < numOfCPU; i++) {
+        cluster.fork();
+    }
+
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} died`);
+    });
+} else {
+    app.listen(process.env.PORT, function () {
+        console.log("Started application on port %d", process.env.PORT);
+    });
+}
 
 module.exports = app;
