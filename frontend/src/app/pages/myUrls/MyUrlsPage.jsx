@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
 import { Reorder } from "framer-motion";
-import { get_my_urls, delete_my_url, reorder_urls, myUrlsState } from '../../store/slices/myUrlSlice';
+import { get_my_urls, delete_my_url, reorder_urls, create_my_urls } from '../../store/slices/myUrlSlice';
+import { profileState } from '../../store/slices/profileSlice';
 import MyUrlCard from './components/MyUrlCard';
+import UrlForm from './components/UrlForm';
 
 function MyUrlPage() {
     const dispatch = useDispatch();
-    const urls = useSelector(myUrlsState);
+    const urls = useSelector((state) => state.myurl.urls);
+    const profileInfo = useSelector(profileState);
     const [reorderedUrls, setReorderedUrls] = useState(null);
     const debounceTimeout = useRef(null);
+    const [showAddUrlMenu, setShowAddUrlMenu] = useState(false);
 
     useEffect(() => {
         dispatch(get_my_urls());
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         if (urls && reorderedUrls) {
@@ -29,13 +32,16 @@ function MyUrlPage() {
                     }
                 }
             }, 500);
+
         }
+
         return () => {
             if (debounceTimeout.current) {
                 clearTimeout(debounceTimeout.current);
             }
         }
     }, [reorderedUrls, urls, dispatch])
+
     useEffect(() => {
         setReorderedUrls(urls);
     }, [urls])
@@ -45,14 +51,26 @@ function MyUrlPage() {
         dispatch(delete_my_url(id))
     }
 
+    const onPreview = () => {
+        if (!profileInfo?.username) return;
+
+        const originname = window.location.origin;
+        window.open(originname + '/' + profileInfo.username, "_blank");
+    }
+
     return (
         <>
             <div className='relative w-full max-w-2xl m-auto py-14'>
                 {
                     urls && urls?.length === 0 &&
-                    <div className='w-10/12 flex flex-col items-center gap-4'>
-                        <p>You don't have urls to share...</p>
-                        <Link to='/user/create_url' className='w-full rounded-full border border-1 border-white cursor-pointer bg-black text-white flex justify-center items-center px-2 py-1'>Add Url</Link>
+                    <div className='w-10/12 text-white p-4'>
+                        <p className='text-2xl font-bold'>You don't have urls to share...</p>
+                    </div>
+                }
+                {
+                    urls && reorderedUrls && <div className='w-full p-2 flex place-content-end gap-3 border-[1px] border-slate-600 rounded-lg'>
+                        <button onClick={() => setShowAddUrlMenu(true)} className='bg-white text-black px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-transparent border-[1px] border-transparent hover:border-white'>Add</button>
+                        {urls?.length > 0 && <button onClick={onPreview} className='bg-white text-black px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-transparent border-[1px] border-transparent hover:border-white'>Preview</button>}
                     </div>
                 }
                 {
@@ -65,6 +83,9 @@ function MyUrlPage() {
                             })
                         }
                     </Reorder.Group>
+                }
+                {
+                    showAddUrlMenu && <UrlForm type={'ADD'} urlData={null} setShowMenu={setShowAddUrlMenu} onSubmit={create_my_urls} />
                 }
             </div>
         </>

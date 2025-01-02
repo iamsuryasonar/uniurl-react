@@ -14,7 +14,7 @@ function Message({ message }) {
         <>
             {<Transition in={Boolean(message)} timeout={100}>
                 {(state) => (
-                    <div className={`w-[80%] max-w-5xl p-[10px] fixed left-0 right-0 z-20 mx-auto bg-[#c8fad7] text-black rounded-full shadow-lg text-center overflow-hidden transition-all transform ease-in-out duration-700 ${state === 'entered' ? 'bottom-6 ' : '-bottom-20'}`}>
+                    <div className={`w-[80%] max-w-5xl p-[10px] fixed left-0 right-0 z-40 mx-auto bg-[#c8fad7] text-black rounded-full shadow-lg text-center overflow-hidden transition-all transform ease-in-out duration-700 ${state === 'entered' ? 'bottom-6 ' : '-bottom-20'}`}>
                         {messageRef.current}
                     </div>
                 )}

@@ -79,30 +79,35 @@ router.put('/reorder', async (req, res) => {
 
 // Update link
 router.put("/link/:linkid", verify, async (req, res) => {
-  if (!req.body.url) return res.status(400).json({ success: false, message: 'url required' });
-  if (!req.body.title) return res.status(400).json({ success: false, message: 'title required' });
-
   try {
-    const links = await Link.find({
-      _id: req.params.linkid,
-    });
-
-    if (links[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
-
-    if (links[0].author._id.toString() === req.user._id.toString()) {
-      links[0].url = req.body.url;
-      links[0].title = req.body.title;
-
-      const data = await links[0].save();
-
-      // invalidate cache
-      redis.del('userlink:' + req.user.username);
-
-      return res.status(200).json({ success: true, message: 'Url updated successfully', data: data });
-    } else {
-      return res.status(401).json({ success: false, message: 'Not authorised to update' });
+    let update = {};
+    if (req.body.url) {
+      update.url = req.body.url;
     }
 
+    if (req.body.title) {
+      update.title = req.body.title;
+    }
+
+    if (req.body.icon) {
+      update.icon = req.body.icon;
+    }
+
+    if (req.body.color) {
+      update.color = req.body.color;
+    }
+
+    const link = await Link.findOneAndUpdate(
+      { _id: req.params.linkid },
+      update,
+      {
+        new: true
+      });
+
+    // invalidate cache
+    redis.del('userlink:' + req.user.username);
+
+    return res.status(200).json({ success: true, message: 'Url updated successfully', data: link });
   } catch (err) {
     console.log(err)
     return res.status(500).json({ success: false, message: 'Internal server error ' });

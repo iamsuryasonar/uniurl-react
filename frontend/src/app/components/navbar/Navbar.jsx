@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Transition } from 'react-transition-group';
 import { toggleMenu, closeMenu, menuState } from '../../store/slices/menuSlice'
-import { authState, logout } from '../../store/slices/authSlice';
+import { authState } from '../../store/slices/authSlice';
 import { get_profile_info, profileState } from '../../store/slices/profileSlice'
 import avatar from '../../assets/avatar.jpg';
 import Searchbar from '../searchbar/Searchbar'
@@ -38,10 +38,7 @@ const Navbar = ({ isInputHidden, setIsInputHidden }) => {
         }
     }, [profileInfo]);
 
-    const handleLogOut = () => {
-        dispatch(closeMenu())
-        dispatch(logout())
-    }
+
 
     const searchKeywordHandler = (userdata) => {
         setSearchedByKeywordValues(userdata)
@@ -54,7 +51,7 @@ const Navbar = ({ isInputHidden, setIsInputHidden }) => {
                 <div className={s.moving_gradient}></div>
             </div>
         }
-        <nav className='bg-[#040C18] h-[65px] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-50'>
+        <nav className='bg-[#040C18] h-[65px] text-white sticky top-0 buttom-0 left-0 w-full overflow-hidden flex flex-col justify-center items-center z-30'>
             {
                 isLoggedIn ?
                     //! private navbar
@@ -89,19 +86,7 @@ const Navbar = ({ isInputHidden, setIsInputHidden }) => {
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>
                                 <Link to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} >My urls</Link>
-                                <Link to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} >Create url</Link>
                                 <Link to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} >Profile</Link>
-                                <button
-                                    className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
-                                    tabIndex={0}
-                                    aria-label='log out button'
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            handleLogOut()
-                                        }
-                                    }}
-                                    onClick={handleLogOut}
-                                >Log out</button>
                             </div>
                         </div>
                         <SearchedValuesContainer
@@ -129,17 +114,7 @@ const Navbar = ({ isInputHidden, setIsInputHidden }) => {
                                         />
                                     </button>
                                     <Link tabIndex={menu ? 0 : -1} to="/user/myurls" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'myurls' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>My urls</Link>
-                                    <Link tabIndex={menu ? 0 : -1} to="/user/create_url" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'create_url' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Create url</Link>
                                     <Link tabIndex={menu ? 0 : -1} to="/user/profile" className={`rounded-full py-1 px-4 border-[1px] border-slate-400 cursor-pointer text-center hover:bg-white hover:text-black ${activeMenu === 'profile' ? 'border-white bg-white text-black' : ''}`} onClick={() => dispatch(closeMenu())}>Profile</Link>
-                                    <button className={`rounded-full py-1 px-4 border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]  hover:text-black`}
-                                        tabIndex={menu ? 0 : -1}
-                                        aria-label='log out button'
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') {
-                                                handleLogOut()
-                                            }
-                                        }}
-                                        onClick={handleLogOut}>Log out</button>
                                 </div>
                             )}
                         </Transition >

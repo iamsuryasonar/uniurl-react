@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const responseTime = require('response-time');
 const cookieParser = require('cookie-parser');
+const cluster = require('node:cluster');
+const numOfCPU = require('node:os').availableParallelism();
 
 const app = express()
 
@@ -84,9 +86,6 @@ app.use('/api/theme', themeRoute)
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-
-const cluster = require('node:cluster');
-const numOfCPU = require('node:os').availableParallelism();
 
 if (cluster.isPrimary) {
     console.log(`Primary ${process.pid} is running`)

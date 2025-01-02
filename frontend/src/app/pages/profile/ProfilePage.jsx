@@ -1,23 +1,38 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { upload_profile_picture, get_profile_info, update_profile_info, profileState } from '../../store/slices/profileSlice'
 import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faLink, faPen, faShare } from '@fortawesome/free-solid-svg-icons'
+import { Transition } from 'react-transition-group';
+import {
+    FacebookIcon,
+    FacebookShareButton,
+    LinkedinIcon,
+    LinkedinShareButton,
+    TwitterIcon,
+    TwitterShareButton,
+    WhatsappIcon,
+    WhatsappShareButton,
+} from "react-share";
 import avatar from '../../assets/avatar.jpg';
 import ThemeServices from '../../services/theme.services';
 import ProfileService from '../../services/profile.services';
+import { upload_profile_picture, get_profile_info, update_profile_info, profileState } from '../../store/slices/profileSlice'
+import { closeMenu } from '../../store/slices/menuSlice';
+import { logout } from '../../store/slices/authSlice';
 
 const ProfilePage = () => {
-    const originname = window.location.origin;
 
     const dispatch = useDispatch();
     const profileInfo = useSelector(profileState);
+    const originname = window.location.origin;
 
     const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar);
     const [username, setUsername] = useState('');
     const [themes, setThemes] = useState(null);
     const [usernameAvailable, setUsernameAvailable] = useState(null);
+    const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+    const [showShareMenu, setShowShareMenu] = useState(false);
 
     const [input, setInput] = useState({
         'username': '',
@@ -104,7 +119,7 @@ const ProfilePage = () => {
 
     const copyToClipboard = async () => {
         try {
-            await navigator.clipboard.writeText(username);
+            await navigator.clipboard.writeText(originname + '/' + username);
             dispatch(setMessage('copied To clipboard'))
             setTimeout(() => {
                 dispatch(clearMessage());
@@ -117,23 +132,37 @@ const ProfilePage = () => {
         }
     };
 
+    const handleLogOut = () => {
+        dispatch(closeMenu())
+        dispatch(logout())
+    }
+
+    const getShareUrl = () => {
+        if (!profileInfo?.username) return '';
+        return originname + '/' + profileInfo.username;
+    }
+
     return (
-        <div className="w-full flex justify-center items-center m-auto ">
-            <div className='h-full max-w-[350px] py-14 text-white'>
-                <div className='p-6 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
-                    <a href={originname + '/' + username} target='_blank' rel='noopener' className='absolute top-2 right-2 p-2 rounded-full text-white hover:bg-black hover:text-white'>
-                        <FontAwesomeIcon icon='fas fa-link' className=' text-2xl cursor-pointer ' />
-                    </a>
-                    <label htmlFor="photo-upload" className={`border border-1 border-white rounded-full inline-block relative p-1 cursor-pointer text-black `}>
-                        <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
-                            <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'><p>+</p></div>
-                            <img htmlFor="photo-upload" src={imagePreviewUrl} alt='user profile placeholder' className='object-cover w-full h-full' />
-                        </div>
-                        <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
-                    </label>
-                    <div className='w-full flex flex-col'>
-                        <label className='' htmlFor="username">Username:</label>
-                        <div className='flex items-center gap-1'>
+        <>
+            <div className="w-full flex justify-center items-center m-auto">
+                <div className='h-full max-w-[350px] py-14 text-white'>
+                    <div className='p-6 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
+                        <button
+                            className='absolute top-2 right-2 w-[40px] aspect-square rounded-full text-white border-[1px] border-slate-500 hover:bg-white hover:text-black'
+                            onClick={() => setShowShareMenu(true)}>
+                            <FontAwesomeIcon icon={faShare} className='cursor-pointer' />
+                        </button>
+                        <label htmlFor="photo-upload" className={`border border-1 border-white rounded-full inline-block relative p-1 cursor-pointer text-black `}>
+                            <div className={`group relative w-36 h-36 overflow-hidden rounded-full`}>
+                                <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-6xl w-36 h-36 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 ease-in-out bg-black flex justify-center items-center'>
+                                    <FontAwesomeIcon icon={faPen} />
+                                </div>
+                                <img htmlFor="photo-upload" src={imagePreviewUrl} alt='user profile placeholder' className='object-cover w-full h-full' />
+                            </div>
+                            <input id='photo-upload' type="file" name='file' onChange={photoUpload} accept="image/*" className='hidden' />
+                        </label>
+                        <div className='w-full flex flex-col'>
+                            <label className='' htmlFor="username">Username:</label>
                             <input
                                 type="text"
                                 name="username"
@@ -145,62 +174,134 @@ const ProfilePage = () => {
                                 className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
                                 disabled={profileInfo?.usernameUpdated}
                             />
-                            <button className='group w-14 aspect-square rounded-full flex items-center justify-center border border-1 border-white hover:border-slate-400 cursor-pointer' onClick={copyToClipboard}>
-                                <FontAwesomeIcon icon={faCopy} className='cursor-pointer text-white group-hover:text-slate-400' />
-                            </button>
+                            <div className='h-[10px]'>
+                                {
+                                    usernameAvailable !== null && <>
+                                        {usernameAvailable ?
+                                            <p className='pl-3 text-sm text-green-500'>Username available</p>
+                                            :
+                                            <p className='pl-3 text-sm text-red-500'>Username not available</p>}
+                                    </>
+                                }
+                            </div>
+
                         </div>
-                        <div className='h-[10px]'>
-                            {
-                                usernameAvailable !== null && <>
-                                    {usernameAvailable ?
-                                        <p className='pl-3 text-sm text-green-500'>Username available</p>
-                                        :
-                                        <p className='pl-3 text-sm text-red-500'>Username not available</p>}
-                                </>
-                            }
+                        <div className='w-full flex flex-col'>
+                            <label className='' htmlFor="location">Location:</label>
+                            <input
+                                type="text"
+                                name="location"
+                                onChange={onChangeHandler}
+                                value={input?.location}
+                                placeholder="Add location"
+                                required
+                                className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
+                            />
                         </div>
 
+                        <div className='w-full flex flex-col'>
+                            <label className='' htmlFor="bio">Bio:</label>
+                            <textarea
+                                cols="40"
+                                rows="5"
+                                name="bio"
+                                onChange={onChangeHandler}
+                                value={input?.bio}
+                                placeholder="Write something!"
+                                required
+                                className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-[#040C18] text-white'></textarea>
+                        </div>
+                        <div className='w-full flex flex-col'>
+                            <label className='' htmlFor="bio">Url page theme:</label>
+                            <select onChange={onChangeHandler} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-white px-3 py-2 bg-[#040C18] text-white'>
+                                <option value='' disabled className=''>select theme...</option>
+                                {
+                                    themes?.map((item) => {
+                                        return <option key={item._id} value={item._id} className={`${profileInfo?.theme === item?.name ? 'bg-white text-black' : ''}`}> {item.name}</option>
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <button onClick={submitHandler} className='animate w-full py-1 font-bold text-lg border-[1px] border-white rounded-full bg-white text-black hover:bg-black hover:text-white'> Save</button>
+                        <button
+                            className={`w-full rounded-full py-1 px-4 font-bold border-[1px] cursor-pointer text-center hover:bg-[#FF4820] border-[#FF4820]`}
+                            aria-label='log out'
+                            onClick={() => setShowLogoutDialog(true)}
+                        >Log out</button>
                     </div>
-                    <div className='w-full flex flex-col'>
-                        <label className='' htmlFor="location">Location:</label>
-                        <input
-                            type="text"
-                            name="location"
-                            onChange={onChangeHandler}
-                            value={input?.location}
-                            placeholder="Add location"
-                            required
-                            className='w-full rounded-full border border-1 border-white px-3 py-2 bg-transparent text-white'
-                        />
-                    </div>
-
-                    <div className='w-full flex flex-col'>
-                        <label className='' htmlFor="bio">Bio:</label>
-                        <textarea
-                            cols="40"
-                            rows="5"
-                            name="bio"
-                            onChange={onChangeHandler}
-                            value={input?.bio}
-                            placeholder="Write something!"
-                            required
-                            className='w-full rounded-xl border border-1 border-white px-3 py-2 bg-[#040C18] text-white'></textarea>
-                    </div>
-                    <div className='w-full flex flex-col'>
-                        <label className='' htmlFor="bio">Url page theme:</label>
-                        <select onChange={onChangeHandler} value={input?.theme} name='theme' className='w-full rounded-full border border-1 border-white px-3 py-2 bg-[#040C18] text-white'>
-                            <option value='' disabled className=''>select theme...</option>
-                            {
-                                themes?.map((item) => {
-                                    return <option key={item._id} value={item._id} className={`${profileInfo?.theme === item?.name ? 'bg-white text-black' : ''}`}> {item.name}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                    <button onClick={submitHandler} className='animate w-full py-1 font-bold text-xl border-[1px] border-white rounded-full bg-white text-black hover:bg-black hover:text-white'> save</button>
+                </div >
+            </div>
+            {
+                showLogoutDialog && <div className='z-40 fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center'>
+                    <div className='w-[350px] m-6 p-4 text-white flex flex-col justify-center items-center gap-4 border-[1px] border-slate-600 rounded-lg'>
+                        <p className='text-xl font-bold'>Are you sure you want to log out?</p>
+                        <div className='w-full flex justify-between gap-2'>
+                            <button
+                                className='px-4 py-1 hover:bg-red-500 border-[1px] border-white rounded-lg'
+                                aria-label='confirm log out'
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleLogOut()
+                                    }
+                                }}
+                                onClick={handleLogOut}
+                            >Log out</button>
+                            <button
+                                className='px-4 py-1 hover:bg-green-500 border-[1px] border-white rounded-lg'
+                                aria-label='cancel log out'
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        setShowLogoutDialog(false)
+                                    }
+                                }}
+                                onClick={() => setShowLogoutDialog(false)}
+                            >Cancel</button>
+                        </div>
+                    </div >
                 </div>
-            </div >
-        </div>
+            }
+            {
+                <Transition in={showShareMenu} timeout={100}>
+                    {(state) => (
+                        <div className={`fixed sm:top-0 right-0 bottom-0 left-0 flex justify-center items-center transition-transform transform ease-in-out duration-700 ${state === 'entered' ? 'translate-y-0 ' : 'translate-y-full '}`}>
+                            <div className='bg-white text-black shadow-lg max-w-2xl w-full min-w-[350px] sm:w-auto rounded-t-lg sm:rounded-xl px-6 py-8 flex flex-col gap-4'>
+                                <div className='w-full flex flex-row justify-between items-center'>
+                                    <p className='text-md font-bold'>Share</p>
+                                    <div onClick={() => setShowShareMenu(false)} className='bg-slate-200 hover:bg-black hover:text-white w-[40px] aspect-square grid place-content-center cursor-pointer rounded-full'>
+                                        <FontAwesomeIcon icon={faClose} />
+                                    </div>
+                                </div>
+                                <button
+                                    className='w-full flex gap-2 justify-center items-center border-[1px] border-slate-300 hover:border-slate-800 rounded-full py-1 px-4'
+                                    onClick={() => copyToClipboard(profileInfo?.username)}>
+                                    <FontAwesomeIcon icon={faLink} />
+                                    <span>Copy link</span>
+                                </button>
+                                <div className='h-[1px] bg-slate-400 w-full'></div>
+                                <div className='flex flex-wrap gap-3 justify-center items-center'>
+                                    <FacebookShareButton
+                                        url={`${getShareUrl()}`}>
+                                        <FacebookIcon size={40} round={true} />
+                                    </FacebookShareButton>
+                                    <TwitterShareButton
+                                        url={`${getShareUrl()}`}>
+                                        <TwitterIcon size={40} round={true} />
+                                    </TwitterShareButton>
+                                    <WhatsappShareButton
+                                        url={`${getShareUrl()}`}>
+                                        <WhatsappIcon size={40} round={true} />
+                                    </WhatsappShareButton>
+                                    <LinkedinShareButton
+                                        url={`${getShareUrl()}`}>
+                                        <LinkedinIcon size={40} round={true} />
+                                    </LinkedinShareButton>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </Transition >
+            }
+        </>
     );
 }
 
