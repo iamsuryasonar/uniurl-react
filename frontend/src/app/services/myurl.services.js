@@ -29,7 +29,7 @@ const createNewUrl = (body) => {
 const updateUrl = (body) => {
     return privateFetch
         .put(
-            API_URL_MY_URL + "/link/" + body._id, body, getheaders()
+            API_URL_MY_URL + "link/" + body._id, body, getheaders()
         )
         .then((response) => {
             return response.data;

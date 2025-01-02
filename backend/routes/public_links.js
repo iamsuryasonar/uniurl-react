@@ -14,7 +14,7 @@ router.get("/:username", async (req, res) => {
         const user = await User.findOne({ username: req.params.username });
         if (!user) return res.status(404).json({ success: false, message: 'User ' + req.params.username + ' not found!' });
 
-        const links = await Link.find({ author: user._id });
+        const links = await Link.find({ author: user._id }).sort('order');
 
         let data = {
             _id: user._id,
