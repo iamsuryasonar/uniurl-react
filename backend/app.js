@@ -87,7 +87,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-if (cluster.isPrimary) {
+if (cluster.isPrimary && process.env.NODE_ENV === 'production') {
     console.log(`Primary ${process.pid} is running`)
 
     for (let i = 0; i < numOfCPU; i++) {

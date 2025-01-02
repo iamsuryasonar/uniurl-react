@@ -62,12 +62,16 @@ router.get("/", verify, async (req, res) => {
   }
 });
 
-router.put('/reorder', async (req, res) => {
+router.put('/reorder', verify, async (req, res) => {
   try {
     const updatedLinks = req.body.urls;
     for (let i = 0; i < updatedLinks.length; i++) {
       await Link.findByIdAndUpdate(updatedLinks[i]._id, { order: i });
     }
+
+    // invalidate cache
+    redis.del('userlink:' + req.user.username);
+
     return res.status(200).json({ success: true, message: 'Order updated successfully', data: null });
   } catch (e) {
     console.log(e)
