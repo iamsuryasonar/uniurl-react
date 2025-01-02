@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Reorder, useDragControls } from "framer-motion";
-
 function MyUrlCard({ urlData, onDelete }) {
     const { _id, title, url } = urlData;
     const controls = useDragControls();
-
     return (
         <Reorder.Item
             value={urlData}
@@ -21,40 +19,23 @@ function MyUrlCard({ urlData, onDelete }) {
                     <p className='flex items-center gap-2 text-xl px-2 text-center'>
                         {title}
                     </p>
-                    <div className='flex gap-1'>
-                        <button onClick={(e) => {
-                            e.preventDefault();
-                            // onEdit(e, _id);
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        onDelete(e, _id);
+                        e.stopPropagation();
+                    }}
+                        onKeyDown={(e) => {
+                            e.preventDefault()
+                            if (e.key === 'Enter') {
+                                onDelete(e, _id);
+                            }
                             e.stopPropagation();
-                        }}
-                            onKeyDown={(e) => {
-                                e.preventDefault()
-                                if (e.key === 'Enter') {
-                                    // onEdit(e, _id);
-                                }
-                                e.stopPropagation();
-                            }} >
-                            <FontAwesomeIcon aria-label="Edit" tabIndex={0} icon={faEdit} className='p-3 hover:bg-black hover:text-green-500 rounded-full' />
-                        </button>
-                        <button onClick={(e) => {
-                            e.preventDefault();
-                            onDelete(e, _id);
-                            e.stopPropagation();
-                        }}
-                            onKeyDown={(e) => {
-                                e.preventDefault()
-                                if (e.key === 'Enter') {
-                                    onDelete(e, _id);
-                                }
-                                e.stopPropagation();
-                            }} >
-                            <FontAwesomeIcon aria-label="Delete" tabIndex={0} icon={faTrash} className='p-3 hover:bg-black hover:text-red-500 rounded-full' />
-                        </button>
-                    </div>
+                        }} >
+                        <FontAwesomeIcon aria-label="Delete" tabIndex={0} icon={faTrash} className='p-3 hover:bg-black hover:text-red-500 rounded-full' />
+                    </button>
                 </div>
             </a>
         </Reorder.Item >
     )
 }
-
 export default MyUrlCard;

@@ -26,9 +26,19 @@ const createNewUrl = (body) => {
         });
 }
 
+const reorderUrls = (body) => {
+    return privateFetch
+        .put(
+            API_URL_MY_URL + 'reorder', body, getheaders()
+        )
+        .then((response) => {
+            return response.data;
+        });
+}
+
 const deleteUrl = (id) => {
     return privateFetch
-        .delete(API_URL_MY_URL + id, getheaders())
+        .delete(API_URL_MY_URL + 'link/' + id, getheaders())
         .then((response) => {
             return response.data;
         });
@@ -37,6 +47,7 @@ const deleteUrl = (id) => {
 const myUrlService = {
     getAllUrl,
     createNewUrl,
+    reorderUrls,
     deleteUrl,
 }
 
