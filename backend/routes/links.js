@@ -34,6 +34,7 @@ router.post("/", verify, async (req, res) => {
       title: req?.body?.title,
       icon: req?.body?.icon,
       color: req?.body?.color,
+      order: Number.MAX_SAFE_INTEGER,
     });
 
     link.author = req.user._id;
@@ -56,15 +57,30 @@ router.post("/", verify, async (req, res) => {
 // retrieve links
 router.get("/", verify, async (req, res) => {
   try {
-    const links = await Link.find({ author: req.user._id });
+    const links = await Link.find({ author: req.user._id }).sort('order');
     return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: links });
   } catch (err) {
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
+router.put('/reorder', async (req, res) => {
+  try {
+    const updatedLinks = req.body.urls;
+
+    for (let i = 0; i < updatedLinks.length; i++) {
+      await Link.findByIdAndUpdate(updatedLinks[i]._id, { order: i });
+    }
+
+    return res.status(200).json({ success: true, message: 'Order updated successfully', data: null });
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({ success: false, message: 'Internal server error ' });
+  }
+});
+
 // Update link
-router.put("/:linkid", verify, async (req, res) => {
+router.put("/link/:linkid", verify, async (req, res) => {
   if (!req.body.url) return res.status(400).json({ success: false, message: 'url required!!!' });
   if (!req.body.title) return res.status(400).json({ success: false, message: 'title required!!!' });
 
@@ -96,7 +112,7 @@ router.put("/:linkid", verify, async (req, res) => {
 });
 
 // delete link
-router.delete("/:linkid", verify, async (req, res) => {
+router.delete("/link/:linkid", verify, async (req, res) => {
   if (!req.params.linkid) return res.status(400).json({ success: false, message: 'url id required!!!' });
   try {
     const links = await Link.find({

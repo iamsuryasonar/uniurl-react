@@ -27,9 +27,9 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            dispatch(get_profile_info())
+            dispatch(get_profile_info());
         }
-    }, [dispatch])
+    }, [isLoggedIn, dispatch])
 
     useEffect(() => {
         if (profileInfo?.picture) {
@@ -68,7 +68,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                             <div className='w-full flex flex-row justify-end items-center gap-4'>
                                 {!menu && <Searchbar searchKeywordHandler={searchKeywordHandler} setIsInputHidden={setIsInputHidden} />}
                                 {!menu &&
-                                    <botton
+                                    <button
                                         className=''
                                         onClick={() => dispatch(toggleMenu())}
                                         onKeyDown={(e) => {
@@ -83,7 +83,7 @@ const NavBar = ({ isInputHidden, setIsInputHidden }) => {
                                             icon={faBars}
 
                                         />
-                                    </botton>
+                                    </button>
                                 }
                             </div>
                             <div className='hidden md:flex gap-4 text-nowrap '>

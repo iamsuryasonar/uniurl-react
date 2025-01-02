@@ -27,21 +27,29 @@ const createNewUrl = (body) => {
             return response.data;
         });
 }
-
-const deleteUrl = (id) => {
+const reorderUrls = (body) => {
     return axios
-        .delete(API_URL_MY_URL + id, getheaders())
+        .put(
+            API_URL_MY_URL + 'reorder', body, getheaders()
+        )
         .then((response) => {
             return response.data;
         });
 }
 
-
+const deleteUrl = (id) => {
+    return axios
+        .delete(API_URL_MY_URL + 'link/' + id, getheaders())
+        .then((response) => {
+            return response.data;
+        });
+}
 
 const myUrlService = {
     getAllUrl,
     createNewUrl,
     deleteUrl,
+    reorderUrls,
 }
 
 export default myUrlService;

@@ -17,6 +17,9 @@ const linkSchema = new mongoose.Schema({
         type: String,
         default: '#ffffff',
     },
+    order: {
+        type: Number,
+    },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 module.exports = mongoose.model('Link', linkSchema)

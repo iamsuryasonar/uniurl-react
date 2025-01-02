@@ -11,7 +11,6 @@ export const get_my_urls = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.getAllUrl();
-            thunkAPI.dispatch(get_profile_info());
             return response.data;
         } catch (error) {
             const message =
@@ -38,6 +37,33 @@ export const create_my_urls = createAsyncThunk(
         try {
             thunkAPI.dispatch(setLoading(true));
             const response = await myUrlService.createNewUrl(url);
+            thunkAPI.dispatch(get_my_urls());
+            thunkAPI.dispatch(setMessage(response.message));
+            return response.data;
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            thunkAPI.dispatch(setMessage(message));
+            return thunkAPI.rejectWithValue();
+        } finally {
+            setTimeout(() => {
+                thunkAPI.dispatch(clearMessage());
+            }, 3000);
+            thunkAPI.dispatch(setLoading(false));
+        }
+    }
+);
+
+export const reorder_urls = createAsyncThunk(
+    "url/reorder_urls",
+    async (urls, thunkAPI) => {
+        try {
+            thunkAPI.dispatch(setLoading(true));
+            const response = await myUrlService.reorderUrls(urls);
             thunkAPI.dispatch(get_my_urls());
             thunkAPI.dispatch(setMessage(response.message));
             return response.data;
@@ -99,6 +125,8 @@ const myUrlSlice = createSlice({
                 }).addCase(get_my_urls.rejected, (state, action) => {
                 }).addCase(create_my_urls.fulfilled, (state, action) => {
                 }).addCase(create_my_urls.rejected, (state, action) => {
+                }).addCase(reorder_urls.fulfilled, (state, action) => {
+                }).addCase(reorder_urls.rejected, (state, action) => {
                 }).addCase(delete_my_url.fulfilled, (state, action) => {
                 }).addCase(delete_my_url.rejected, (state, action) => {
                 })
