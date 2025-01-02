@@ -90,8 +90,8 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
 
     return (
         <div className='z-40 fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center'>
-            <div className='w-full m-4'>
-                <div className='relative w-full max-w-2xl m-auto h-full flex flex-col p-6 gap-4 text-white border-[1px] border-slate-700 rounded-lg'>
+            <div className='w-full m-4 flex justify-center items-center'>
+                <div className='relative max-w-2xl w-full max-h-[80svh] h-full overflow-auto flex flex-col p-6 gap-4 text-white border-[1px] border-slate-700 rounded-lg'>
                     <div className='flex justify-between items-center'>
                         <p className='font-bold'>{`${type === 'ADD' ? 'Add Url' : "Edit Url"}`}</p>
                         <button onClick={() => setShowMenu(false)} className='w-[34px] aspect-square bg-white text-black rounded-full border-[1px] border-transparent hover:bg-transparent hover:text-white hover:border-white'>

@@ -48,7 +48,7 @@ function UrlsPage() {
                 </div>
             }
             <div style={urlsinfo?.theme.page_container}>
-                <div className={`min-h-svh max-w-lg m-auto flex flex-col p-4 gap-4`}>
+                <div className={`min-h-screen max-w-lg m-auto flex flex-col p-4 gap-4`}>
                     {urlsinfo ?
                         <div className='w-full relative flex flex-col justify-center'>
                             <StickyNav elementRef={elementRef} urlsinfo={urlsinfo} />

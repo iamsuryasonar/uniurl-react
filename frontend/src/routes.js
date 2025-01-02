@@ -4,14 +4,9 @@ const HeroPage = lazy(() => import('./app/pages/hero/HeroPage'));
 const ProfilePage = lazy(() => import('./app/pages/profile/ProfilePage'));
 const LogInPage = lazy(() => import('./app/pages/login/LoginPage'));
 const RegisterPage = lazy(() => import('./app/pages/register/RegisterPage'));
-const CreateUrlPage = lazy(() => import('./app/pages/createUrl/CreateUrlPage'));
 const MyUrlsPage = lazy(() => import('./app/pages/myUrls/MyUrlsPage'));
 
 export const privateRoutes = [
-    {
-        path: "/user/create_url",
-        element: <CreateUrlPage />,
-    },
     {
         path: "/user/profile",
         element: <ProfilePage />,
