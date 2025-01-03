@@ -1,34 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearMessage, setMessage } from '../../store/slices/messageSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faLink, faPen, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faPen, faShare } from '@fortawesome/free-solid-svg-icons'
 import { Transition } from 'react-transition-group';
-import {
-    FacebookIcon,
-    FacebookShareButton,
-    LinkedinIcon,
-    LinkedinShareButton,
-    TwitterIcon,
-    TwitterShareButton,
-    WhatsappIcon,
-    WhatsappShareButton,
-} from "react-share";
 import avatar from '../../assets/avatar.jpg';
 import ThemeServices from '../../services/theme.services';
 import ProfileService from '../../services/profile.services';
 import { upload_profile_picture, get_profile_info, update_profile_info, profileState } from '../../store/slices/profileSlice'
 import { closeMenu } from '../../store/slices/menuSlice';
 import { logout } from '../../store/slices/authSlice';
+import SocialShareCard from '../../components/SocialShareCard'
 
 const ProfilePage = () => {
 
     const dispatch = useDispatch();
     const profileInfo = useSelector(profileState);
-    const originname = window.location.origin;
 
-    const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar);
-    const [username, setUsername] = useState('');
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(profileInfo?.picture || avatar);
     const [themes, setThemes] = useState(null);
     const [usernameAvailable, setUsernameAvailable] = useState(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
@@ -38,7 +26,7 @@ const ProfilePage = () => {
         'username': '',
         'bio': '',
         'theme': '',
-        'location': ''
+        'location': '',
     });
 
     const getAllTheme = async () => {
@@ -72,7 +60,6 @@ const ProfilePage = () => {
 
         }
         if (profileInfo?.username) {
-            setUsername(profileInfo.username);
             setInput(prev => (
                 {
                     ...prev,
@@ -117,36 +104,16 @@ const ProfilePage = () => {
         setUsernameAvailable(null);
     }
 
-    const copyToClipboard = async () => {
-        try {
-            await navigator.clipboard.writeText(originname + '/' + username);
-            dispatch(setMessage('copied To clipboard'))
-            setTimeout(() => {
-                dispatch(clearMessage());
-            }, 2000)
-        } catch (err) {
-            dispatch(setMessage('could not copy To clipboard'))
-            setTimeout(() => {
-                dispatch(clearMessage());
-            }, 2000)
-        }
-    };
-
     const handleLogOut = () => {
         dispatch(closeMenu())
         dispatch(logout())
     }
 
-    const getShareUrl = () => {
-        if (!profileInfo?.username) return '';
-        return originname + '/' + profileInfo.username;
-    }
-
     return (
         <>
             <div className="w-full flex justify-center items-center m-auto">
-                <div className='h-full max-w-[350px] py-14 text-white'>
-                    <div className='p-6 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
+                <div className='h-full max-w-[400px] py-14 text-white'>
+                    <div className='px-6 py-10 rounded-2xl flex flex-col justify-center items-center gap-4 gradient_box relative'>
                         <button
                             className='absolute top-2 right-2 w-[40px] aspect-square rounded-full text-white border-[1px] border-slate-500 hover:bg-white hover:text-black'
                             onClick={() => setShowShareMenu(true)}>
@@ -271,31 +238,7 @@ const ProfilePage = () => {
                                         <FontAwesomeIcon icon={faClose} />
                                     </div>
                                 </div>
-                                <button
-                                    className='w-full flex gap-2 justify-center items-center border-[1px] border-slate-300 hover:border-slate-800 rounded-full py-1 px-4'
-                                    onClick={() => copyToClipboard(profileInfo?.username)}>
-                                    <FontAwesomeIcon icon={faLink} />
-                                    <span>Copy link</span>
-                                </button>
-                                <div className='h-[1px] bg-slate-400 w-full'></div>
-                                <div className='flex flex-wrap gap-3 justify-center items-center'>
-                                    <FacebookShareButton
-                                        url={`${getShareUrl()}`}>
-                                        <FacebookIcon size={40} round={true} />
-                                    </FacebookShareButton>
-                                    <TwitterShareButton
-                                        url={`${getShareUrl()}`}>
-                                        <TwitterIcon size={40} round={true} />
-                                    </TwitterShareButton>
-                                    <WhatsappShareButton
-                                        url={`${getShareUrl()}`}>
-                                        <WhatsappIcon size={40} round={true} />
-                                    </WhatsappShareButton>
-                                    <LinkedinShareButton
-                                        url={`${getShareUrl()}`}>
-                                        <LinkedinIcon size={40} round={true} />
-                                    </LinkedinShareButton>
-                                </div>
+                                <SocialShareCard username={profileInfo?.username || ''} />
                             </div>
                         </div>
                     )}

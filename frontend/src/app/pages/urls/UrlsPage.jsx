@@ -7,7 +7,7 @@ import avatar from '../../assets/avatar.jpg';
 import s from './urls.module.css';
 import Message from '../../components/message/Message';
 import UrlCard from './components/UrlCard';
-import StickyNav from './components/StickyNav';
+import GetStartedModal from './components/GetStartedModal';
 import { loadingState } from '../../store/slices/loadingSlice';
 import { messageState } from '../../store/slices/messageSlice';
 
@@ -51,7 +51,7 @@ function UrlsPage() {
                 <div className={`min-h-screen max-w-lg m-auto flex flex-col p-4 gap-4`}>
                     {urlsinfo ?
                         <div className='w-full relative flex flex-col justify-center'>
-                            <StickyNav elementRef={elementRef} urlsinfo={urlsinfo} />
+                            <GetStartedModal elementRef={elementRef} urlsinfo={urlsinfo} />
                             <div className={`flex items-center flex-col gap-4 py-10`}>
                                 <div style={urlsinfo?.theme.profile_picture_wrapper} className={`w-28 h-28 aspect-square rounded-full overflow-hidden `}>
                                     <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-cover' />
