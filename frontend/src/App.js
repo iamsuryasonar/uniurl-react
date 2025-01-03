@@ -17,9 +17,11 @@ function App() {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '90svh',
+    height: '100vh',
     width: '100%',
-    fontSize: '80px'
+    fontSize: '80px',
+    backgroundColor: '#0f172a',
+    color: 'white',
   };
 
   return (

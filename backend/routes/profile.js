@@ -23,10 +23,10 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         if (!req?.files['file'][0]) return res.status(400).json({ success: false, message: '' });
 
         const [webpImageBuffer, user] = await Promise.all([
-            await sharp(image.buffer) // convert to webp with quality 20%
+            sharp(image.buffer) // convert to webp with quality 20%
                 .webp([{ near_lossless: true }, { quality: 20 }])
                 .toBuffer(),
-            await User.findById({ _id: req.user._id })
+            User.findById(req.user._id)
         ])
 
         let uploadedImageInfo;
@@ -59,8 +59,6 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 // add status and bio
 router.put("/profile-info", verify, async (req, res) => {
     try {
-        if (!req?.body?.bio) return res.status(400).json({ success: false, message: 'Bio is required' });
-
         const user = await User.findById({ _id: req.user._id });
 
         if (req?.body?.username) {

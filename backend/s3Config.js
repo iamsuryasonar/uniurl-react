@@ -8,6 +8,8 @@ const awsConfig = {
     signatureVersion: 'v4'
 }
 
+AWS.config.update({ region: process.env.REGION_NAME });
+
 const s3 = new AWS.S3(awsConfig);
 
 module.exports = {

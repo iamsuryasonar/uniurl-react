@@ -36,7 +36,7 @@ router.get("/:username", async (req, res) => {
 
         result[0].theme = themes[`${result[0].theme}`];
 
-        redis.set('userlink:' + req.params.username, JSON.stringify(result[0]), "EX", 1 * 60 * 60);
+        redis.set('userlink:' + req.params.username, JSON.stringify(result[0]), "EX", 10 * 24 * 3600); // in seconds
 
         return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result[0] });
     } catch (err) {
