@@ -16,7 +16,7 @@ const ProfilePage = () => {
     const dispatch = useDispatch();
     const profileInfo = useSelector(profileState);
 
-    const [imagePreviewUrl, setImagePreviewUrl] = useState(profileInfo?.picture || avatar);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(avatar);
     const [themes, setThemes] = useState(null);
     const [usernameAvailable, setUsernameAvailable] = useState(null);
     const [showLogoutDialog, setShowLogoutDialog] = useState(false);
@@ -46,7 +46,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         if (profileInfo?.picture) {
-            setImagePreviewUrl(profileInfo.picture.url);
+            setImagePreviewUrl(profileInfo.picture?.url);
         }
         if (profileInfo?.bio) {
             setInput(prev => (
