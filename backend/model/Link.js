@@ -19,7 +19,8 @@ const linkSchema = new mongoose.Schema({
     },
     order: {
         type: Number,
+        index: true,
     },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true }
 })
 module.exports = mongoose.model('Link', linkSchema)

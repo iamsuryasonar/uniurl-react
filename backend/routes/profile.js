@@ -9,6 +9,7 @@ const User = require("../model/User");
 router.get("/profile-info", verify, async (req, res) => {
     try {
         let user = await User.findById({ _id: req.user._id });
+
         return res.status(200).json({ success: true, message: '', data: user });
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Internal server error ' });
@@ -21,10 +22,12 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 
         if (!req?.files['file'][0]) return res.status(400).json({ success: false, message: '' });
 
-        // convert to webp with quality 20%
-        const webpImageBuffer = await sharp(image.buffer)
-            .webp([{ near_lossless: true }, { quality: 20 }])
-            .toBuffer();
+        const [webpImageBuffer, user] = await Promise.all([
+            await sharp(image.buffer) // convert to webp with quality 20%
+                .webp([{ near_lossless: true }, { quality: 20 }])
+                .toBuffer(),
+            await User.findById({ _id: req.user._id })
+        ])
 
         let uploadedImageInfo;
 
@@ -32,10 +35,8 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
             uploadedImageInfo = result;
         })
 
-        const user = await User.findById({ _id: req.user._id });
-
         if (user?.picture && user?.picture?.fileName) {
-            await deleteS3Object(user?.picture?.fileName)
+            await deleteS3Object(user?.picture?.fileName);
         }
 
         user.picture = {
@@ -47,6 +48,7 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
 
         // invalidate cache
         redis.del('userlink:' + req.user.username);
+
         return res.status(200).json({ success: true, message: '', data: updatedUser });
     } catch (err) {
         console.log(err)
@@ -115,7 +117,7 @@ router.get("/keyword/:keyword", async (req, res) => {
 
         const similarUsers = await User.find({
             username: { $regex: new RegExp(`${req?.params?.keyword}`, 'i') },
-        }).select('-password').limit(5);
+        }).limit(5);
 
         return res.status(200).json({ success: true, message: '', data: similarUsers });
     } catch (err) {

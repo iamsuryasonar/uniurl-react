@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     minlength: 6,
     maxlength: 255,
+    index: true,
   },
   usernameUpdated: {
     type: Boolean,
@@ -18,6 +19,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 255,
+    index: true,
   },
   googleId: {
     type: String,

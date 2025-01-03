@@ -19,8 +19,21 @@ function getRandomUsername() {
     return `${randomAdjective}${randomNoun}${randomNumber}`;
 }
 
+function validateUrlWithFix(url) {
+    url = url.trim();
+
+    if (url.substr(0, 3) === "www") {
+        return url = "https://" + url;
+    } else if (url.substr(0, 8) === "https://" || url.substr(0, 7) === "http://" || url.substr(0, 7) === "mailto:" || url.substr(0, 4) === "tel:") {
+        return url;
+    } else {
+        return;
+    }
+}
+
 module.exports = {
     responseHandler,
     getRandomUsername,
+    validateUrlWithFix,
 };
 
