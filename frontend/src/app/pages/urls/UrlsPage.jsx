@@ -68,20 +68,20 @@ function UrlsPage() {
                                 {
                                     urlsinfo && urlsinfo?.socialLinks.length > 0 ? urlsinfo?.socialLinks.map((url) => {
                                         return (
-                                            <button key={url._id} style={urlsinfo?.theme.socialIcon} className='p-2 aspect-square rounded-full flex items-center justify-center' >
+                                            <a key={url._id} href={url.url} target='_blank' rel='noopener' style={urlsinfo?.theme.socialIcon} className='p-2 aspect-square rounded-full flex items-center justify-center hover:scale-105 transition-transform duration-300 ease-in-out' >
                                                 {url?.icon && <FontAwesomeIcon className='w-7 h-7' style={{ ...urlsinfo?.theme?.cardIcon, ...{ color: urlsinfo?.theme?.cardIcon?.color ? urlsinfo?.theme?.cardIcon?.color : url?.color } }} icon={url?.icon} />}
-                                            </button>
+                                            </a>
                                         )
-                                    }) : <p className='text-slate-500'> {'Urls not yet added by ' + urlsinfo?.username}</p>
+                                    }) : <></>
                                 }
                             </div>
-                            <div className='flex flex-col items-center gap-4 pb-10'>
+                            <div className='flex flex-col items-center gap-4 pb-[80px]'>
                                 {
                                     urlsinfo && urlsinfo?.links.length > 0 ? urlsinfo?.links.map((item) => {
                                         return (
                                             <UrlCard urlData={item} onClick={onCardClicked} key={item['_id']} theme={urlsinfo?.theme} />
                                         )
-                                    }) : <p className='text-slate-500'> {'Urls not yet added by ' + urlsinfo?.username}</p>
+                                    }) : <p className='text-slate-500'> {'Urls not added by ' + urlsinfo?.username}</p>
                                 }
                             </div>
                         </div>
@@ -89,6 +89,7 @@ function UrlsPage() {
                         <></>
                     }
                 </div>
+                <p className='text-slate-800/50 font-thin text-xs place-self-center'>© 2024 UniURL</p>
             </div>
             <Message message={message} />
         </>
