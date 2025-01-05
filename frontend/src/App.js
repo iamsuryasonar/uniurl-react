@@ -9,8 +9,7 @@ import { privateRoutes, publicRoutes } from './routes';
 import NavbarLayout from './app/components/navbarAndContentLayout/NavbarLayout';
 import PrivateRoute from './app/components/guards/PrivateRoute';
 import PublicRoute from './app/components/guards/PublicRoute';
-
-const UrlsPage = lazy(() => import('./app/pages/urls/UrlsPage'));
+import UrlsPage from './app/pages/urls/UrlsPage';
 
 function App() {
   const centerStyle = {
@@ -26,28 +25,30 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>
-        <Routes>
-          <Route element={<NavbarLayout />}>
-            {
-              privateRoutes.map((route) => {
-                return <Route key={route.path} path={route.path} element={<PrivateRoute>{route.element}</PrivateRoute>} />
-              })
-            }
-            {
-              publicRoutes.map((route) => {
-                return <Route key={route.path} path={route.path} element={<PublicRoute>{route.element}</PublicRoute>} />
-              })
-            }
-          </Route>
-          <Route
-            path="/:username"
-            element={
-              <UrlsPage />
-            }
-          />
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route element={
+          <Suspense fallback={<div style={centerStyle}><FontAwesomeIcon icon={faSpinner} spinPulse /></div>}>
+            <NavbarLayout />
+          </Suspense>
+        }>
+          {
+            privateRoutes.map((route) => {
+              return <Route key={route.path} path={route.path} element={<PrivateRoute>{route.element}</PrivateRoute>} />
+            })
+          }
+          {
+            publicRoutes.map((route) => {
+              return <Route key={route.path} path={route.path} element={<PublicRoute>{route.element}</PublicRoute>} />
+            })
+          }
+        </Route>
+        <Route
+          path="/:username"
+          element={
+            <UrlsPage />
+          }
+        />
+      </Routes >
     </>
   );
 }

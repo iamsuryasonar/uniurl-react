@@ -28,6 +28,15 @@ function UrlsPage() {
         window.open(url, '_blank', 'noreferrer');
     }
 
+    if (loading) {
+        return <>
+            <div className={s.line_container}>
+                <div className={s.moving_gradient}></div>
+            </div>
+            <div className='w-full h-svh bg-slate-900'></div>
+        </>
+    }
+
     if (urlsinfo?.length === 0) return (
         <div className={`bg-[#e3f5f4] text-[#333] `}>
             <div className='w-full min-h-svh max-w-lg m-auto flex flex-col items-center justify-center p-4 gap-4 '>
@@ -41,12 +50,6 @@ function UrlsPage() {
 
     return (
         <>
-            {
-                loading &&
-                <div className={s.line_container}>
-                    <div className={s.moving_gradient}></div>
-                </div>
-            }
             <div style={urlsinfo?.theme.page_container}>
                 <div className={`min-h-screen max-w-lg m-auto flex flex-col p-4 gap-4`}>
                     {urlsinfo ?
