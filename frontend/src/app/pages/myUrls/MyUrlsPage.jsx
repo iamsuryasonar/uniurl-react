@@ -5,12 +5,14 @@ import { get_my_urls, delete_my_url, reorder_urls, create_my_urls } from '../../
 import { profileState } from '../../store/slices/profileSlice';
 import MyUrlCard from './components/MyUrlCard';
 import UrlForm from './components/UrlForm';
+import MySocialUrlCard from './components/MySocialUrlCard';
 
 function MyUrlPage() {
     const dispatch = useDispatch();
     const urls = useSelector((state) => state.myurl.urls);
     const profileInfo = useSelector(profileState);
     const [reorderedUrls, setReorderedUrls] = useState(null);
+    const [reorderedSocialUrls, setReorderedSocialUrls] = useState(null);
     const debounceTimeout = useRef(null);
     const [showAddUrlMenu, setShowAddUrlMenu] = useState(false);
 
@@ -19,15 +21,21 @@ function MyUrlPage() {
     }, []);
 
     useEffect(() => {
-        if (urls && reorderedUrls) {
+        if (urls && reorderedUrls && reorderedSocialUrls) {
             if (debounceTimeout.current) {
                 clearTimeout(debounceTimeout.current);
             }
             debounceTimeout.current = setTimeout(() => {
                 // check if order of urls has changed
-                for (let i = 0; i < urls.length; i++) {
-                    if (urls[i]._id !== reorderedUrls[i]._id) {
+                for (let i = 0; i < urls?.links.length; i++) {
+                    if (urls?.links[i]._id !== reorderedUrls[i]._id) {
                         dispatch(reorder_urls({ urls: reorderedUrls }));
+                        break;
+                    }
+                }
+                for (let i = 0; i < urls?.socialLinks.length; i++) {
+                    if (urls?.socialLinks[i]._id !== reorderedSocialUrls[i]._id) {
+                        dispatch(reorder_urls({ urls: reorderedSocialUrls }));
                         break;
                     }
                 }
@@ -40,10 +48,11 @@ function MyUrlPage() {
                 clearTimeout(debounceTimeout.current);
             }
         }
-    }, [reorderedUrls, urls, dispatch])
+    }, [reorderedUrls, reorderedSocialUrls, urls, dispatch])
 
     useEffect(() => {
-        setReorderedUrls(urls);
+        setReorderedUrls(urls?.links);
+        setReorderedSocialUrls(urls?.socialLinks);
     }, [urls])
 
     const onDeleteHandler = (e, id) => {
@@ -60,7 +69,7 @@ function MyUrlPage() {
 
     return (
         <>
-            <div className='relative w-full max-w-2xl m-auto py-14'>
+            <div className='relative w-full max-w-2xl m-auto py-14 flex flex-col gap-2'>
                 {
                     urls && urls?.length === 0 &&
                     <div className='w-10/12 text-white p-4'>
@@ -68,21 +77,42 @@ function MyUrlPage() {
                     </div>
                 }
                 {
-                    urls && reorderedUrls && <div className='w-full p-2 flex place-content-end gap-3 border-[1px] border-slate-600 rounded-lg'>
+                    urls && reorderedUrls && <div className='w-full p-2 flex place-content-end gap-3 border-[1px] border-slate-700 rounded-lg'>
                         <button onClick={() => setShowAddUrlMenu(true)} className='bg-white text-black px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-transparent border-[1px] border-transparent hover:border-white'>Add</button>
-                        {urls?.length > 0 && <button onClick={onPreview} className='bg-white text-black px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-transparent border-[1px] border-transparent hover:border-white'>Preview</button>}
+                        {(urls.links?.length > 0 || urls.socialLinks?.length > 0) && <button onClick={onPreview} className='bg-white text-black px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-transparent border-[1px] border-transparent hover:border-white'>Preview</button>}
                     </div>
                 }
                 {
-                    reorderedUrls && <Reorder.Group axis="y" onReorder={setReorderedUrls} values={reorderedUrls} className='w-full'>
+                    reorderedSocialUrls?.length > 0 && <>
+                        <p className='text-white font-bold text-xl'>Social links</p>
                         {
-                            reorderedUrls.map((url) => {
-                                return (
-                                    <MyUrlCard urlData={url} onDelete={onDeleteHandler} key={url._id} />
-                                )
-                            })
+                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-700 rounded-lg' axis="y" onReorder={setReorderedSocialUrls} values={reorderedSocialUrls} >
+                                {
+                                    reorderedSocialUrls.map((url) => {
+                                        return (
+                                            <MyUrlCard key={url._id} urlData={url} onDelete={onDeleteHandler} />
+                                        )
+                                    })
+                                }
+                            </Reorder.Group>
                         }
-                    </Reorder.Group>
+                    </>
+                }
+                {
+                    reorderedUrls?.length > 0 && <>
+                        <p className='text-white font-bold text-xl'>Other links</p>
+                        {
+                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-700 rounded-lg' axis="y" onReorder={setReorderedUrls} values={reorderedUrls} >
+                                {
+                                    reorderedUrls.map((url) => {
+                                        return (
+                                            <MyUrlCard key={url._id} urlData={url} onDelete={onDeleteHandler} />
+                                        )
+                                    })
+                                }
+                            </Reorder.Group>
+                        }
+                    </>
                 }
                 {
                     showAddUrlMenu && <UrlForm type={'ADD'} urlData={null} setShowMenu={setShowAddUrlMenu} onSubmit={create_my_urls} />

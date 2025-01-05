@@ -233,7 +233,7 @@ const ProfilePage = () => {
                         <div className={`fixed sm:top-0 right-0 bottom-0 left-0 flex justify-center items-center transition-transform transform ease-in-out duration-700 ${state === 'entered' ? 'translate-y-0 ' : 'translate-y-full '}`}>
                             <div className='bg-white text-black shadow-lg max-w-2xl w-full min-w-[350px] sm:w-auto rounded-t-lg sm:rounded-xl px-6 py-8 flex flex-col gap-4'>
                                 <div className='w-full flex flex-row justify-between items-center'>
-                                    <p className='text-md font-bold'>Share</p>
+                                    <p className='text-xl font-bold'>Share</p>
                                     <div onClick={() => setShowShareMenu(false)} className='bg-slate-200 hover:bg-black hover:text-white w-[40px] aspect-square grid place-content-center cursor-pointer rounded-full'>
                                         <FontAwesomeIcon icon={faClose} />
                                     </div>

@@ -36,6 +36,20 @@ router.get("/:username", async (req, res) => {
 
         result[0].theme = themes[`${result[0].theme}`];
 
+        const socialLinks = [];
+        const links = [];
+
+        result[0]?.links.forEach((link) => {
+            if (link.isSocialLink === true) {
+                socialLinks.push(link)
+            } else {
+                links.push(link)
+            }
+        });
+
+        result[0].links = links;
+        result[0].socialLinks = socialLinks;
+
         redis.set('userlink:' + req.params.username, JSON.stringify(result[0]), "EX", 10 * 24 * 3600); // in seconds
 
         return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: result[0] });

@@ -21,6 +21,13 @@ const linkSchema = new mongoose.Schema({
         type: Number,
         index: true,
     },
+    isSocialLink: {
+        default: false,
+        type: Boolean
+    },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true }
 })
+
+// linkSchema.index({ author: 1, isSocialLink: 1 });
+
 module.exports = mongoose.model('Link', linkSchema)

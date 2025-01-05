@@ -52,7 +52,7 @@ function UrlsPage() {
                     {urlsinfo ?
                         <div className='w-full relative flex flex-col justify-center'>
                             <GetStartedModal elementRef={elementRef} urlsinfo={urlsinfo} />
-                            <div className={`flex items-center flex-col gap-4 py-10`}>
+                            <div className={`flex items-center flex-col gap-4 py-10 pb-6`}>
                                 <div style={urlsinfo?.theme.profile_picture_wrapper} className={`w-28 h-28 aspect-square rounded-full overflow-hidden `}>
                                     <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-cover' />
                                 </div>
@@ -63,6 +63,17 @@ function UrlsPage() {
                                         {urlsinfo?.bio}
                                     </p>
                                 </div>
+                            </div>
+                            <div className='flex items-center justify-center gap-4 pb-10 flex-wrap'>
+                                {
+                                    urlsinfo && urlsinfo?.socialLinks.length > 0 ? urlsinfo?.socialLinks.map((url) => {
+                                        return (
+                                            <button key={url._id} style={urlsinfo?.theme.socialIcon} className='p-2 aspect-square rounded-full flex items-center justify-center' >
+                                                {url?.icon && <FontAwesomeIcon className='w-7 h-7' style={{ ...urlsinfo?.theme?.cardIcon, ...{ color: urlsinfo?.theme?.cardIcon?.color ? urlsinfo?.theme?.cardIcon?.color : url?.color } }} icon={url?.icon} />}
+                                            </button>
+                                        )
+                                    }) : <p className='text-slate-500'> {'Urls not yet added by ' + urlsinfo?.username}</p>
+                                }
                             </div>
                             <div className='flex flex-col items-center gap-4 pb-10'>
                                 {

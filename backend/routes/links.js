@@ -10,6 +10,7 @@ router.post("/", verify, async (req, res) => {
 
     if (!req.body.url) return res.status(400).json({ success: false, message: 'url required' });
     if (!req.body.title) return res.status(400).json({ success: false, message: 'title required' });
+    if (req.body.isSocialLink && !req.body.icon) return res.status(400).json({ success: false, message: 'icon required for social links' });
 
     let url = validateUrlWithFix(req.body.url);
     if (!url) return res.status(400).json({ success: false, message: 'Invalid url' });
@@ -20,6 +21,7 @@ router.post("/", verify, async (req, res) => {
       icon: req?.body?.icon,
       color: req?.body?.color,
       order: Number.MAX_SAFE_INTEGER,
+      isSocialLink: req?.body?.isSocialLink,
     });
 
     link.author = req.user._id;
@@ -38,9 +40,26 @@ router.post("/", verify, async (req, res) => {
 // retrieve links
 router.get("/", verify, async (req, res) => {
   try {
-    const links = await Link.find({ author: req.user._id }).sort('order');
 
-    return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: links });
+    const allLinks = await Link.find({ author: req.user._id }).sort('order');
+
+    const socialLinks = [];
+    const links = [];
+
+    allLinks.forEach((link) => {
+      if (link.isSocialLink === true) {
+        socialLinks.push(link)
+      } else {
+        links.push(link)
+      }
+    });
+
+    const data = {
+      socialLinks,
+      links
+    }
+
+    return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: data });
   } catch (err) {
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
@@ -67,7 +86,8 @@ router.put('/reorder', verify, async (req, res) => {
 // Update link
 router.put("/link/:linkid", verify, async (req, res) => {
   try {
-    let update = {};
+    let update = {
+    };
 
     if (req.body.url) {
       update.url = req.body.url;
@@ -83,6 +103,10 @@ router.put("/link/:linkid", verify, async (req, res) => {
 
     if (req.body.color) {
       update.color = req.body.color;
+    }
+
+    if (req.body.isSocialLink !== undefined) {
+      update.isSocialLink = req.body.isSocialLink;
     }
 
     const link = await Link.findOneAndUpdate(

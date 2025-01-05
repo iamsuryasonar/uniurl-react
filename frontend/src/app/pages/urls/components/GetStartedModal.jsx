@@ -46,7 +46,7 @@ function GetStartedModal({ elementRef, urlsinfo }) {
             <Transition in={menu} timeout={100}>
                 {(state) => (
                     <div className={`fixed sm:top-0 right-0 bottom-0 left-0 flex justify-center items-center transition-transform transform ease-in-out duration-700 ${state === 'entered' ? 'translate-y-0 ' : 'translate-y-full '}`}>
-                        <div className='bg-white text-black shadow-lg max-w-2xl w-full sm:w-auto rounded-t-lg sm:rounded-xl p-4 flex flex-col gap-4'>
+                        <div className='bg-white text-black shadow-lg sm:max-w-[400px] w-full rounded-t-lg sm:rounded-xl p-4 flex flex-col gap-4'>
                             <div className='w-full flex flex-row justify-between items-center'>
                                 <p className='text-md font-bold'>Welcome to Uniurl</p>
                                 <div onClick={() => setMenu(false)} className='hover:bg-slate-200 p-2 grid place-content-center cursor-pointer'>

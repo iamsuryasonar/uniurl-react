@@ -15,6 +15,7 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
     const selectDivRef = useRef(null);
     const [color, setColor] = useColor(urlData?.color || '#ffffff');
     const [isSelectMenu, setSelectMenu] = useState(false);
+    const [isSocialLink, setIsSocialLink] = useState(urlData?.isSocialLink || false);
 
     const [selectedIcon, setSelectedIcon] = useState({
         name: ICON_ARRAY.filter((item) => {
@@ -29,7 +30,6 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
         'title': urlData?.title || '',
         'url': urlData?.url || '',
     });
-
 
     useEffect(() => { // this effect handles onClick outside of the custom select option
         const handleClickOutside = (event) => {
@@ -68,7 +68,8 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
             return;
         }
 
-        const body = { ...inputValue, icon: selectedIcon?.icon, color: color?.hex }
+        const body = { ...inputValue, icon: selectedIcon?.icon, color: color?.hex, isSocialLink }
+
         if (type === 'EDIT') {
             body._id = urlData._id;
         }
@@ -203,6 +204,15 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                             required
                             onChange={onChangeHandler}
                         />
+                    </div>
+                    <div className='flex gap-2 p-2 border-[1px] border-slate-800 rounded-sm'>
+                        <input
+                            id="social link"
+                            className='w-5 cursor-pointer'
+                            type="checkbox"
+                            checked={isSocialLink}
+                            onChange={(e) => setIsSocialLink(e.target.checked)}></input>
+                        <label className='w-full cursor-pointer' htmlFor="social link">Social link</label>
                     </div>
                     <Button className='text-white border border-white hover:bg-white hover:text-black px-4 py-1 rounded-full transition-colors duration-300' onClick={submitHandler} label={`${type === 'ADD' ? 'Add' : 'Update'}`} />
                 </div >
