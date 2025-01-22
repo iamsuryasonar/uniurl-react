@@ -144,7 +144,7 @@ function RegisterPage() {
                                 }} />
                         </div>
                     </div>
-                    {loading ? <Button className='text-black bg-black border border-white rounded-full px-3 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 border-black hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
+                    {loading ? <Button className='text-white bg-black border border-white rounded-full px-3 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 border-black hover:border-black hover:bg-white hover:text-black' onClick={registerHandler} label='Sign Up' />}
                     <div className='w-full h-[1px] my-2 bg-slate-600'>  </div>
                     <p className='place-self-center'>Already have a user?</p>
                     <Link to="/user/login" className='text-black text-nowrap flex items-center justify-center gap-2 bg-transparent px-5 py-1 rounded-full border border-1 border-slate-300 hover:border-black hover:bg-black hover:text-white cursor-pointer'>Sign in</Link>

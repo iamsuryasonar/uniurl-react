@@ -129,7 +129,7 @@ function LogInPage() {
                                 icon={showPassword ? faEye : faEyeSlash} />
                         </div>
                     </div>
-                    {loading ? <Button className='text-black bg-black rounded-full border border-slate-300 px-4 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 border-black hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Sign In' />}
+                    {loading ? <Button className='text-white bg-black rounded-full border border-slate-300 px-4 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 border-black hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Sign In' />}
                     <div className='flex flex-col'>
                         <button className='cursor-pointer text-slate-500 hover:text-black place-self-end' onClick={forgotpassword_handler}>Reset password?</button>
                         <button
