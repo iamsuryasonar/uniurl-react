@@ -19,7 +19,7 @@ function App() {
     height: '100vh',
     width: '100%',
     fontSize: '80px',
-    backgroundColor: '#0f172a',
+    backgroundColor: 'white',
     color: 'white',
   };
 

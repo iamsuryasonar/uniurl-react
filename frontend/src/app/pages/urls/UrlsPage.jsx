@@ -33,7 +33,7 @@ function UrlsPage() {
             <div className={s.line_container}>
                 <div className={s.moving_gradient}></div>
             </div>
-            <div className='w-full h-svh bg-slate-900'></div>
+            <div className='w-full h-svh bg-slate-50'></div>
         </>
     }
 

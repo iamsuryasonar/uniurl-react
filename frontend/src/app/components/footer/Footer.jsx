@@ -7,7 +7,7 @@ function Footer() {
 
     return (
         <>
-            <section className="bg-[#040C18]">
+            <section className="bg-slate-50">
                 <div className="max-w-screen-xl px-4 pt-6 mx-auto overflow-hidden sm:px-6 lg:px-8">
                     <>
                         {

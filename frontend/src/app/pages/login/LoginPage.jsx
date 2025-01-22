@@ -80,17 +80,17 @@ function LogInPage() {
 
     return (
         <>
-            <div className='w-full max-w-[450px] flex justify-center items-center place-self-center m-auto py-14 relative text-white'>
-                <form className='w-full flex flex-col justify-between gap-2' onClick={(e) => e.preventDefault()}>
+            <div className='w-full max-w-[450px] flex justify-center items-center place-self-center m-auto py-14 relative text-black'>
+                <form className='w-full flex flex-col justify-between gap-2 p-4 border-[1px] border-slate-300 rounded-xl' onClick={(e) => e.preventDefault()}>
                     <p className='text-2xl font-extrabold font-sans'>Sign In</p>
                     <div>
                         <div className='flex items-center justify-between text-sm'>
-                            <label htmlFor="email" className="text-slate-300">Email</label>
+                            <label htmlFor="email" className="text-black">Email</label>
                             {errors.email && <p className='text-red-500'>{errors.email}</p>}
                         </div>
                         <input
                             id='email'
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-300 w-full '
                             placeholder="Email"
                             type="email"
                             name="email"
@@ -102,7 +102,7 @@ function LogInPage() {
                     </div>
                     <div>
                         <div className='flex items-center justify-between text-sm'>
-                            <label htmlFor="password" className="text-sm text-slate-300">Password</label>
+                            <label htmlFor="password" className="text-sm text-black">Password</label>
                             {errors.password && <p className='text-red-500'>{errors.password}</p>}
                         </div>
                         <div className='relative flex  flex-col justify-center'>
@@ -116,7 +116,7 @@ function LogInPage() {
                                 value={input.password}
                                 placeholder="Password"
                                 aria-label="Password"
-                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-white w-full '
+                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 pr-8 border-slate-300 w-full '
                             ></input>
                             <FontAwesomeIcon className='absolute cursor-pointer right-2'
                                 onClick={() => { setShowPassword(!showPassword) }}
@@ -129,17 +129,17 @@ function LogInPage() {
                                 icon={showPassword ? faEye : faEyeSlash} />
                         </div>
                     </div>
-                    {loading ? <Button className='text-white bg-black rounded-full border border-white px-4 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Sign In' />}
+                    {loading ? <Button className='text-black bg-black rounded-full border border-slate-300 px-4 py-1 min-w-24' label={<FontAwesomeIcon icon={faSpinner} spinPulse />} /> : <Button className='text-white text-nowrap bg-black px-3 py-1 rounded-full border border-1 border-black hover:border-black hover:bg-white hover:text-black' onClick={logInHandler} label='Sign In' />}
                     <div className='flex flex-col'>
-                        <button className='cursor-pointer text-slate-400 hover:text-white place-self-end' onClick={forgotpassword_handler}>Reset password?</button>
+                        <button className='cursor-pointer text-slate-500 hover:text-black place-self-end' onClick={forgotpassword_handler}>Reset password?</button>
                         <button
-                            className="cursor-pointer text-slate-400 hover:text-white place-self-end"
+                            className="cursor-pointer text-slate-500 hover:text-black place-self-end"
                             onClick={handleDemoUserLogIn}>Sign in as demo user
                         </button>
                     </div>
                     <div className='w-full h-[1px] bg-slate-600'>  </div>
                     <p className='place-self-center'>Don't have an account?</p>
-                    <Link to="/user/register" className='text-white text-nowrap flex items-center justify-center gap-2 bg-transparent px-5 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black cursor-pointer'>Sign up</Link>
+                    <Link to="/user/register" className='text-black text-nowrap flex items-center justify-center gap-2 bg-transparent px-5 py-1 rounded-full border border-1 border-slate-300 hover:border-black hover:bg-black hover:text-white cursor-pointer'>Sign up</Link>
                     <div className='flex items-center'>
                         <div className='w-full h-[1px] bg-slate-600'>  </div>
                         <p className='px-[10px]'>or</p>
@@ -148,8 +148,8 @@ function LogInPage() {
                     <GoogleLogInButton />
                 </form>
                 {forgotpassword && (
-                    <form className='bg-[#040C18] absolute top-0 left-0 bottom-0 right-0 flex flex-col z-10'>
-                        <div className='w-full p-6'>
+                    <form className='bg-white absolute top-0 left-0 bottom-0 right-0 flex flex-col z-10'>
+                        <div className='w-full p-6 slate-50 shadow-md rounded-xl'>
                             <p className='my-5 text-2xl'>Reset password</p>
                             <input
                                 placeholder="Email"
@@ -158,11 +158,11 @@ function LogInPage() {
                                 autoComplete="off"
                                 required
                                 aria-label="Email"
-                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
+                                className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-300 w-full '
                             />
                             <div className='flex justify-between mt-6'>
-                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' onClick={forgotpassword_handler} label='Cancel' />
-                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 hover:border-white hover:bg-white hover:text-black' label='Send Email' onClick={sendEmailHandler} />
+                                <Button className='text-black bg-transparent px-4 py-1 rounded-full border border-1 border-slate-300 hover:border-black' onClick={forgotpassword_handler} label='Cancel' />
+                                <Button className='text-white bg-black px-4 py-1 rounded-full border border-1 border-black hover:bg-white hover:text-black' label='Send Email' onClick={sendEmailHandler} />
                             </div>
                         </div >
                     </form >

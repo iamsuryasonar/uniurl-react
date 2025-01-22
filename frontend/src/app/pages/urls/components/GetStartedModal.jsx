@@ -49,8 +49,8 @@ function GetStartedModal({ elementRef, urlsinfo }) {
                         <div className='bg-white text-black shadow-lg sm:max-w-[400px] w-full rounded-t-lg sm:rounded-xl p-4 flex flex-col gap-4'>
                             <div className='w-full flex flex-row justify-between items-center'>
                                 <p className='text-md font-bold'>Welcome to Uniurl</p>
-                                <div onClick={() => setMenu(false)} className='hover:bg-slate-200 p-2 grid place-content-center cursor-pointer'>
-                                    <FontAwesomeIcon className='text-2xl ' icon='fas fa-xmark' />
+                                <div onClick={() => setMenu(false)} className='hover:bg-slate-200 p-2 grid place-content-center cursor-pointer w-[34px] aspect-square rounded-full'>
+                                    <FontAwesomeIcon className='text-xl' icon='fas fa-xmark' />
                                 </div>
                             </div>
                             <SocialShareCard username={urlsinfo?.username || ''} />

@@ -18,7 +18,7 @@ function GoogleLogInPage() {
   }
 
   return (
-    <div className='w-full min-h-screen flex items-center justify-center text-white text-3xl font-bold animate-pulse'>Authenticating please wait...</div>
+    <div className='w-full min-h-screen flex items-center justify-center text-black text-3xl font-bold animate-pulse'>Authenticating please wait...</div>
   )
 }
 

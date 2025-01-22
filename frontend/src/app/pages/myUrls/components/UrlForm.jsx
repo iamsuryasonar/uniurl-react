@@ -90,9 +90,9 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
     }
 
     return (
-        <div className='z-40 fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center'>
+        <div className='z-40 fixed inset-0 bg-black/50 text-white backdrop-blur-sm flex justify-center items-center'>
             <div className='w-full m-4 flex justify-center items-center'>
-                <div className='relative max-w-2xl w-full max-h-[80svh] h-full overflow-auto flex flex-col p-6 gap-4 text-white border-[1px] border-slate-700 rounded-lg'>
+                <div className='relative max-w-2xl w-full max-h-[80svh] h-full overflow-auto flex flex-col p-6 gap-4 text-white border-[1px] border-slate-300 rounded-lg'>
                     <div className='flex justify-between items-center'>
                         <p className='font-bold'>{`${type === 'ADD' ? 'Add Url' : "Edit Url"}`}</p>
                         <button onClick={() => setShowMenu(false)} className='w-[34px] aspect-square bg-white text-black rounded-full border-[1px] border-transparent hover:bg-transparent hover:text-white hover:border-white'>
@@ -100,8 +100,8 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                         </button>
                     </div>
                     <div>
-                        <label htmlFor="icon" className="text-sm text-slate-300">Icon</label>
-                        <div id='icon' ref={selectDivRef} className="relative w-full bg-[#040C18]"
+                        <label htmlFor="icon" className="text-sm ">Icon</label>
+                        <div id='icon' ref={selectDivRef} className="relative w-full"
                             tabIndex={0}
                             aria-label='Select icon'
                             onKeyDown={
@@ -112,7 +112,7 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                                 }}>
                             <button
                                 onClick={() => { setSelectMenu(!isSelectMenu) }}
-                                className="border-[1px] bg-[#040C18] rounded-sm h-10 p-2 border-white w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
+                                className="border-[1px] rounded-sm h-10 p-2 border-slate-300 w-full  flex items-center justify-between pl-3 pr-2 focus:outline-none">
                                 <span className="text-sm leading-none">
                                     {selectedIcon?.name ?
                                         selectedIcon?.name
@@ -121,14 +121,14 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                                 </span>
                                 {
                                     isSelectMenu ?
-                                        <FontAwesomeIcon className=' text-white' icon='fas fa-chevron-up' />
+                                        <FontAwesomeIcon className=' ' icon='fas fa-chevron-up' />
                                         :
-                                        <FontAwesomeIcon className=' text-white' icon='fas fa-chevron-down' />
+                                        <FontAwesomeIcon className=' ' icon='fas fa-chevron-down' />
                                 }
                             </button>
                             {
                                 isSelectMenu &&
-                                <div className="h-80 rounded-sm overflow-auto overscroll-none absolute flex flex-col w-full mt-1 bg-[#040C18] z-20">
+                                <div className="h-80 rounded-sm overflow-auto overscroll-none absolute flex flex-col w-full mt-1 bg-slate-50 z-20">
                                     <div onClick={
                                         () => {
                                             setSelectedIcon({
@@ -137,7 +137,7 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                                             });
                                             setSelectMenu(false)
                                         }}
-                                        className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-900 cursor-pointer  ${selectedIcon.icon === '' ? 'bg-gray-900' : 'bg-slate-950'}`}>
+                                        className={`flex items-center gap-3 px-4 py-1 hover:bg-slate-200 cursor-pointer text-black ${selectedIcon.icon === '' ? 'bg-white' : 'bg-slate-200'}`}>
                                         <p>select icon...</p>
                                     </div>
                                     {
@@ -163,8 +163,8 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                                                     }}
                                                 tabIndex={0}
                                                 aria-selected={selectedIcon.icon === item.icon ? 'true' : 'false'}
-                                                className={`flex items-center gap-3 px-4 py-1 hover:bg-gray-800 cursor-pointer  ${selectedIcon.icon === item.icon ? 'bg-gray-800' : 'bg-slate-950'}`}>
-                                                <FontAwesomeIcon className='w-6 h-6 text-white' icon={item?.icon} />
+                                                className={`flex items-center gap-3 px-4 py-1 hover:bg-slate-200 cursor-pointer text-black ${selectedIcon.icon === item.icon ? 'bg-white' : 'bg-slate-50'}`}>
+                                                <FontAwesomeIcon className='w-6 h-6 text-gray-700' icon={item?.icon} />
                                                 <p>{item.name}</p>
                                             </div>
                                         })
@@ -174,10 +174,10 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="title" className="text-sm text-slate-300">Title</label>
+                        <label htmlFor="title" className="text-sm ">Title</label>
                         <input
                             id='title'
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-300 w-full'
                             placeholder="eg. Follow me on facebook"
                             type="title"
                             name="title"
@@ -193,10 +193,10 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                     </div>
 
                     <div>
-                        <label htmlFor="url" className="text-sm text-slate-300">Url</label>
+                        <label htmlFor="url" className="text-sm">Url</label>
                         <input
                             id='url'
-                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-white w-full '
+                            className='border-[1px] bg-transparent rounded-sm h-10 p-2 border-slate-300 w-full '
                             placeholder="eg. www.example.com"
                             type="url"
                             name="url"
@@ -205,7 +205,7 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                             onChange={onChangeHandler}
                         />
                     </div>
-                    <div className='flex gap-2 p-2 border-[1px] border-slate-800 rounded-sm'>
+                    <div className='flex gap-2 p-2 border-[1px] border-slate-300 rounded-sm'>
                         <input
                             id="social link"
                             className='w-5 cursor-pointer'
@@ -214,7 +214,7 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
                             onChange={(e) => setIsSocialLink(e.target.checked)}></input>
                         <label className='w-full cursor-pointer' htmlFor="social link">Social link</label>
                     </div>
-                    <Button className='text-white border border-white hover:bg-white hover:text-black px-4 py-1 rounded-full transition-colors duration-300' onClick={submitHandler} label={`${type === 'ADD' ? 'Add' : 'Update'}`} />
+                    <Button className='bg-slate-50 text-black hover:bg-black hover:text-white px-4 py-1 rounded-full transition-colors duration-300 shadow-md' onClick={submitHandler} label={`${type === 'ADD' ? 'Add' : 'Update'}`} />
                 </div >
             </div>
         </div >

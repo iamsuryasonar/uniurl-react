@@ -16,7 +16,7 @@ function MySocialUrlCard({ urlData, onDelete }) {
                 value={urlData}
                 id={_id}
                 dragListener={true}
-                className='my-4 bg-[#171717] text-white group hover:bg-slate-200 hover:text-black w-full px-4 py-2 rounded-lg flex flex-row justify-between items-center gap-1 select-none'
+                className='my-4 bg-slate-50 text-black group hover:bg-slate-200 hover:text-black w-full px-4 py-2 rounded-lg flex flex-row justify-between items-center gap-1 select-none'
             >
                 <a href={url} target='_blank' rel='noopener' className={`w-full cursor-pointer`} tabIndex={0} aria-label={`${title} url`}>
                     <div className={`w-full flex flex-row justify-between items-center cursor-pointer`}>

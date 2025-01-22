@@ -18,12 +18,12 @@ function MyUrlCard({ urlData, onDelete }) {
                 id={_id}
                 dragListener={false}
                 dragControls={controls}
-                className='my-4 bg-[#171717] text-white group hover:bg-slate-400 hover:text-black w-full pr-4 py-2 rounded-lg flex flex-row justify-between items-center gap-1 select-none'
+                className='my-4 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-black group  w-full pr-4 py-2 rounded-lg flex flex-row justify-between items-center gap-1 select-none shadow-md'
             >
                 <FontAwesomeIcon icon={faGripVertical} className='p-[16px] cursor-grab touch-none' size='lg' onPointerDown={(e) => controls.start(e)} />
                 <a href={url} target='_blank' rel='noopener' className={`w-full cursor-pointer`} tabIndex={0} aria-label={`${title} url`}>
                     <div className={`w-full flex flex-row justify-between items-center cursor-pointer`}>
-                        {urlData?.icon && <FontAwesomeIcon style={{ color: urlData?.color }} className='w-6 h-6 p-2 rounded-full aspect-square text-2xl border-[1px] border-white group-hover:border-black' icon={urlData?.icon} />}
+                        {urlData?.icon && <FontAwesomeIcon style={{ color: urlData?.color }} className='w-6 h-6 p-2 rounded-full aspect-square text-2xl border-[1px] border-slate-400' icon={urlData?.icon} />}
                         <p className='flex items-center gap-2 text-xl px-1 text-center'>
                             {title}
                         </p>

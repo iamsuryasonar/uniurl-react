@@ -1,14 +1,14 @@
-import image from '../../../assets/home_screen_main_image.png'
 import { Link } from "react-router-dom";
+import image from '../../../assets/home_screen_main_image.webp'
 
 function Header() {
     return (
         <div className="flex flex-col md:flex-row items-center py-2 md:py-[4rem]" id="home">
-            <div className="flex-1 flex justify-center items-start gap-4 flex-col mr-2 text-[#81AFDD]">
-                <h1 className="gradient_text text-5xl  font-bold">Simplify URL Sharing with Uniurl</h1>
-                <p>Our intuitive interface makes sharing URLs effortless. Simply select a theme, input the URL, add your username, and share instantly. It's that simple!</p>
-                <div className="w-full text-white flex flex-row no-wrap">
-                    <Link to='/user/register' className={`bg-[#FF4820] hover:bg-white hover:text-black font-bold px-4 py-1 rounded-full transition-colors duration-300`}>Get Started</Link>
+            <div className="flex-1 flex justify-center items-start gap-4 flex-col mr-2 text-black">
+                <h1 className="text-5xl font-extrabold text-balance">Simplify URL Sharing with Uniurl</h1>
+                <p className='text-slate-600'>Our intuitive interface makes sharing URLs effortless. Simply select a theme, input the URL, add your username, and share instantly. It's that simple!</p>
+                <div className="w-full text-black flex flex-row no-wrap">
+                    <Link to='/user/register' className={`bg-[#FF4820] text-white border-[1px] border-[#FF4820]  hover:bg-white hover:text-black font-bold px-4 py-1 rounded-full transition-colors duration-300`}>Get Started</Link>
                 </div>
             </div>
             <div className="flex-1 flex justify-center items-center">
@@ -17,6 +17,5 @@ function Header() {
         </div>
     )
 }
-
 
 export default Header;

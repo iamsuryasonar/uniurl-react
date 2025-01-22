@@ -42,7 +42,7 @@ function SocialShareCard({ username }) {
 
     return <>
         <button
-            className='w-full flex gap-2 justify-center items-center border-[1px] border-slate-300 hover:border-slate-800 rounded-full py-1 px-4'
+            className='w-full flex gap-2 justify-center items-center border-[1px] border-slate-300 hover:border-slate-600 rounded-full py-1 px-4'
             onClick={() => copyToClipboard(username)}>
             <FontAwesomeIcon icon={faLink} />
             <span>Copy link</span>
