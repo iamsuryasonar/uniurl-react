@@ -1,6 +1,6 @@
 export const APP_NAME = 'UniURL';
 export const LOCAL_STORAGE_NAME = 'uniurl_user_local_storage';
-const API_URL = (process.env.NODE_ENV === 'developmanet') ? process.env.REACT_APP_BASE_URL : 'http://localhost:3005'
+const API_URL = (process.env.NODE_ENV === 'production') ? process.env.REACT_APP_BASE_URL : 'http://localhost:3005'
 
 export const API_URL_PROFILE = API_URL + "/api/profile/";
 export const API_URL_AUTH = API_URL + "/api/user/";
