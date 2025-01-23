@@ -3,7 +3,7 @@ import image from '../../../assets/home_screen_main_image.webp'
 
 function Header() {
     return (
-        <div className="flex flex-col md:flex-row items-center py-2 md:py-[4rem]" id="home">
+        <div className="h-full grid grid-cols-[auto] md:grid-cols-[1fr_1fr] items-center py-2 md:py-[4rem]" id="home">
             <div className="flex-1 flex justify-center items-start gap-4 flex-col mr-2 text-black">
                 <h1 className="text-5xl font-extrabold text-balance">Simplify URL Sharing with Uniurl</h1>
                 <p className='text-slate-600'>Our intuitive interface makes sharing URLs effortless. Simply select a theme, input the URL, add your username, and share instantly. It's that simple!</p>
@@ -12,7 +12,7 @@ function Header() {
                 </div>
             </div>
             <div className="flex-1 flex justify-center items-center">
-                <img src={image} alt='banner' />
+                <img src={image} className=" max-h-[400px]" alt='banner' />
             </div>
         </div>
     )

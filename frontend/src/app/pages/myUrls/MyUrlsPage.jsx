@@ -125,7 +125,7 @@ function MyUrlPage() {
                     reorderedAffiliateUrls?.length > 0 && <>
                         <p className='text-black font-bold text-xl'>Affiliate links</p>
                         {
-                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-200 rounded-lg' axis="y" onReorder={setReorderedIconUrls} values={reorderedIconUrls} >
+                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-200 rounded-lg' axis="y" onReorder={setReorderedAffiliateUrls} values={reorderedAffiliateUrls} >
                                 {
                                     reorderedAffiliateUrls.map((url) => {
                                         return (

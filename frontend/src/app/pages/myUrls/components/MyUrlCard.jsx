@@ -26,11 +26,13 @@ function MyUrlCard({ urlData, onDelete }) {
                 <FontAwesomeIcon icon={faGripVertical} className='p-[12px] cursor-grab touch-none' size='lg' onPointerDown={(e) => controls.start(e)} />
                 <div className={`w-full h-full overflow-hidden cursor-pointer`}>
                     <div className={`h-full flex justify-between items-center`}>
-                        {(urlData?.type === URL_TYPE.ICON_LINK || urlData?.type === URL_TYPE.SOCIAL_LINK) && urlData?.icon && <FontAwesomeIcon style={{ color: urlData?.color }} className='w-6 h-6 p-2 rounded-full aspect-square text-2xl border-[1px] border-slate-400' icon={urlData?.icon} />}
-                        {urlData?.type === URL_TYPE.AFFILIATE_LINK && urlData?.image && <img style={{ color: urlData?.color }} className='w-[40px] aspect-square' src={urlData?.image.url} />}
-                        <a href={url} target='_blank' rel='noopener' className='w-full text-base px-1 text-center text-wrap break-words whitespace-normal overflow-hidden'>
-                            {title}
-                        </a>
+                        <div className='w-full grid grid-cols-[auto_1fr] justify-center items-center'>
+                            {(urlData?.type === URL_TYPE.ICON_LINK || urlData?.type === URL_TYPE.SOCIAL_LINK) && urlData?.icon && <FontAwesomeIcon style={{ color: urlData?.color }} className='w-6 h-6 p-2 rounded-full aspect-square text-2xl border-[1px] border-slate-400' icon={urlData?.icon} />}
+                            {urlData?.type === URL_TYPE.AFFILIATE_LINK && urlData?.image && <img style={{ color: urlData?.color }} className='w-[100px] h-full aspect-square object-cover' src={urlData?.image.url} />}
+                            <a href={url} target='_blank' rel='noopener' className='w-full text-base px-1 text-center text-wrap break-words whitespace-normal overflow-hidden'>
+                                {title}
+                            </a>
+                        </div>
                         <div className='flex gap-1 justify-center items-center'>
                             <button className='flex items-center' onClick={(e) => {
                                 e.preventDefault();

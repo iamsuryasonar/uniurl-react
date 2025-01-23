@@ -119,16 +119,16 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
     }
 
     return (
-        <div className='z-40 fixed inset-0 bg-black/50 text-white backdrop-blur-sm flex justify-center items-center'>
-            <div className='w-full m-4 flex justify-center items-center'>
-                <div className='relative max-w-2xl w-full max-h-[80svh] h-full overflow-auto flex flex-col p-6 gap-4 text-white border-[1px] border-slate-300 rounded-lg'>
-                    <div className='flex justify-between items-center'>
-                        <p className='font-bold'>{`${type === 'ADD' ? 'Add Url' : "Edit Url"}`}</p>
-                        <button onClick={() => setShowMenu(false)} className='w-[34px] aspect-square bg-white text-black rounded-full border-[1px] border-transparent hover:bg-transparent hover:text-white hover:border-white'>
-                            <FontAwesomeIcon icon={faClose} size={'lg'} />
-                        </button>
-                    </div>
-                    <div>
+        <div className='z-40 fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center'>
+            <div className='relative max-w-2xl w-full m-4 bg-white text-black border-[1px] border-slate-300 rounded-lg overflow-clip'>
+                <div className='p-2 px-4 sticky top-0 flex justify-between items-center bg-slate-50'>
+                    <p className='font-bold'>{`${type === 'ADD' ? 'Add Url' : "Edit Url"}`}</p>
+                    <button onClick={() => setShowMenu(false)} className='w-[34px] aspect-square text-black border-slate-300 rounded-full border-[1px] hover:bg-slate-100 hover:text-black hover:border-black'>
+                        <FontAwesomeIcon icon={faClose} size={'lg'} />
+                    </button>
+                </div>
+                <div className='relative w-full px-4 pt-2 pb-6  max-h-[80svh] h-full overflow-auto overscroll-contain flex flex-col gap-2'>
+                    <div className=''>
                         <label htmlFor="link types" className="text-sm ">Link type</label>
                         <div id="link types" className='flex flex-col gap-2 p-2 border-[1px] border-slate-300 rounded-sm'>
                             <div className='flex gap-2 p-2 border-[1px] border-slate-400 rounded-sm'>

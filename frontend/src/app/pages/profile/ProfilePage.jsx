@@ -200,7 +200,7 @@ const ProfilePage = () => {
             </div>
             {
                 showLogoutDialog && <div className='z-40 fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center'>
-                    <div className='w-[350px] m-6 p-4 text-white flex flex-col justify-center items-center gap-4 border-[1px] border-slate-300 rounded-lg'>
+                    <div className='w-[350px] m-6 p-4 bg-white text-black flex flex-col justify-center items-center gap-4 border-[1px] border-slate-300 rounded-lg'>
                         <p className='text-xl font-bold'>Are you sure you want to log out?</p>
                         <div className='w-full flex justify-between gap-2'>
                             <button
