@@ -24,10 +24,6 @@ function UrlsPage() {
 
     const urlsinfo = useSelector(urlsState);
 
-    const onCardClicked = (url) => {
-        window.open(url, '_blank', 'noreferrer');
-    }
-
     if (loading) {
         return <>
             <div className={s.line_container}>
@@ -51,12 +47,12 @@ function UrlsPage() {
     return (
         <>
             <div style={urlsinfo?.theme.page_container}>
-                <div className={`min-h-screen max-w-lg m-auto flex flex-col p-4 gap-4`}>
+                <div className={`min-h-screen max-w-lg m-auto flex flex-col p-3 gap-4`}>
                     {urlsinfo ?
                         <div className='w-full relative flex flex-col justify-center'>
                             <GetStartedModal elementRef={elementRef} urlsinfo={urlsinfo} />
                             <div className={`flex items-center flex-col gap-4 py-10 pb-6`}>
-                                <div style={urlsinfo?.theme.profile_picture_wrapper} className={`w-28 h-28 aspect-square rounded-full overflow-hidden `}>
+                                <div style={urlsinfo?.theme.profile_picture_wrapper} className={`w-[140px] h-[140px] aspect-square rounded-full overflow-hidden `}>
                                     <img alt='user profile' src={urlsinfo?.picture?.url ? urlsinfo?.picture?.url : avatar} className='w-full h-full rounded-full  object-cover' />
                                 </div>
                                 <div className='flex flex-col items-center'>
@@ -78,11 +74,20 @@ function UrlsPage() {
                                     }) : <></>
                                 }
                             </div>
+                            <div className='flex flex-col items-center gap-4 pb-[50px]'>
+                                {
+                                    urlsinfo && urlsinfo?.iconLinks.length > 0 ? urlsinfo?.iconLinks.map((item) => {
+                                        return (
+                                            <UrlCard urlData={item} key={item['_id']} theme={urlsinfo?.theme} />
+                                        )
+                                    }) : <p className='text-slate-500'> {'Urls not added by ' + urlsinfo?.username}</p>
+                                }
+                            </div>
                             <div className='flex flex-col items-center gap-4 pb-[80px]'>
                                 {
-                                    urlsinfo && urlsinfo?.links.length > 0 ? urlsinfo?.links.map((item) => {
+                                    urlsinfo && urlsinfo?.affiliateLinks.length > 0 ? urlsinfo?.affiliateLinks.map((item) => {
                                         return (
-                                            <UrlCard urlData={item} onClick={onCardClicked} key={item['_id']} theme={urlsinfo?.theme} />
+                                            <UrlCard urlData={item} key={item['_id']} theme={urlsinfo?.theme} />
                                         )
                                     }) : <p className='text-slate-500'> {'Urls not added by ' + urlsinfo?.username}</p>
                                 }

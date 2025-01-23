@@ -8,6 +8,14 @@ const getheaders = () => {
     return { headers }
 }
 
+const getMultipartheaders = () => {
+    const headers = {
+        "Accept": "*/*",
+        'Content-Type': 'multipart/form-data',
+    }
+    return { headers }
+}
+
 const getAllUrl = () => {
     return privateFetch
         .get(API_URL_MY_URL, getheaders())
@@ -17,9 +25,15 @@ const getAllUrl = () => {
 }
 
 const createNewUrl = (body) => {
+    const formData = new FormData();
+
+    Object.keys(body).forEach(key => {
+        formData.append(key, body[key]);
+    });
+
     return privateFetch
         .post(
-            API_URL_MY_URL, body, getheaders()
+            API_URL_MY_URL, formData, getMultipartheaders()
         )
         .then((response) => {
             return response.data;
@@ -27,9 +41,15 @@ const createNewUrl = (body) => {
 }
 
 const updateUrl = (body) => {
+    const formData = new FormData();
+
+    Object.keys(body).forEach(key => {
+        formData.append(key, body[key]);
+    });
+
     return privateFetch
         .put(
-            API_URL_MY_URL + "link/" + body._id, body, getheaders()
+            API_URL_MY_URL + "link/" + body._id, formData, getMultipartheaders()
         )
         .then((response) => {
             return response.data;

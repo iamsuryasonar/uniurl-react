@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { URL_TYPE } = require("../constants/constant");
 const User = require("../model/User");
 const { redis } = require('../services/redis');
 let themes = require('../themeData.json');
@@ -37,18 +38,23 @@ router.get("/:username", async (req, res) => {
         result[0].theme = themes[`${result[0].theme}`];
 
         const socialLinks = [];
-        const links = [];
+        const affiliateLinks = [];
+        const iconLinks = [];
 
         result[0]?.links.forEach((link) => {
-            if (link.isSocialLink === true) {
+            if (link.type === URL_TYPE.SOCIAL_LINK) {
                 socialLinks.push(link)
+            } else if (link.type === URL_TYPE.AFFILIATE_LINK) {
+                affiliateLinks.push(link)
             } else {
-                links.push(link)
+                iconLinks.push(link)
             }
         });
 
-        result[0].links = links;
         result[0].socialLinks = socialLinks;
+        result[0].iconLinks = iconLinks;
+        result[0].affiliateLinks = affiliateLinks;
+        delete result[0].links;
 
         redis.set('userlink:' + req.params.username, JSON.stringify(result[0]), "EX", 10 * 24 * 3600); // in seconds
 

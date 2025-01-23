@@ -3,17 +3,44 @@ const { verify } = require("../middleware/verifyToken");
 const Link = require("../model/Link");
 const { redis } = require('../services/redis');
 const { validateUrlWithFix } = require('../utility');
+const sharp = require('sharp');
+const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
+const { URL_TYPE } = require("../constants/constant");
 
 // add link
-router.post("/", verify, async (req, res) => {
+router.post("/", verify, upload.fields([{ name: 'image', maxCount: 1 }]), async (req, res) => {
   try {
 
     if (!req.body.url) return res.status(400).json({ success: false, message: 'url required' });
     if (!req.body.title) return res.status(400).json({ success: false, message: 'title required' });
-    if (req.body.isSocialLink && !req.body.icon) return res.status(400).json({ success: false, message: 'icon required for social links' });
+    if (req.body?.type === URL_TYPE.SOCIAL_LINK && !req.body.icon) return res.status(400).json({ success: false, message: 'icon required for social links' });
+    if (req.body?.type === URL_TYPE.AFFILIATE_LINK && !req?.files['image'][0]) return res.status(400).json({ success: false, message: 'image required for affiliate links' });
 
     let url = validateUrlWithFix(req.body.url);
     if (!url) return res.status(400).json({ success: false, message: 'Invalid url' });
+
+    let picture;
+
+    console.log(req?.files['image'])
+
+    if ((req.body?.type === URL_TYPE.AFFILIATE_LINK) && req?.files['image'][0]) {
+      let image = req?.files['image'][0];
+
+      let webpImageBuffer = await sharp(image.buffer) // convert to webp with quality 20%
+        .webp([{ near_lossless: true }, { quality: 20 }])
+        .toBuffer();
+
+      let uploadedImageInfo;
+
+      await uploadTos3(webpImageBuffer).then((result) => {
+        uploadedImageInfo = result;
+      });
+
+      picture = {
+        url: uploadedImageInfo.url,
+        fileName: uploadedImageInfo.fileName,
+      }
+    }
 
     const link = new Link({
       url: url,
@@ -21,8 +48,10 @@ router.post("/", verify, async (req, res) => {
       icon: req?.body?.icon,
       color: req?.body?.color,
       order: Number.MAX_SAFE_INTEGER,
-      isSocialLink: req?.body?.isSocialLink,
+      type: req?.body?.type,
     });
+
+    if (picture) link.image = picture;
 
     link.author = req.user._id;
     const savedlink = await link.save();
@@ -44,19 +73,23 @@ router.get("/", verify, async (req, res) => {
     const allLinks = await Link.find({ author: req.user._id }).sort('order');
 
     const socialLinks = [];
-    const links = [];
+    const affiliateLinks = [];
+    const iconLinks = [];
 
     allLinks.forEach((link) => {
-      if (link.isSocialLink === true) {
-        socialLinks.push(link)
+      if (link.type === URL_TYPE.SOCIAL_LINK) {
+        socialLinks.push(link);
+      } else if (link.type === URL_TYPE.AFFILIATE_LINK) {
+        affiliateLinks.push(link);
       } else {
-        links.push(link)
+        iconLinks.push(link);
       }
     });
 
     const data = {
       socialLinks,
-      links
+      affiliateLinks,
+      iconLinks
     }
 
     return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: data });
@@ -84,7 +117,7 @@ router.put('/reorder', verify, async (req, res) => {
 });
 
 // Update link
-router.put("/link/:linkid", verify, async (req, res) => {
+router.put("/link/:linkid", verify, upload.fields([{ name: 'image', maxCount: 1 }]), async (req, res) => {
   try {
     let update = {
     };
@@ -105,11 +138,45 @@ router.put("/link/:linkid", verify, async (req, res) => {
       update.color = req.body.color;
     }
 
-    if (req.body.isSocialLink !== undefined) {
-      update.isSocialLink = req.body.isSocialLink;
+    if (req.body.type) {
+      update.type = req.body.type;
     }
 
-    const link = await Link.findOneAndUpdate(
+    let picture;
+
+    if ((req.body?.type === URL_TYPE.AFFILIATE_LINK) && req?.files['image'] && req?.files['image'][0]) {
+
+      let image = req?.files['image'][0];
+
+      const [webpImageBuffer, links] = await Promise.all([
+        sharp(image.buffer) // convert to webp with quality 20%
+          .webp([{ near_lossless: true }, { quality: 20 }])
+          .toBuffer(),
+        Link.find({
+          _id: req.params.linkid,
+          author: req.user._id,
+        })
+      ])
+
+      let uploadedImageInfo;
+
+      await uploadTos3(webpImageBuffer).then((result) => {
+        uploadedImageInfo = result;
+      });
+
+      if (links[0]?.image && links[0]?.image?.fileName) {
+        await deleteS3Object(links[0]?.image?.fileName);
+      }
+
+      picture = {
+        url: uploadedImageInfo.url,
+        fileName: uploadedImageInfo.fileName,
+      }
+    }
+
+    if (picture) update.image = picture;
+
+    const updatedLink = await Link.findOneAndUpdate(
       {
         _id: req.params.linkid,
         author: req.user._id,
@@ -122,7 +189,7 @@ router.put("/link/:linkid", verify, async (req, res) => {
     // invalidate cache
     redis.del('userlink:' + req.user.username);
 
-    return res.status(200).json({ success: true, message: 'Url updated successfully', data: link });
+    return res.status(200).json({ success: true, message: 'Url updated successfully', data: updatedLink });
   } catch (err) {
     console.log(err)
     return res.status(500).json({ success: false, message: 'Internal server error ' });
@@ -140,6 +207,10 @@ router.delete("/link/:linkid", verify, async (req, res) => {
     });
 
     if (links[0] == undefined) return res.status(404).json({ success: false, message: 'Record not found' });
+
+    if (links[0]?.image && links[0]?.image?.fileName) {
+      await deleteS3Object(links[0]?.image?.fileName);
+    }
 
     if (links[0].author._id.toString() === req.user._id.toString()) {
       let deletedLink = links[0].remove();
