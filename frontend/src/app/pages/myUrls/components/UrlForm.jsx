@@ -45,7 +45,7 @@ function UrlForm({ type, urlData, setShowMenu, onSubmit }) {
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [selectDivRef]);
+    }, [selectDivRef.current]);
 
     const onChangeHandler = (e) => {
         setErrors({})

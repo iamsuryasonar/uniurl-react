@@ -84,7 +84,8 @@ function MyUrlPage() {
                     </div>
                 }
                 {
-                    urls && <div className='w-full p-2 flex place-content-end gap-3 border-[1px] border-slate-200 rounded-lg'>
+                    (reorderedSocialUrls?.length > 0 || reorderedIconUrls?.length > 0 || reorderedAffiliateUrls?.length > 0)
+                    && <div className='w-full p-2 flex place-content-end gap-3 border-[1px] border-slate-200 rounded-lg'>
                         <button onClick={() => setShowAddUrlMenu(true)} className='bg-white text-slate-600 px-5 py-1 rounded-lg text-center font-semibold hover:text-black hover:bg-transparent border-[1px] border-slate-300 hover:border-black shadow-md'>Add</button>
                         {(urls.links?.length > 0 || urls.socialLinks?.length > 0) && <button onClick={onPreview} className='bg-slate-100 text-slate-600 px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-black border-[1px] border-transparent hover:border-white shadow-md'>Preview</button>}
                     </div>
