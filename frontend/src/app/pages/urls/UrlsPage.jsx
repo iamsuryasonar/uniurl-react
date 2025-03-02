@@ -124,6 +124,8 @@ function UrlsPage() {
                                 noImgDetails={true}
                                 noNavbar={true}
                                 showTotal={false}
+                                zoomOnTouch={true}
+                                slideOnTouch={true}
                             />
                         </div>
                         :

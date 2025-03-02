@@ -146,7 +146,8 @@ function MyUrlPage() {
                     </>
                 }
                 {
-                    galleryImages?.length > 0 &&
+                    (reorderedSocialUrls || reorderedIconUrls || reorderedAffiliateUrls)
+                    && galleryImages?.length > 0 &&
                     <>
                         <p className='text-black font-bold text-xl'>Gallery</p>
                         <div className="columns-2 gap-4 w-full p-4 border-[1px] border-slate-200 rounded-lg">
