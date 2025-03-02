@@ -3,7 +3,7 @@ import Header from './components/Header'
 import HowItWorksAndFeatures from './components/HowItWorksAndFeatures';
 import CTA from './components/Cta';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faDollar, faStarOfLife } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faDollar, faHashtag, faImages, faStarOfLife } from '@fortawesome/free-solid-svg-icons'
 import Slider from '../../components/Slider';
 
 function HeroPage() {
@@ -14,9 +14,11 @@ function HeroPage() {
                 <Header />
                 <Slider speed={60} className='w-full bg-black text-white'>
                     <UseCaseItem icon={faStarOfLife} title={'Shout-out Video'} />
+                    <UseCaseItem icon={faHashtag} title={'Social Media'} />
                     <UseCaseItem icon={faArrowRight} title={'Tutorials'} />
                     <UseCaseItem icon={faStarOfLife} title={'Influencer'} />
                     <UseCaseItem icon={faDollar} title={'Affiliation'} />
+                    <UseCaseItem icon={faImages} title={'Gallery'} />
                 </Slider>
                 <HowItWorksAndFeatures />
                 <CTA />

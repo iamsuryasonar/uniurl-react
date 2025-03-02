@@ -2,22 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Reorder } from "framer-motion";
 import { get_my_urls, delete_my_url, reorder_urls, create_my_urls } from '../../store/slices/myUrlSlice';
+import { get_gallery_images, delete_image } from '../../store/slices/galleryImageSlice';
 import { profileState } from '../../store/slices/profileSlice';
 import MyUrlCard from './components/MyUrlCard';
 import UrlForm from './components/UrlForm';
+import ImageForm from './components/ImageForm';
+import Image from '../../components/Image';
 
 function MyUrlPage() {
     const dispatch = useDispatch();
     const urls = useSelector((state) => state.myurl.urls);
+    const galleryImages = useSelector((state) => state.gallery.galleryImages);
     const profileInfo = useSelector(profileState);
     const [reorderedIconUrls, setReorderedIconUrls] = useState(null);
     const [reorderedSocialUrls, setReorderedSocialUrls] = useState(null);
     const [reorderedAffiliateUrls, setReorderedAffiliateUrls] = useState(null);
     const debounceTimeout = useRef(null);
     const [showAddUrlMenu, setShowAddUrlMenu] = useState(false);
+    const [showImageMenu, setShowImageMenu] = useState(false);
 
     useEffect(() => {
         dispatch(get_my_urls());
+        dispatch(get_gallery_images());
     }, []);
 
     useEffect(() => {
@@ -86,7 +92,8 @@ function MyUrlPage() {
                 {
                     (reorderedSocialUrls?.length > 0 || reorderedIconUrls?.length > 0 || reorderedAffiliateUrls?.length > 0)
                     && <div className='w-full p-2 flex place-content-end gap-3 border-[1px] border-slate-200 rounded-lg'>
-                        <button onClick={() => setShowAddUrlMenu(true)} className='bg-white text-slate-600 px-5 py-1 rounded-lg text-center font-semibold hover:text-black hover:bg-transparent border-[1px] border-slate-300 hover:border-black shadow-md'>Add</button>
+                        <button onClick={() => setShowImageMenu(true)} className='bg-white text-slate-600 px-5 py-1 rounded-lg text-center font-semibold hover:text-black hover:bg-transparent border-[1px] border-slate-300 hover:border-black shadow-md'>Add image</button>
+                        <button onClick={() => setShowAddUrlMenu(true)} className='bg-white text-slate-600 px-5 py-1 rounded-lg text-center font-semibold hover:text-black hover:bg-transparent border-[1px] border-slate-300 hover:border-black shadow-md'>Add url</button>
                         {(urls.links?.length > 0 || urls.socialLinks?.length > 0) && <button onClick={onPreview} className='bg-slate-100 text-slate-600 px-5 py-1 rounded-lg text-center font-semibold hover:text-white hover:bg-black border-[1px] border-transparent hover:border-white shadow-md'>Preview</button>}
                     </div>
                 }
@@ -94,7 +101,7 @@ function MyUrlPage() {
                     reorderedSocialUrls?.length > 0 && <>
                         <p className='text-black font-bold text-xl'>Social links</p>
                         {
-                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-200 rounded-lg' axis="y" onReorder={setReorderedSocialUrls} values={reorderedSocialUrls} >
+                            <Reorder.Group className='w-full p-4 border-[1px] border-slate-200 rounded-lg space-y-4' axis="y" onReorder={setReorderedSocialUrls} values={reorderedSocialUrls} >
                                 {
                                     reorderedSocialUrls.map((url) => {
                                         return (
@@ -108,9 +115,9 @@ function MyUrlPage() {
                 }
                 {
                     reorderedIconUrls?.length > 0 && <>
-                        <p className='text-black font-bold text-xl'>Icon links</p>
+                        <p className='text-black font-bold text-xl'>Links</p>
                         {
-                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-200 rounded-lg' axis="y" onReorder={setReorderedIconUrls} values={reorderedIconUrls} >
+                            <Reorder.Group className='w-full p-4 border-[1px] border-slate-200 rounded-lg space-y-4' axis="y" onReorder={setReorderedIconUrls} values={reorderedIconUrls} >
                                 {
                                     reorderedIconUrls.map((url) => {
                                         return (
@@ -126,7 +133,7 @@ function MyUrlPage() {
                     reorderedAffiliateUrls?.length > 0 && <>
                         <p className='text-black font-bold text-xl'>Affiliate links</p>
                         {
-                            <Reorder.Group className='w-full p-2 border-[1px] border-slate-200 rounded-lg' axis="y" onReorder={setReorderedAffiliateUrls} values={reorderedAffiliateUrls} >
+                            <Reorder.Group className='w-full p-4 border-[1px] border-slate-200 rounded-lg space-y-4' axis="y" onReorder={setReorderedAffiliateUrls} values={reorderedAffiliateUrls} >
                                 {
                                     reorderedAffiliateUrls.map((url) => {
                                         return (
@@ -139,7 +146,25 @@ function MyUrlPage() {
                     </>
                 }
                 {
+                    galleryImages?.length > 0 &&
+                    <>
+                        <p className='text-black font-bold text-xl'>Gallery</p>
+                        <div className="columns-2 gap-4 w-full p-4 border-[1px] border-slate-200 rounded-lg">
+                            {
+                                galleryImages.map((image) => {
+                                    return <div className='w-full shadow-lg' key={image._id}>
+                                        <Image className='object-cover' id={image._id} src={image.picture.url} alt={image.description} deleteImage={delete_image}></Image>
+                                    </div>
+                                })
+                            }
+                        </div>
+                    </>
+                }
+                {
                     showAddUrlMenu && <UrlForm type={'ADD'} urlData={null} setShowMenu={setShowAddUrlMenu} onSubmit={create_my_urls} />
+                }
+                {
+                    showImageMenu && <ImageForm setShowMenu={setShowImageMenu} />
                 }
             </div>
         </>

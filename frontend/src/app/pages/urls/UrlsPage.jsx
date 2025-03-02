@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,8 @@ import UrlCard from './components/UrlCard';
 import GetStartedModal from './components/GetStartedModal';
 import { loadingState } from '../../store/slices/loadingSlice';
 import { messageState } from '../../store/slices/messageSlice';
+import useOnScreen from '../../hooks/useOnScreen'
+import Viewer from "react-viewer";
 
 function UrlsPage() {
     const { username } = useParams();
@@ -17,6 +19,17 @@ function UrlsPage() {
     const elementRef = useRef(null);
     const { loading } = useSelector(loadingState);
     const { message } = useSelector(messageState);
+    const [visible, setVisible] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    function onImageClickHandler(index) {
+        setActiveIndex(index);
+        setVisible(true);
+    }
+
+    function onChangeHandler(image, index) {
+        setActiveIndex(index);
+    }
 
     useEffect(() => {
         dispatch(get_urls(username));
@@ -83,7 +96,7 @@ function UrlsPage() {
                                     }) : <p className='text-slate-500'> {'Urls not added by ' + urlsinfo?.username}</p>
                                 }
                             </div>
-                            <div className='flex flex-col items-center gap-4 pb-[80px]'>
+                            <div className='flex flex-col items-center gap-4 pb-[50px]'>
                                 {
                                     urlsinfo && urlsinfo?.affiliateLinks.length > 0 ? urlsinfo?.affiliateLinks.map((item) => {
                                         return (
@@ -92,6 +105,26 @@ function UrlsPage() {
                                     }) : <p className='text-slate-500'> {'Urls not added by ' + urlsinfo?.username}</p>
                                 }
                             </div>
+                            <div className="columns-2 gap-2 pb-[80px]">
+                                {
+                                    urlsinfo?.gallery_images && urlsinfo?.gallery_images.length > 0 && urlsinfo?.gallery_images.map((image, index) => {
+                                        return <GalleryImage key={image._id} index={index} image={image} onClick={onImageClickHandler} />
+                                    })
+                                }
+                            </div>
+                            <Viewer
+                                visible={visible}
+                                onClose={() => setVisible(false)}
+                                images={urlsinfo?.gallery_images.map((image) => ({
+                                    src: image.picture.url,
+                                    alt: image.description,
+                                }))}
+                                activeIndex={activeIndex}
+                                onChange={onChangeHandler}
+                                noImgDetails={true}
+                                noNavbar={true}
+                                showTotal={false}
+                            />
                         </div>
                         :
                         <></>
@@ -105,3 +138,26 @@ function UrlsPage() {
 }
 
 export default UrlsPage;
+
+function GalleryImage({ index, image, onClick }) {
+    const [ref, isVisible] = useOnScreen({ threshold: 0 });
+    const [loadedImage, setLoadedImage] = useState(false);
+
+    const handleImageLoad = () => {
+        setLoadedImage(true);
+    };
+
+    return <div
+        ref={ref}
+        style={{
+            transform: isVisible ? 'translateY(0%)' : '',
+            opacity: isVisible ? '1' : '',
+        }}
+        className='w-full h-full mb-4 relative grid rounded-lg translate-y-[50px] opacity-0 transition-all duration-500 ease-in-out cursor-pointer'>
+        <div className={`${loadedImage ? 'hidden' : 'block'} h-[200px] bg-slate-200 animate-pulse`}>
+        </div>
+        <div className={`${loadedImage ? 'animate-none' : 'bg-base-200 animate-pulse'} `}>
+            <img src={image.picture.url} alt={image.description} loading='lazy' onLoad={() => handleImageLoad()} onClick={() => onClick(index)}></img>
+        </div>
+    </div>
+}

@@ -21,7 +21,7 @@ function MyUrlCard({ urlData, onDelete }) {
                 id={_id}
                 dragListener={false}
                 dragControls={controls}
-                className='w-full my-4 py-1 pr-1 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-black group rounded-lg flex flex-row justify-between items-center gap-1 select-none shadow-md'
+                className='w-full py-1 pr-1 bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-black group rounded-lg flex flex-row justify-between items-center gap-1 select-none shadow-md'
             >
                 <FontAwesomeIcon icon={faGripVertical} className='p-[12px] cursor-grab touch-none' size='lg' onPointerDown={(e) => controls.start(e)} />
                 <div className={`w-full h-full overflow-hidden cursor-pointer`}>

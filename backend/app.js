@@ -33,6 +33,7 @@ const authRoute = require('./routes/authentication')
 const linksRoute = require('./routes/links')
 const publicLinksRoute = require('./routes/public_links')
 const profileRoute = require('./routes/profile');
+const galleryRoute = require('./routes/gallery');
 const themeRoute = require('./routes/theme');
 
 // Mongoose options
@@ -82,6 +83,8 @@ app.use('/api/url', linksRoute)
 app.use('/api/public_urls', publicLinksRoute)
 app.use('/api/profile', profileRoute)
 app.use('/api/theme', themeRoute)
+app.use('/api/gallery', galleryRoute)
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

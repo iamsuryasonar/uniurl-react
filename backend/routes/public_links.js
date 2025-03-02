@@ -7,7 +7,6 @@ let themes = require('../themeData.json');
 // retrieve links
 router.get("/:username", async (req, res) => {
     try {
-
         const cachedData = await redis.get('userlink:' + req.params.username);
         if (cachedData) return res.status(200).json({ success: true, message: 'Urls retrieved successfully', data: JSON.parse(cachedData) });
 
@@ -22,6 +21,14 @@ router.get("/:username", async (req, res) => {
                 },
             },
             {
+                $lookup: {
+                    from: 'galleries',
+                    localField: '_id',
+                    foreignField: 'author',
+                    as: 'gallery_images',
+                },
+            },
+            {
                 $project: {
                     password: 0,
                 },
@@ -29,6 +36,7 @@ router.get("/:username", async (req, res) => {
             {
                 $addFields: {
                     links: { $sortArray: { input: "$links", sortBy: { order: 1 } } },
+                    gallery_images: { $sortArray: { input: "$gallery_images", sortBy: { order: 1 } } },
                 },
             },
         ]);

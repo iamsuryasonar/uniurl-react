@@ -7,6 +7,7 @@ import urlsReducer from "./slices/urlSlice";
 import menuReducer from './slices/menuSlice'
 import loadingReducer from "./slices/loadingSlice";
 import { refreshTokenMiddleware } from '../middleware/refreshTokenMiddleware';
+import galleryReducer from './slices/galleryImageSlice';
 
 const reducer = combineReducers({
     auth: authReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
     urlsinfo: urlsReducer,
     menu: menuReducer,
     loading: loadingReducer,
+    gallery: galleryReducer,
 })
 
 const rootReducer = (state, action) => {

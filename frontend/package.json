@@ -23,6 +23,8 @@
     "react-scripts": "5.0.1",
     "react-share": "^5.1.2",
     "react-transition-group": "^4.4.5",
+    "react-viewer": "^3.2.2",
+    "viewerjs": "^1.11.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

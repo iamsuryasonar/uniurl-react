@@ -212,6 +212,8 @@ router.delete("/link/:linkid", verify, async (req, res) => {
       await deleteS3Object(links[0]?.image?.fileName);
     }
 
+    console.log('author', links[0].author._id);
+
     if (links[0].author._id.toString() === req.user._id.toString()) {
       let deletedLink = links[0].remove();
 
