@@ -24,14 +24,15 @@ function Image({ id, src, alt, deleteImage }) {
             opacity: isVisible ? '1' : '',
         }}
         className='w-full h-full mb-4 relative grid rounded-lg translate-y-[50px] opacity-0 transition-all duration-500 ease-in-out'>
-        <div className={`${loadedImage ? 'hidden' : 'block'} h-[200px] bg-slate-200 animate-pulse`}>
-        </div>
+        {
+            !loadedImage && <div className={`h-[200px] bg-slate-200 animate-pulse`}></div>
+        }
         <div className={`${loadedImage ? 'animate-none' : 'bg-base-200 animate-pulse'} `}>
             <img src={src} alt={alt} loading='lazy' onLoad={() => handleImageLoad()}></img>
         </div>
-        <button className={`${loadedImage ? 'block' : 'hidden'} w-[30px] absolute top-1 right-1 p-1 text-slate-600 bg-slate-50 hover:text-red-400 hover:bg-red-50  aspect-square rounded-full`} onClick={() => deleteImageHandler(id)}>
+        {loadedImage && <button className={`w-[30px] absolute top-1 right-1 p-1 text-slate-600 bg-slate-50 hover:text-red-400 hover:bg-red-50  aspect-square rounded-full`} onClick={() => deleteImageHandler(id)}>
             <FontAwesomeIcon icon={faTrash} />
-        </button>
+        </button>}
     </div>
 }
 
