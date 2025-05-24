@@ -13,7 +13,7 @@ export const getDataFromLocalStorage = () => {
 export const setDataToLocalStorage = (data) => {
     localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(data));
 }
-
+ 
 export const removeFromLocalStorage = () => {
     localStorage.removeItem(LOCAL_STORAGE_NAME);
 }

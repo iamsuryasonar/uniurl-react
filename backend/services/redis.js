@@ -3,14 +3,24 @@ const Redis = require("ioredis");
 const redisUri = `rediss://${process.env.REDIS_USER}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
 
 let redis;
+let isRedisActive = false;
+redis = new Redis(redisUri, {
+    retryStrategy: (retryCount) => {
+        console.warn(`Redis retry attempt #${retryCount}`);
+        return 600000; // retry every 10 minutes
+    },
+});
 
-try {
-    redis = new Redis(redisUri);
-    redis.on('connect', () => {
-        console.log('Redis connected');
-    });
-} catch (error) {
-    console.log('error connecting to Redis')
-}
+redis.on('connect', () => {
+    isRedisActive = true;
+    console.log('Redis connected');
+});
 
-module.exports = { redis: redis };
+redis.on('error', (err) => {
+    console.error('[Redis Error]', err.message);
+});
+
+module.exports = {
+    redis,
+    isRedisActive
+};

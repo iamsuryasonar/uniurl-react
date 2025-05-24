@@ -13,7 +13,7 @@ const useOnScreen = (options) => {
         }, options);
 
         if (ref.current) {
-            observer.observe(ref.current);
+            observer.observe(ref.current); 
         }
 
         return () => {
@@ -23,4 +23,5 @@ const useOnScreen = (options) => {
 
     return [ref, isIntersecting];
 };
+
 export default useOnScreen;

@@ -7,4 +7,4 @@ function Button({ className, onClick, label }) {
 
 }
 
-export default Button;
+export default Button; 
