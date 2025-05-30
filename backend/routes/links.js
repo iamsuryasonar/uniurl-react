@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { verify } = require("../middleware/verifyToken");
 const Link = require("../model/Link");
-const { redis } = require('../services/redis');
+const { redis, isRedisActive } = require('../services/redis');
 const { validateUrlWithFix } = require('../utility');
 const sharp = require('sharp');
 const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
@@ -57,7 +57,9 @@ router.post("/", verify, upload.fields([{ name: 'image', maxCount: 1 }]), async 
     const savedlink = await link.save();
 
     // invalidate cache
-    redis.del('userlink:' + req.user.username);
+    if (isRedisActive) {
+      redis.del('userlink:' + req.user.username);
+    }
 
     return res.status(200).json({ success: true, message: "Url saved successfully", data: savedlink });
   } catch (err) {
@@ -107,7 +109,9 @@ router.put('/reorder', verify, async (req, res) => {
     }
 
     // invalidate cache
-    redis.del('userlink:' + req.user.username);
+    if (isRedisActive) {
+      redis.del('userlink:' + req.user.username);
+    }
 
     return res.status(200).json({ success: true, message: 'Order updated successfully', data: null });
   } catch (e) {
@@ -187,7 +191,9 @@ router.put("/link/:linkid", verify, upload.fields([{ name: 'image', maxCount: 1 
       });
 
     // invalidate cache
-    redis.del('userlink:' + req.user.username);
+    if (isRedisActive) {
+      redis.del('userlink:' + req.user.username);
+    }
 
     return res.status(200).json({ success: true, message: 'Url updated successfully', data: updatedLink });
   } catch (err) {
@@ -212,13 +218,13 @@ router.delete("/link/:linkid", verify, async (req, res) => {
       await deleteS3Object(links[0]?.image?.fileName);
     }
 
-    console.log('author', links[0].author._id);
-
     if (links[0].author._id.toString() === req.user._id.toString()) {
       let deletedLink = links[0].remove();
 
       // invalidate cache
-      redis.del('userlink:' + req.user.username);
+      if (isRedisActive) {
+        redis.del('userlink:' + req.user.username);
+      }
 
       return res.status(200).json({ success: true, message: "Url deleted successfully", data: deletedLink });
     } else {

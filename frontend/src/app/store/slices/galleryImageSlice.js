@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
 import GalleryService from "../../services/gallery.services";
 import { setLoading } from "./loadingSlice";
+import { logout } from "./authSlice";
 
 export const upload_gallery_image = createAsyncThunk(
     "gallery_image/upload",
@@ -18,6 +19,10 @@ export const upload_gallery_image = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -37,13 +42,18 @@ export const get_gallery_images = createAsyncThunk(
             const response = await GalleryService.getGalleryImages();
             return response.data;
         } catch (error) {
-            console.log(error)
             const message =
                 (error.response &&
                     error.response.data &&
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -71,6 +81,9 @@ export const delete_image = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {

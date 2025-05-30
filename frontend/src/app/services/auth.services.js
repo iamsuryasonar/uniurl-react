@@ -16,7 +16,7 @@ const login = async (creds) => {
 
 const googleLogin = async (code) => {
     return axios
-        .post(API_URL_AUTH + "google_login", code, { withCredentials: true })
+        .post(API_URL_AUTH + "google_login", code)
         .then((response) => {
             return response.data.data
         });
@@ -30,8 +30,13 @@ const refresh_token = async () => {
     })
 };
 
-const logout = () => {
+const logout = async () => {
     removeFromLocalStorage();
+    return axios
+        .post(API_URL_AUTH + "log_out", {}, { withCredentials: true })
+        .then((response) => {
+            return response.data
+        });
 };
 
 const AuthService = {

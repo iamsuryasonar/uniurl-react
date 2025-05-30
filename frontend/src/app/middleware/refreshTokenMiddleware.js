@@ -1,6 +1,7 @@
 import { logout, refresh_token } from "../store/slices/authSlice";
 import { jwtDecode } from "jwt-decode";
 
+//todo - use axios middleware instead for refresh access token
 export const refreshTokenMiddleware = (store) => (next) => async (action) => {
 
     const protectedActions = [
@@ -16,29 +17,29 @@ export const refreshTokenMiddleware = (store) => (next) => async (action) => {
         const state = store.getState();
         const token = state.auth?.user.token;
 
-        if (token) {
-            const expiresIn = jwtDecode(token).exp * 1000 - Date.now();
-            if (expiresIn < 30000) {
-                try {
+        try {
+            if (token) {
+                const expiresIn = jwtDecode(token).exp * 1000 - Date.now();
+                if (expiresIn < 30000) {
                     const result = await store.dispatch(refresh_token());
 
                     const newToken = store.getState().auth?.user.token;
                     if (!newToken || result.error) {
                         throw new Error("Access token refresh failed");
                     }
-                } catch (error) {
-                    console.error("Refresh token failed:", error.message);
-
-                    store.dispatch(logout());
-                    return;
                 }
+            } else {
+                console.log('no token found')
+                store.dispatch(logout());
+                return;
             }
-        } else {
+        } catch (error) {
+            console.error("Refresh token failed:", error.message);
+
             store.dispatch(logout());
             return;
         }
     }
 
     return next(action);
-
 }

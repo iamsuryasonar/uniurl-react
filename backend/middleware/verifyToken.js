@@ -6,8 +6,11 @@ const verify = async (req, res, next) => {
     if (!token) return res.status(401).json({ success: false, message: "Access denied" });
 
     try {
+        const refreshToken = req.cookies.refreshToken;
+        if (!refreshToken) return res.status(401).json({ success: false, message: "Access denied" });
+
         const verified = jwt.verify(token, ACCESS_TOKEN_SECRET);
-       
+
         req.user = verified;
         next()
     } catch (error) {

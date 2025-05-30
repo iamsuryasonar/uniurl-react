@@ -18,7 +18,7 @@ const getheaders = () => {
 
 const getGalleryImages = async () => {
     const response = await privateFetch
-        .get(API_URL_GALLERY, getheaders());
+        .get(API_URL_GALLERY, { withCredentials: true, ...getheaders() });
     return response.data;
 }
 
@@ -28,14 +28,14 @@ const uploadGalleryImage = async (body) => {
     formData.append('file', image);
     formData.append('description', description);
 
-    await privateFetch.post(API_URL_GALLERY, formData, getMultipartheaders())
+    await privateFetch.post(API_URL_GALLERY, formData, { withCredentials: true, ...getMultipartheaders() })
         .then((response) => {
             return response.data;
         })
 };
 
 const deleteImage = async (id) => {
-    await privateFetch.delete(API_URL_GALLERY + `${id}`, getMultipartheaders())
+    await privateFetch.delete(API_URL_GALLERY + `${id}`, { withCredentials: true, ...getMultipartheaders() })
         .then((response) => {
             return response.data;
         })

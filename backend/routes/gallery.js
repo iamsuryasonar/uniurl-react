@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const sharp = require('sharp');
 const { verify } = require("../middleware/verifyToken");
 const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
-const { redis } = require('../services/redis');
+const { redis, isRedisActive } = require('../services/redis');
 const Gallery = require("../model/Gallery");
 
 router.get("/", verify, async (req, res) => {
@@ -47,7 +47,9 @@ router.post('/', verify, upload.fields([{ name: 'file', maxCount: 1 }]), async (
         const savedGallery = await gallery.save();
 
         // invalidate cache
-        redis.del('userlink:' + req.user.username);
+        if (isRedisActive) {
+            redis.del('userlink:' + req.user.username);
+        }
 
         return res.status(200).json({ success: true, message: '', data: savedGallery });
     } catch (err) {
@@ -76,7 +78,9 @@ router.delete('/:galleryId', verify, async (req, res) => {
             await gallery[0].deleteOne({ session });
 
             // invalidate cache
-            redis.del('userlink:' + req.user.username);
+            if (isRedisActive) {
+                redis.del('userlink:' + req.user.username);
+            }
 
             await session.commitTransaction();
             session.endSession();

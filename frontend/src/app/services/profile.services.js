@@ -18,7 +18,7 @@ const getheaders = () => {
 
 const getProfileInfo = async () => {
     const response = await privateFetch
-        .get(API_URL_PROFILE + 'profile-info', getheaders());
+        .get(API_URL_PROFILE + 'profile-info', { withCredentials: true, ...getheaders() });
     return response.data;
 }
 
@@ -26,7 +26,7 @@ const uploadProfilePicture = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    await privateFetch.post(API_URL_PROFILE + 'profile-upload', formData, getMultipartheaders())
+    await privateFetch.post(API_URL_PROFILE + 'profile-upload', formData, { withCredentials: true, ...getMultipartheaders() })
         .then((response) => {
             return response.data;
         })
@@ -35,7 +35,7 @@ const uploadProfilePicture = async (file) => {
 const updateProfileInfo = async (body) => {
     const response = await privateFetch
         .put(
-            API_URL_PROFILE + 'profile-info', body, getheaders()
+            API_URL_PROFILE + 'profile-info', body, { withCredentials: true, ...getheaders() }
         );
     return response.data;
 }

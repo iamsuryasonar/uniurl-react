@@ -2,7 +2,7 @@ const router = require("express").Router();
 const sharp = require('sharp');
 const { verify } = require("../middleware/verifyToken");
 const { upload, uploadTos3, deleteS3Object } = require('./../middleware/multerConfig');
-const { redis } = require('../services/redis');
+const { redis, isRedisActive } = require('../services/redis');
 const User = require("../model/User");
 
 // retrieve profile info
@@ -47,7 +47,10 @@ router.post('/profile-upload', verify, upload.fields([{ name: 'file', maxCount: 
         let updatedUser = await user.save();
 
         // invalidate cache
-        redis.del('userlink:' + req.user.username);
+        if (isRedisActive) {
+            redis.del('userlink:' + req.user.username);
+        }
+
 
         return res.status(200).json({ success: true, message: '', data: updatedUser });
     } catch (err) {
@@ -78,7 +81,9 @@ router.put("/profile-info", verify, async (req, res) => {
         let updatedUser = await user.save();
 
         // invalidate cache
-        redis.del('userlink:' + req.user.username);
+        if (isRedisActive) {
+            redis.del('userlink:' + req.user.username);
+        }
 
         return res.status(200).json({ success: true, message: '', data: updatedUser });
     } catch (err) {

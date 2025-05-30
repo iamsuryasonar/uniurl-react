@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
 import ProfileService from "../../services/profile.services";
 import { setLoading } from "./loadingSlice";
+import { logout } from "./authSlice";
 
 export const upload_profile_picture = createAsyncThunk(
     "profile/upload",
@@ -18,6 +19,9 @@ export const upload_profile_picture = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -43,6 +47,9 @@ export const get_profile_info = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -69,6 +76,9 @@ export const update_profile_info = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            if (error.response.status === 401) {
+                thunkAPI.dispatch(logout());
+            }
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {

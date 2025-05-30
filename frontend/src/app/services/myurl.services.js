@@ -18,7 +18,7 @@ const getMultipartheaders = () => {
 
 const getAllUrl = () => {
     return privateFetch
-        .get(API_URL_MY_URL, getheaders())
+        .get(API_URL_MY_URL, { withCredentials: true, ...getheaders() })
         .then((response) => {
             return response.data;
         });
@@ -33,7 +33,7 @@ const createNewUrl = (body) => {
 
     return privateFetch
         .post(
-            API_URL_MY_URL, formData, getMultipartheaders()
+            API_URL_MY_URL, formData, { withCredentials: true, ...getMultipartheaders() }
         )
         .then((response) => {
             return response.data;
@@ -49,7 +49,7 @@ const updateUrl = (body) => {
 
     return privateFetch
         .put(
-            API_URL_MY_URL + "link/" + body._id, formData, getMultipartheaders()
+            API_URL_MY_URL + "link/" + body._id, formData, { withCredentials: true, ...getMultipartheaders() }
         )
         .then((response) => {
             return response.data;
@@ -59,7 +59,7 @@ const updateUrl = (body) => {
 const reorderUrls = (body) => {
     return privateFetch
         .put(
-            API_URL_MY_URL + 'reorder', body, getheaders()
+            API_URL_MY_URL + 'reorder', body, { withCredentials: true, ...getheaders() }
         )
         .then((response) => {
             return response.data;
@@ -68,7 +68,7 @@ const reorderUrls = (body) => {
 
 const deleteUrl = (id) => {
     return privateFetch
-        .delete(API_URL_MY_URL + 'link/' + id, getheaders())
+        .delete(API_URL_MY_URL + 'link/' + id, { withCredentials: true, ...getheaders() })
         .then((response) => {
             return response.data;
         });

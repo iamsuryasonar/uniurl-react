@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage, clearMessage } from "./messageSlice";
 import AuthService from "../../services/auth.services";
 import { setLoading } from "./loadingSlice";
-import { getDataFromLocalStorage, removeFromLocalStorage, setDataToLocalStorage } from "../../utils";
+import { getDataFromLocalStorage,  setDataToLocalStorage } from "../../utils";
 
 const user = getDataFromLocalStorage();
 
@@ -21,6 +21,7 @@ export const register = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -46,6 +47,7 @@ export const login = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+            
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -71,6 +73,7 @@ export const google_login = createAsyncThunk(
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
+
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -98,6 +101,7 @@ export const refresh_token = createAsyncThunk(
                 error.message ||
                 error.toString();
             thunkAPI.dispatch(logout());
+
             thunkAPI.dispatch(setMessage(message));
             return thunkAPI.rejectWithValue();
         } finally {
@@ -112,8 +116,8 @@ export const refresh_token = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     try {
         thunkAPI.dispatch(setLoading(true));
-        removeFromLocalStorage();
-        return;
+        const res = await AuthService.logout();
+        return res;
     } catch (error) {
         const message =
             (error.response &&

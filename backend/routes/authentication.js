@@ -205,7 +205,7 @@ router.post('/google_login', async (req, res) => {
 
 router.get('/refresh_token', (req, res) => {
     try {
-        const refreshToken = req.cookies['refreshToken'];
+        const refreshToken = req.cookies.refreshToken;
         if (!refreshToken) return res.status(401).json({ success: false, message: 'Unauthorised!', data: null });
 
         jwt.verify(refreshToken,
@@ -249,5 +249,29 @@ router.get('/refresh_token', (req, res) => {
         });
     }
 })
+
+router.post('/log_out', async (req, res) => {
+    try {
+        res.clearCookie("refreshToken", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "Strict",
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'User logged out successfully',
+            data: null
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            data: null
+        });
+    }
+})
+
 
 module.exports = router
