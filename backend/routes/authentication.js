@@ -146,12 +146,12 @@ router.post("/login", async (req, res) => {
 
         res.cookie(
             "refreshToken",
-
             refreshToken,
-
             {
                 maxAge: REFRESH_TOKEN_MAX_AGE,
                 httpOnly: true,
+                secure: true,
+                sameSite: 'None'
             }
         );
 
@@ -239,6 +239,8 @@ router.post("/google_login", async (req, res) => {
             {
                 maxAge: REFRESH_TOKEN_MAX_AGE,
                 httpOnly: true,
+                secure: true,
+                sameSite: 'None'
             }
         );
 
@@ -322,6 +324,8 @@ router.post("/log_out", async (req, res) => {
     try {
         res.clearCookie("refreshToken", {
             httpOnly: true,
+            secure: true,
+            sameSite: 'None'
         });
 
         return res.status(200).json({
