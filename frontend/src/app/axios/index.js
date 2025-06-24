@@ -3,6 +3,7 @@ import { getDataFromLocalStorage } from '../utils';
 
 const privateFetch = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
+    withCredentials: true
 });
 
 privateFetch.interceptors.request.use((config) => {
@@ -10,7 +11,6 @@ privateFetch.interceptors.request.use((config) => {
 
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
-        config.withCredentials = true;
     }
 
     return config;

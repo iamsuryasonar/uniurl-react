@@ -2,7 +2,7 @@ import { LOCAL_STORAGE_NAME } from "../constants";
 
 export const getDataFromLocalStorage = () => {
     let storedData = localStorage.getItem(LOCAL_STORAGE_NAME)
-    if (storedData && storedData !== 'undfined' && storedData !== 'null') {
+    if (storedData && storedData !== 'undefined' && storedData !== 'null') {
         const data = JSON.parse(storedData);
         return data;
     } else {

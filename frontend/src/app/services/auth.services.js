@@ -16,7 +16,7 @@ const login = async (creds) => {
 
 const googleLogin = async (code) => {
     return axios
-        .post(API_URL_AUTH + "google_login", code)
+        .post(API_URL_AUTH + "google_login", code, { withCredentials: true })
         .then((response) => {
             return response.data.data
         });

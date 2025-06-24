@@ -31,9 +31,20 @@ function validateUrlWithFix(url) {
     }
 }
 
+
+function generateTokenPayload(id, email, username) {
+    const payload = {
+        _id: id,
+        email: email,
+        username: username
+    };
+    return payload;
+}
+
 module.exports = {
     responseHandler,
     getRandomUsername,
     validateUrlWithFix,
+    generateTokenPayload
 };
 

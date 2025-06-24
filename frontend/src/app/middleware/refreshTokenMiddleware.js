@@ -14,13 +14,12 @@ export const refreshTokenMiddleware = (store) => (next) => async (action) => {
     ];
 
     if (protectedActions.indexOf(action.type) !== -1) {
-        const state = store.getState();
-        const token = state.auth?.user.token;
+        const token = store.getState().auth?.user.token;
 
         try {
             if (token) {
                 const expiresIn = jwtDecode(token).exp * 1000 - Date.now();
-                if (expiresIn < 30000) {
+                if (expiresIn < 300000) {
                     const result = await store.dispatch(refresh_token());
 
                     const newToken = store.getState().auth?.user.token;
